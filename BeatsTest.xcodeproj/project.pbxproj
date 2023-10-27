@@ -11,6 +11,8 @@
 		A9ABA2CE2AEB1397000347EE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2CD2AEB1397000347EE /* ContentView.swift */; };
 		A9ABA2D02AEB139A000347EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9ABA2CF2AEB139A000347EE /* Assets.xcassets */; };
 		A9ABA2D32AEB139A000347EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9ABA2D22AEB139A000347EE /* Preview Assets.xcassets */; };
+		A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2D92AEB21E0000347EE /* SoundController.swift */; };
+		A9ABA2DC2AEB36B0000347EE /* beat.wav in Resources */ = {isa = PBXBuildFile; fileRef = A9ABA2DB2AEB36B0000347EE /* beat.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		A9ABA2CD2AEB1397000347EE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A9ABA2CF2AEB139A000347EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9ABA2D22AEB139A000347EE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A9ABA2D92AEB21E0000347EE /* SoundController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundController.swift; sourceTree = "<group>"; };
+		A9ABA2DB2AEB36B0000347EE /* beat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beat.wav; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +55,10 @@
 		A9ABA2CA2AEB1397000347EE /* BeatsTest */ = {
 			isa = PBXGroup;
 			children = (
+				A9ABA2DB2AEB36B0000347EE /* beat.wav */,
 				A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */,
 				A9ABA2CD2AEB1397000347EE /* ContentView.swift */,
+				A9ABA2D92AEB21E0000347EE /* SoundController.swift */,
 				A9ABA2CF2AEB139A000347EE /* Assets.xcassets */,
 				A9ABA2D12AEB139A000347EE /* Preview Content */,
 			);
@@ -125,6 +131,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9ABA2DC2AEB36B0000347EE /* beat.wav in Resources */,
 				A9ABA2D32AEB139A000347EE /* Preview Assets.xcassets in Resources */,
 				A9ABA2D02AEB139A000347EE /* Assets.xcassets in Resources */,
 			);
@@ -138,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9ABA2CE2AEB1397000347EE /* ContentView.swift in Sources */,
+				A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */,
 				A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

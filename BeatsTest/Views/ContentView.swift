@@ -8,19 +8,22 @@ import AVFoundation
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var time: TimeController = TimeController.shared
+    
+    @State private var Selected = ""
+    @State private var SelectedBPM : String = "60"
+    @State private var animation = 0.0
+    @State var compasso = 4
+    
     let soundManager = SoundManager()
     
     //Define as notas e o tempo respectivo de cada uma
     let notas: [String:Double] = ["Semibreve" : 1, "Minima" : 1/2, "Seminima" : 1/4, "Colcheia" : 1/8, "Semicolcheia" : 1/16, "Fusa" : 1/32, "Semifusa" : 1/64, "Quartifusa" : 1/128]
     
-    @State private var Selected = ""
-    @State private var animation = 0.0
     
-    let timer = Timer.publish(every: 1, on: .main, in: .default).autoconnect()
     
     var body: some View {
         VStack{
-            //Área que vai recever conteúdo draggable
             Canvas { context, size in
                     }
                 .overlay {
@@ -29,24 +32,30 @@ struct ContentView: View {
                             .foregroundStyle(.black)
                             .frame(width: 300, height: 350)
                         VStack{
+                            Text("TIMER GERAL FAMILIA: \(time.beats)")
+                                .foregroundStyle(.white)
+                            Text("Tempo = \(Int(time.beats.truncatingRemainder(dividingBy: 4)+1))")
+                                .foregroundStyle(.white)
                             Text(Selected)
                                 .font(.system(size: 40))
                                 .foregroundStyle(.white)
                             Image("\(Selected)-Nota")
                             
-                            //Define o valor para a progress view como 100, sempre que recebe
-                            ProgressView(value: animation, total: 100.0)
-                                .frame(width: 200)
-                                .foregroundStyle(.green)
-                                .onChange(of: soundManager.check2, initial: false) { _,_  in
-                                    withAnimation(.linear(duration: 1)){
-                                        if animation == 100.0{
-                                            animation = 0.0
-                                        }else{
-                                            animation = 100.0
-                                        }
+                            
+                            ZStack{
+                                Rectangle()
+                                HStack{
+                                    ForEach(1...4, id: \.self) { i in
+                                        Rectangle()
+                                            .frame(width: 240/4, height: 50)
+                                            .foregroundStyle(.green)
+                                            .opacity(Int(time.beats.truncatingRemainder(dividingBy: 4)+1) == i ? 1.0 : 0.0)
+                                            
                                     }
                                 }
+                            }
+                            .frame(width: 270, height: 50)
+                            .foregroundStyle(.white)
                         }
                     }
                     .dropDestination(for: String.self) { items, _ in
@@ -61,12 +70,40 @@ struct ContentView: View {
 
                         soundManager.stopAll()
                         
-                        soundManager.playLoop(sound: .beat, split: itemsSplit.last ?? "", tempo: "4/4", check: 0)
+                        if Int(time.beats.truncatingRemainder(dividingBy: 4)+1) == 1{
+                            soundManager.playLoop(sound: .beat, split: itemsSplit.last ?? "", tempo: "4/4", check: 0)
+                        }else {
+                            soundManager.playLoop(sound: .beat, split: itemsSplit.last ?? "", tempo: "4/4", check: 0)
+                        }
+                        
+                        
                         return true
                     }
                     .foregroundStyle(.black)
+                }.frame(height: 400)
+            HStack{
+                Spacer()
+                TextField("BPM", text: $SelectedBPM)
+                    .frame(width: 100)
+                    .multilineTextAlignment(.center)
+                    .disabled(true)
+                Button("-"){
+                    SelectedBPM = String(Int(SelectedBPM)!-1)
+                    time.setBeatsPerMinute(Double(SelectedBPM) ?? time.BPM)
                 }
-            Spacer()
+                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                .foregroundStyle(.black)
+                .padding(.horizontal)
+                Button("+"){
+                    SelectedBPM = String((Int(SelectedBPM) ?? Int(time.BPM))+1)
+                    time.setBeatsPerMinute(Double(SelectedBPM) ?? time.BPM)
+                }
+                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                .foregroundStyle(.black)
+                .padding(.horizontal)
+                Spacer()
+            }
+            .padding()
             ScrollView(.horizontal){
                 HStack{
                     ForEach(Array(notas.keys).sorted(by: { notas[$0] ?? 0 > notas[$1] ?? 0 }), id: \.self) { nota in

@@ -23,7 +23,7 @@
 		A9ABA2CF2AEB139A000347EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9ABA2D22AEB139A000347EE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A9ABA2D92AEB21E0000347EE /* SoundController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundController.swift; sourceTree = "<group>"; };
-		A9ABA2DB2AEB36B0000347EE /* beat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beat.wav; sourceTree = SOURCE_ROOT; };
+		A9ABA2DB2AEB36B0000347EE /* beat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = beat.wav; path = BeatsTest/Sounds/beat.wav; sourceTree = SOURCE_ROOT; };
 		A9ABA2FB2AEEAF52000347EE /* TimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,11 +58,13 @@
 		A9ABA2CA2AEB1397000347EE /* BeatsTest */ = {
 			isa = PBXGroup;
 			children = (
-				A9ABA2DB2AEB36B0000347EE /* beat.wav */,
-				A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */,
-				A9ABA2CD2AEB1397000347EE /* ContentView.swift */,
-				A9ABA2D92AEB21E0000347EE /* SoundController.swift */,
 				A9ABA2CF2AEB139A000347EE /* Assets.xcassets */,
+				A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */,
+				F04516752AEC492C009BF440 /* Data */,
+				F04516762AEC4936009BF440 /* Sounds */,
+				F04516772AEC4953009BF440 /* Models */,
+				F04516782AEC495F009BF440 /* Views */,
+				F04516792AEC4968009BF440 /* Controllers */,
 				A9ABA2D12AEB139A000347EE /* Preview Content */,
 			);
 			path = BeatsTest;
@@ -74,6 +76,44 @@
 				A9ABA2D22AEB139A000347EE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F04516752AEC492C009BF440 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		F04516762AEC4936009BF440 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				A9ABA2DB2AEB36B0000347EE /* beat.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		F04516772AEC4953009BF440 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F04516782AEC495F009BF440 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A9ABA2CD2AEB1397000347EE /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F04516792AEC4968009BF440 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A9ABA2D92AEB21E0000347EE /* SoundController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

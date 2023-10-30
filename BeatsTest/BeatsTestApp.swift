@@ -11,7 +11,7 @@ import SwiftUI
 struct BeatsTestApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(bpm: 60)
         }
     }
 }

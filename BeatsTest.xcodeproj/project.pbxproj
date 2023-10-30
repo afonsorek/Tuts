@@ -14,6 +14,8 @@
 		A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2D92AEB21E0000347EE /* SoundController.swift */; };
 		A9ABA2DC2AEB36B0000347EE /* beat.wav in Resources */ = {isa = PBXBuildFile; fileRef = A9ABA2DB2AEB36B0000347EE /* beat.wav */; };
 		A9ABA2FC2AEEAF52000347EE /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2FB2AEEAF52000347EE /* TimeController.swift */; };
+		A9ABA2FE2AF03B0F000347EE /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2FD2AF03B0F000347EE /* NoteModel.swift */; };
+		A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2FF2AF03B65000347EE /* CompassModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		A9ABA2D92AEB21E0000347EE /* SoundController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundController.swift; sourceTree = "<group>"; };
 		A9ABA2DB2AEB36B0000347EE /* beat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = beat.wav; path = BeatsTest/Sounds/beat.wav; sourceTree = SOURCE_ROOT; };
 		A9ABA2FB2AEEAF52000347EE /* TimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
+		A9ABA2FD2AF03B0F000347EE /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = SOURCE_ROOT; };
+		A9ABA2FF2AF03B65000347EE /* CompassModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassModel.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,8 @@
 		F04516772AEC4953009BF440 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A9ABA2FD2AF03B0F000347EE /* NoteModel.swift */,
+				A9ABA2FF2AF03B65000347EE /* CompassModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -187,7 +193,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9ABA2FE2AF03B0F000347EE /* NoteModel.swift in Sources */,
 				A9ABA2CE2AEB1397000347EE /* ContentView.swift in Sources */,
+				A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */,
 				A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */,
 				A9ABA2FC2AEEAF52000347EE /* TimeController.swift in Sources */,
 				A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */,

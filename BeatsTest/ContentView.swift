@@ -8,24 +8,19 @@ import AVFoundation
 import SwiftUI
 
 struct ContentView: View {
-    @State var bpm: Double
-    @ObservedObject var time: TimeController
-
-    init(bpm: Double) {
-        self.bpm = bpm
-        self.time = TimeController(beatsPerMinute: bpm)
-    }
+    @ObservedObject var time: TimeController = TimeController.shared
+    
+    @State private var Selected = ""
+    @State private var SelectedBPM : String = "60"
+    @State private var animation = 0.0
+    @State var compasso = 4
     
     let soundManager = SoundManager()
     
     //Define as notas e o tempo respectivo de cada uma
     let notas: [String:Double] = ["Semibreve" : 1, "Minima" : 1/2, "Seminima" : 1/4, "Colcheia" : 1/8, "Semicolcheia" : 1/16, "Fusa" : 1/32, "Semifusa" : 1/64, "Quartifusa" : 1/128]
     
-    @State private var Selected = ""
-    @State private var SelectedBPM = "60"
-    @State private var animation = 0.0
     
-    @State var compasso = 4
     
     var body: some View {
         VStack{
@@ -37,6 +32,8 @@ struct ContentView: View {
                             .foregroundStyle(.black)
                             .frame(width: 300, height: 350)
                         VStack{
+                            Text("TIMER GERAL FAMILIA: \(time.beats)")
+                                .foregroundStyle(.white)
                             Text("Tempo = \(Int(time.beats.truncatingRemainder(dividingBy: 4)+1))")
                                 .foregroundStyle(.white)
                             Text(Selected)
@@ -48,22 +45,13 @@ struct ContentView: View {
                             ZStack{
                                 Rectangle()
                                 HStack{
-                                    Rectangle()
-                                        .frame(width: 240/4, height: 50)
-                                        .foregroundStyle(.green)
-                                        .opacity(Int(time.beats.truncatingRemainder(dividingBy: 4)+1) == 1 ? 1.0 : 0.0)
-                                    Rectangle()
-                                        .frame(width: 240/4, height: 50)
-                                        .foregroundStyle(.green)
-                                        .opacity(Int(time.beats.truncatingRemainder(dividingBy: 4)+1) == 2 ? 1.0 : 0.0)
-                                    Rectangle()
-                                        .frame(width: 240/4, height: 50)
-                                        .foregroundStyle(.green)
-                                        .opacity(Int(time.beats.truncatingRemainder(dividingBy: 4)+1) == 3 ? 1.0 : 0.0)
-                                    Rectangle()
-                                        .frame(width: 240/4, height: 50)
-                                        .foregroundStyle(.green)
-                                        .opacity(Int(time.beats.truncatingRemainder(dividingBy: 4)+1) == 4 ? 1.0 : 0.0)
+                                    ForEach(1...4, id: \.self) { i in
+                                        Rectangle()
+                                            .frame(width: 240/4, height: 50)
+                                            .foregroundStyle(.green)
+                                            .opacity(Int(time.beats.truncatingRemainder(dividingBy: 4)+1) == i ? 1.0 : 0.0)
+                                            
+                                    }
                                 }
                             }
                             .frame(width: 270, height: 50)
@@ -101,14 +89,14 @@ struct ContentView: View {
                     .disabled(true)
                 Button("-"){
                     SelectedBPM = String(Int(SelectedBPM)!-1)
-                    time.setBeatsPerMinute(Double(SelectedBPM) ?? 60)
+                    time.setBeatsPerMinute(Double(SelectedBPM) ?? time.BPM)
                 }
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .foregroundStyle(.black)
                 .padding(.horizontal)
                 Button("+"){
-                    SelectedBPM = String(Int(SelectedBPM)!+1)
-                    time.setBeatsPerMinute(Double(SelectedBPM) ?? 60)
+                    SelectedBPM = String((Int(SelectedBPM) ?? Int(time.BPM))+1)
+                    time.setBeatsPerMinute(Double(SelectedBPM) ?? time.BPM)
                 }
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .foregroundStyle(.black)
@@ -135,5 +123,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(bpm: 60)
+    ContentView()
 }

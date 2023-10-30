@@ -2,12 +2,17 @@ import Combine
 import SwiftUI
 
 class TimeController: ObservableObject {
+    static var shared: TimeController = {
+        let instance = TimeController()
+        return instance
+    }()
+    
     @Published var beats: Double = 0
-    @Published var BPM: Double
+    @Published var BPM: Double = 60
     
     private var timer: AnyCancellable? // Usamos um AnyCancellable para armazenar o Timer
 
-    init(beatsPerMinute: Double) {
+    private init(beatsPerMinute: Double = 60) {
         self.BPM = beatsPerMinute
         setBeatsPerMinute(beatsPerMinute)
     }

@@ -21,10 +21,13 @@ class TimeController: ObservableObject {
         self.BPM = newBPM
         self.beats = 0
         
-        // Cancela o timer existente se houver
+        RepublishTimer()
+    }
+    
+    func RepublishTimer(){
         timer?.cancel()
         
-        let interval = 60.0 / newBPM
+        let interval = 60.0 / BPM
         
         timer = Timer.publish(every: interval, on: .main, in: .default)
             .autoconnect()

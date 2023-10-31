@@ -7,7 +7,16 @@
 
 import Foundation
 
-struct Note{
+struct Note: Hashable, Comparable{
+    static func < (lhs: Note, rhs: Note) -> Bool {
+        return true
+    }
+    
     let name: String
     let duration: Double
+    
+    init(name: String, duration: Double) {
+        self.name = name
+        self.duration = duration
+    }
 }

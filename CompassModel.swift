@@ -7,10 +7,10 @@
 
 import Foundation
 
-class Compass{
-    var pulse: Int
-    var pulseDuration: Int
-    var notes: [Note]
+class Compass: ObservableObject{
+    @Published var pulse: Int
+    @Published var pulseDuration: Int
+    @Published var notes: [Note]
     
     init(pulse: Int, pulseDuration: Int, notes: [Note]) {
         self.pulse = pulse
@@ -50,5 +50,9 @@ class Compass{
     
     func RemoveNote(){
         notes.removeLast()
+    }
+    
+    func RemoveAllNotes(){
+        notes.removeAll()
     }
 }

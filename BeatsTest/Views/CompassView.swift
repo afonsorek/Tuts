@@ -46,6 +46,8 @@ struct CompassView: View {
                     .foregroundStyle(.black)
                     .frame(width: 300, height: 350)
                 VStack{
+                    Text("Espaços sobrando: \(compass.RemainingSize())")
+                        .foregroundStyle(.white)
                     HStack{
                         Spacer()
                         TextField("", text: pulseStringBinding)
@@ -60,18 +62,20 @@ struct CompassView: View {
                     }
                     Text("Tempo = \(Int(time.beats.truncatingRemainder(dividingBy: Double(compass.pulse))+1))")
                         .foregroundStyle(.white)
-                    HStack{
-                        ForEach (Selected, id: \.self){ selected in
-                            VStack(spacing: 0){
-                                Text(selected)
-                                    .font(.system(size: CGFloat(40/Selected.count)))
-                                    .foregroundStyle(.white)
-                                Image("\(selected)-Nota")
-                                    .resizable()
-                                    .frame(width: CGFloat(40/Selected.count), height: CGFloat(40/Selected.count))
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach (Selected, id: \.self){ selected in
+                                VStack(spacing: 0){
+                                    Text(selected)
+                                        .font(.system(size: 10))
+                                        .foregroundStyle(.white)
+                                    Image("\(selected)-Nota")
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                }
                             }
                         }
-                    }
+                    }.frame(width: 300)
                     
                     
                     ZStack{

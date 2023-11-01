@@ -19,9 +19,17 @@ struct ContentView: View {
     
     //Define as notas e o tempo respectivo de cada uma
     let notas: [String:Double] = ["Semibreve" : 1, "Minima" : 1/2, "Seminima" : 1/4, "Colcheia" : 1/8, "Semicolcheia" : 1/16, "Fusa" : 1/32, "Semifusa" : 1/64, "Quartifusa" : 1/128]
-    
-    
-    
+    let Notas: [Note] = [
+        Note(name: "Semibreve", duration: 1),
+        Note(name: "Minima", duration: 1/2),
+        Note(name: "Seminima", duration: 1/4),
+        Note(name: "Colcheia", duration: 1/8),
+        Note(name: "Semicolcheia", duration: 1/16),
+        Note(name: "Fusa", duration: 1/32),
+        Note(name: "Semifusa", duration: 1/64),
+        Note(name: "Quartifusa", duration: 1/128)
+    ]
+
     var body: some View {
         VStack{
             Canvas { context, size in
@@ -36,10 +44,12 @@ struct ContentView: View {
                                 .foregroundStyle(.white)
                             Text("Tempo = \(Int(time.beats.truncatingRemainder(dividingBy: 4)+1))")
                                 .foregroundStyle(.white)
-                            Text(Selected)
-                                .font(.system(size: 40))
-                                .foregroundStyle(.white)
-                            Image("\(Selected)-Nota")
+                            if (Selected != "") {
+                                Text(Selected)
+                                    .font(.system(size: 40))
+                                    .foregroundStyle(.white)
+                                Image("\(Selected)-Nota")
+                            }
                             
                             
                             ZStack{

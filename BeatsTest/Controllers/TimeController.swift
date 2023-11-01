@@ -13,7 +13,6 @@ class TimeController: ObservableObject {
     private var timer: AnyCancellable? // Usamos um AnyCancellable para armazenar o Timer
 
     private init(beatsPerMinute: Double = 60) {
-        self.BPM = beatsPerMinute
         setBeatsPerMinute(beatsPerMinute)
     }
     
@@ -24,13 +23,13 @@ class TimeController: ObservableObject {
         // Cancela o timer existente se houver
         timer?.cancel()
         
-        let interval = 60.0 / newBPM
+        let interval = 60.0 / (newBPM*32)
         
         timer = Timer.publish(every: interval, on: .main, in: .default)
             .autoconnect()
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.beats += 1
+                beats += 1.0/32.0
             }
     }
 }

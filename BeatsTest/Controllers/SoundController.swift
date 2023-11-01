@@ -3,6 +3,8 @@ import AVFoundation
 import SwiftUI
 
 class SoundManager {
+    @ObservedObject var time: TimeController = TimeController.shared
+    
     private var soundDict: [Sound:AVAudioPlayer?] = [:]
     @State var check = 0.0
     @State var check2 = false

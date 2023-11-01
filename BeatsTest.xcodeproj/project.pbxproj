@@ -41,7 +41,6 @@
 		A9ABA2BF2AEB1397000347EE = {
 			isa = PBXGroup;
 			children = (
-				A9ABA2FB2AEEAF52000347EE /* TimeController.swift */,
 				A9ABA2CA2AEB1397000347EE /* BeatsTest */,
 				A9ABA2C92AEB1397000347EE /* Products */,
 			);
@@ -111,6 +110,7 @@
 		F04516792AEC4968009BF440 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A9ABA2FB2AEEAF52000347EE /* TimeController.swift */,
 				A9ABA2D92AEB21E0000347EE /* SoundController.swift */,
 			);
 			path = Controllers;

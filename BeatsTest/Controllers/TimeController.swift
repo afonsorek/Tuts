@@ -9,6 +9,8 @@ class TimeController: ObservableObject {
     
     @Published var beats: Double = 0
     @Published var BPM: Double = 60
+//    var lastBeat: Double = 0
+    var soundController = SoundController()
     
     private var timer: AnyCancellable? // Usamos um AnyCancellable para armazenar o Timer
 
@@ -17,8 +19,9 @@ class TimeController: ObservableObject {
     }
     
     func setBeatsPerMinute(_ newBPM: Double) {
-        self.BPM = newBPM
-        self.beats = 0
+        BPM = newBPM
+        beats = 0
+//        lastBeat = 0
         
         RepublishTimer()
     }
@@ -33,7 +36,16 @@ class TimeController: ObservableObject {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 beats += 1.0/32.0
+//                playBeat()
             }
     }
+    
+//    func playBeat() {
+//        let flooredBeat = floor(beats)
+//        if (flooredBeat > lastBeat) {
+//            soundController.playBeat()
+//            lastBeat = flooredBeat
+//        }
+//    }
 }
 

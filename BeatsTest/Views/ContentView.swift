@@ -15,7 +15,7 @@ struct ContentView: View {
     @State private var animation = 0.0
     @State var compasso = 4
     
-    let soundManager = SoundManager()
+    let soundManager = SoundController()
     
     //Define as notas e o tempo respectivo de cada uma
     let notas: [String:Double] = ["Semibreve" : 1, "Minima" : 1/2, "Seminima" : 1/4, "Colcheia" : 1/8, "Semicolcheia" : 1/16, "Fusa" : 1/32, "Semifusa" : 1/64, "Quartifusa" : 1/128]
@@ -78,13 +78,13 @@ struct ContentView: View {
                         
                         Selected = itemsSplit.first ?? ""
 
-                        soundManager.stopAll()
-                        
-                        if Int(time.beats.truncatingRemainder(dividingBy: 4)+1) == 1{
-                            soundManager.playLoop(sound: .beat, split: itemsSplit.last ?? "", tempo: "4/4", check: 0)
-                        }else {
-                            soundManager.playLoop(sound: .beat, split: itemsSplit.last ?? "", tempo: "4/4", check: 0)
-                        }
+//                        soundManager.stopAll()
+//                        
+//                        if Int(time.beats.truncatingRemainder(dividingBy: 4)+1) == 1{
+//                            soundManager.playLoop(sound: .beat, split: itemsSplit.last ?? "", tempo: "4/4", check: 0)
+//                        }else {
+//                            soundManager.playLoop(sound: .beat, split: itemsSplit.last ?? "", tempo: "4/4", check: 0)
+//                        }
                         
                         
                         return true

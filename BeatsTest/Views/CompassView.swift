@@ -8,7 +8,7 @@ struct CompassView: View {
     @State private var SelectedBPM : String = "60"
     @State private var animation = 0.0
     
-    let soundManager = SoundManager()
+    let soundManager = SoundController()
     @StateObject var compass = Compass(pulse: 4, pulseDuration: 4, notes: [])
     
     //Define as notas e o tempo respectivo de cada uma

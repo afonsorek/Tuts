@@ -3,4 +3,129 @@
    uuid = "A33F8F32-4D31-451E-B68A-CFE1AB3FF33E"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6B464F34-E8C1-4E51-9075-2C618F8382F2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BeatsTest/Views/CompassView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "5"
+            endingLineNumber = "5"
+            landmarkName = "CompassView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "6B464F34-E8C1-4E51-9075-2C618F8382F2 - 35c10c93ca83793b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of BeatsTest.CompassView.time : BeatsTest.TimeController"
+                  moduleName = "BeatsTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/afonsorekbaim/Desktop/Projetos/BeatsTest/BeatsTest/Views/CompassView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "6B464F34-E8C1-4E51-9075-2C618F8382F2 - c6097aefe1adf111"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BeatsTest.CompassView.time.getter : BeatsTest.TimeController"
+                  moduleName = "BeatsTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/afonsorekbaim/Desktop/Projetos/BeatsTest/BeatsTest/Views/CompassView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "6B464F34-E8C1-4E51-9075-2C618F8382F2 - f4588cc698ee7066"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BeatsTest.CompassView.time.setter : BeatsTest.TimeController"
+                  moduleName = "BeatsTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/afonsorekbaim/Desktop/Projetos/BeatsTest/BeatsTest/Views/CompassView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "5"
+                  endingLineNumber = "5"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "6B464F34-E8C1-4E51-9075-2C618F8382F2 - 8b5d7c0148e74077"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BeatsTest.CompassView.time.modify : BeatsTest.TimeController"
+                  moduleName = "BeatsTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/afonsorekbaim/Desktop/Projetos/BeatsTest/BeatsTest/Views/CompassView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "5"
+                  endingLineNumber = "5"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "6B464F34-E8C1-4E51-9075-2C618F8382F2 - e49de983431bf8ac"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BeatsTest.CompassView.time.modify : BeatsTest.TimeController with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "BeatsTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/afonsorekbaim/Desktop/Projetos/BeatsTest/%3Ccompiler-generated%3E"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  uuid = "6B464F34-E8C1-4E51-9075-2C618F8382F2 - a402103fe4cb45b2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BeatsTest.CompassView.$time.getter : SwiftUI.ObservedObject&lt;BeatsTest.TimeController&gt;.Wrapper"
+                  moduleName = "BeatsTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/afonsorekbaim/Desktop/Projetos/BeatsTest/BeatsTest/Views/CompassView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "5"
+                  endingLineNumber = "5"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "6B464F34-E8C1-4E51-9075-2C618F8382F2 - e774d1fed26dce8e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 0 of BeatsTest.CompassView.init(time: BeatsTest.TimeController, compass: @autoclosure () -&gt; BeatsTest.Compass) -&gt; BeatsTest.CompassView"
+                  moduleName = "BeatsTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/afonsorekbaim/Desktop/Projetos/BeatsTest/BeatsTest/Views/CompassView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

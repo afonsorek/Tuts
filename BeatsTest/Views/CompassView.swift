@@ -8,28 +8,17 @@ struct CompassView: View {
     @State private var SelectedBPM : String = "60"
     @State private var animation = 0.0
     
-    let soundManager = SoundController()
-    @StateObject var compass = Compass(pulse: 4, pulseDuration: 4, notes: [])
-    
-    //Define as notas e o tempo respectivo de cada uma
-//    let notas: [String:Double] = ["Semibreve" : 1, "Minima" : 1/2, "Seminima" : 1/4, "Colcheia" : 1/8, "Semicolcheia" : 1/16, "Fusa" : 1/32, "Semifusa" : 1/64, "Quartifusa" : 1/128]
-    let notas: [Note] = [
-        Note(name: "Semibreve", duration: 1),
-        Note(name: "Minima", duration: 1/2),
-        Note(name: "Seminima", duration: 1/4),
-        Note(name: "Colcheia", duration: 1/8),
-        Note(name: "Semicolcheia", duration: 1/16),
-        Note(name: "Fusa", duration: 1/32),
-        Note(name: "Semifusa", duration: 1/64),
-        Note(name: "Quartifusa", duration: 1/128)
-    ]
+    let soundController = SoundController()
+    @StateObject var compass = Compass(pulseCount: 4, pulseDuration: 4, notes: [])
+    @State var lastBeat : Double = 0
 
     var body: some View {
         let pulseStringBinding = Binding(
-            get: {String(self.compass.pulse)},
+            get: {String(self.compass.pulseCount)},
             set: {
-                self.compass.pulse = Int($0) ?? self.compass.pulse
+                self.compass.pulseCount = Int($0) ?? self.compass.pulseCount
                 time.RepublishTimer()
+                lastBeat = 0
             }
         )
         let pulseDurationStringBinding = Binding(
@@ -37,6 +26,7 @@ struct CompassView: View {
             set: {
                 self.compass.pulseDuration = Int($0) ?? self.compass.pulseDuration
                 time.RepublishTimer()
+                lastBeat = 0
             }
         )
         
@@ -46,7 +36,7 @@ struct CompassView: View {
                     .foregroundStyle(.black)
                     .frame(width: 300, height: 350)
                 VStack{
-                    Text("Espaços sobrando: \(compass.RemainingSize())")
+                    Text("Espaços sobrando: \(compass.remainingSize)")
                         .foregroundStyle(.white)
                     HStack{
                         Spacer()
@@ -60,7 +50,7 @@ struct CompassView: View {
                             .foregroundStyle(.white)
                         Spacer()
                     }
-                    Text("Tempo = \(time.beats.truncatingRemainder(dividingBy: Double(compass.pulse))+1)")
+                    Text("Tempo = \(time.beats.truncatingRemainder(dividingBy: Double(compass.pulseCount))+1)")
                         .foregroundStyle(.white)
                     ScrollView(.horizontal){
                         HStack{
@@ -81,11 +71,11 @@ struct CompassView: View {
                     ZStack{
                         Rectangle()
                         HStack{
-                            ForEach(1...compass.pulse, id: \.self) { i in
+                            ForEach(1...compass.pulseCount, id: \.self) { i in
                                 Rectangle()
-                                    .frame(width: 240/CGFloat(compass.pulse), height: 50)
+                                    .frame(width: 240/CGFloat(compass.pulseCount), height: 50)
                                     .foregroundStyle(.green)
-                                    .opacity(Int(time.beats.truncatingRemainder(dividingBy: Double(compass.pulse))+1) == i ? 1.0 : 0.0)
+                                    .opacity(Int(time.beats.truncatingRemainder(dividingBy: Double(compass.pulseCount))+1) == i ? 1.0 : 0.0)
                             }
                         }
                     }
@@ -93,29 +83,8 @@ struct CompassView: View {
                     .foregroundStyle(.white)
                 }
             }
-//                    .dropDestination(for: String.self) { items, _ in
-//                        
-//                        print("Itens do drop: \(items)")
-//                        
-//                        let itemsSplit = items[0].components(separatedBy: ":")
-//                        
-//                        print(itemsSplit)
-//                        
-//                        Selected = itemsSplit.first ?? ""
-//
-//                        soundManager.stopAll()
-//
-//                        if Int(time.beats.truncatingRemainder(dividingBy: Double(compass.pulse))+1) == 1{
-//                            soundManager.playLoop(sound: .beat, split: itemsSplit.last ?? "", tempo: compass.CompassFormula(), check: 0)
-//                        }else {
-//                            soundManager.playLoop(sound: .beat, split: itemsSplit.last ?? "", tempo: compass.CompassFormula(), check: 0)
-//                        }
-//                        
-//                        
-//                        return true
-//                    }
-                    .foregroundStyle(.black)
-                    .frame(height: 400)
+            .foregroundStyle(.black)
+            .frame(height: 400)
             HStack{
                 Spacer()
                 TextField("BPM", text: $SelectedBPM)
@@ -141,7 +110,7 @@ struct CompassView: View {
             .padding()
             ScrollView(.horizontal){
                 HStack{
-                    ForEach(notas.sorted(by: {$0.duration > $1.duration }), id: \.self) { nota in
+                    ForEach(NotesData.notes.sorted(by: {$0.duration > $1.duration }), id: \.self) { nota in
 
                         Image("\(nota.name)-Nota")
                             .onTapGesture {
@@ -157,6 +126,16 @@ struct CompassView: View {
             }
             .padding(.bottom, 50)
             .scrollIndicators(.hidden)
+        }
+        .onAppear {
+            time.timerListeners.append({beat in
+                let truncatedBeat = beat.truncatingRemainder(dividingBy: Double(compass.pulseCount))
+                for noteBeat in compass.noteBeats {
+                    if truncatedBeat/Double(compass.pulseDuration) == noteBeat {
+                        soundController.playBeat()
+                    }
+                }
+            })
         }
     }
 }

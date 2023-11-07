@@ -1,38 +1,46 @@
 import Foundation
 
 class Compass: ObservableObject{
-    @Published var pulse: Int
+    @Published var pulseCount: Int
     @Published var pulseDuration: Int
     @Published var notes: [Note]
     
-    init(pulse: Int, pulseDuration: Int, notes: [Note]) {
-        self.pulse = pulse
+    init(pulseCount: Int, pulseDuration: Int, notes: [Note]) {
+        self.pulseCount = pulseCount
         self.pulseDuration = pulseDuration
         self.notes = notes
     }
     
-    func CompassFormula() -> String{
-        return "\(pulse)/\(pulseDuration)"
+    // Computed variables
+    var compassFormula : String {
+        "\(pulseCount)/\(pulseDuration)"
     }
-    
-    func CompassSize() -> Double{
-        return Double(pulse/pulseDuration)
+    var compassSize : Double {
+        Double(pulseCount)/Double(pulseDuration)
     }
-    
-    func NotesSize() -> Double{
+    var noteBeats : [Double] {
+        var result : [Double] = []
+        var sum : Double = 0
+        for note in notes {
+            result.append(sum)
+            sum += note.duration
+        }
+        return result
+    }
+    var notesSize : Double {
         var totalDuration = 0.0
         for note in notes{
             totalDuration += note.duration
         }
         return totalDuration
     }
-    
-    func RemainingSize() -> Double {
-        CompassSize() - NotesSize()
+    var remainingSize : Double {
+        compassSize - notesSize
     }
     
+    // Public functions
     func AddNote(note: Note) -> Bool{
-        if note.duration <= RemainingSize(){
+        if note.duration <= remainingSize{
             notes.append(note)
             return true
         }else{

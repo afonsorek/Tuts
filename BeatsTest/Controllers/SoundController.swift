@@ -5,8 +5,16 @@ import SwiftUI
 class SoundController : NSObject, AVAudioPlayerDelegate {
     private var audioPlayerPool : [AVAudioPlayer] = []
     private var busyAudioPlayers : [AVAudioPlayer] = []
+    let startingAudioPlayers : Int = 4
     @State var check = 0.0
     @State var check2 = false
+    
+    override init() {
+        super.init()
+        for _ in 1...startingAudioPlayers {
+            _ = getAudioPlayer(sound: .beat)
+        }
+    }
     
     
     private func getAudioPlayer(sound: Sound) -> AVAudioPlayer? {

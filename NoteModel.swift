@@ -9,7 +9,7 @@ import Foundation
 
 struct Note: Hashable, Comparable{
     static func < (lhs: Note, rhs: Note) -> Bool {
-        return true
+        return lhs.duration < rhs.duration
     }
     
     let name: String

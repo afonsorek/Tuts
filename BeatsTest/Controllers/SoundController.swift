@@ -6,8 +6,6 @@ class SoundController : NSObject, AVAudioPlayerDelegate {
     private var audioPlayerPool : [AVAudioPlayer] = []
     private var busyAudioPlayers : [AVAudioPlayer] = []
     let startingAudioPlayers : Int = 4
-    @State var check = 0.0
-    @State var check2 = false
     
     override init() {
         super.init()

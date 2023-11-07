@@ -17,6 +17,7 @@
 		A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2FF2AF03B65000347EE /* CompassModel.swift */; };
 		A9ABA3022AF04039000347EE /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA3012AF04039000347EE /* CompassView.swift */; };
 		F0D110952AFAAD30008341AA /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D110942AFAAD30008341AA /* NotesData.swift */; };
+		F0D110972AFABF88008341AA /* CompassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D110962AFABF88008341AA /* CompassController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		A9ABA2FF2AF03B65000347EE /* CompassModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassModel.swift; sourceTree = SOURCE_ROOT; };
 		A9ABA3012AF04039000347EE /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
 		F0D110942AFAAD30008341AA /* NotesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesData.swift; sourceTree = "<group>"; };
+		F0D110962AFABF88008341AA /* CompassController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 			children = (
 				A9ABA2FB2AEEAF52000347EE /* TimeController.swift */,
 				A9ABA2D92AEB21E0000347EE /* SoundController.swift */,
+				F0D110962AFABF88008341AA /* CompassController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				A9ABA2FE2AF03B0F000347EE /* NoteModel.swift in Sources */,
 				A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */,
 				A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */,
+				F0D110972AFABF88008341AA /* CompassController.swift in Sources */,
 				A9ABA2FC2AEEAF52000347EE /* TimeController.swift in Sources */,
 				A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */,
 				F0D110952AFAAD30008341AA /* NotesData.swift in Sources */,

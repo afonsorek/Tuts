@@ -37,23 +37,4 @@ class Compass: ObservableObject{
     var remainingSize : Double {
         compassSize - notesSize
     }
-    
-    // Public functions
-    func AddNote(note: Note) -> Bool{
-        if note.duration <= remainingSize{
-            notes.append(note)
-            return true
-        }else{
-            print("Não cabeu")
-            return false
-        }
-    }
-    
-    func RemoveNote(){
-        notes.removeLast()
-    }
-    
-    func RemoveAllNotes(){
-        notes.removeAll()
-    }
 }

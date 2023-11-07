@@ -14,6 +14,9 @@ struct Note: Hashable, Comparable{
     
     let name: String
     let duration: Double
+    var imageName : String {
+        "\(name)-Nota"
+    }
     
     init(name: String, duration: Double) {
         self.name = name

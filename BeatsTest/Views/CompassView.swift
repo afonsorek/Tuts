@@ -18,6 +18,25 @@ extension View {
     }
 }
 
+func getNoteColor(name: String) -> Color{
+    switch name{
+    case "Semibreve":
+        return .yellow
+    case "Minima":
+        return Color(red: 0.41, green: 0.84, blue: 0.34)
+    case "Seminima":
+        return Color(red: 0.15, green: 0.74, blue: 1)
+    case "Colcheia":
+        return Color(red: 0.84, green: 0.52, blue: 0.99)
+    case "Semicolcheia":
+        return Color(red: 0.87, green: 0.35, blue: 0.6)
+    default:
+        return .white
+    }
+}
+
+
+
 struct CompassView: View {
     @State private var orientation = UIDeviceOrientation.unknown
     @ObservedObject var time: TimeController = TimeController.shared
@@ -59,7 +78,7 @@ struct CompassView: View {
         )
         
         Group{
-            if orientation.isPortrait{
+            if orientation.isPortrait || orientation.isFlat{
                 VStack{
                     ZStack{
                         RoundedRectangle(cornerSize: CGSize(width: 50, height: 50))
@@ -178,14 +197,77 @@ struct CompassView: View {
                     .padding(.bottom, 50)
                     .scrollIndicators(.hidden)
                 }
+                .frame(maxHeight: .infinity)
+                .background(
+                LinearGradient(
+                stops: [
+                Gradient.Stop(color: Color(red: 0.15, green: 0.1, blue: 0.24), location: 0.00),
+                Gradient.Stop(color: Color(red: 0.28, green: 0.19, blue: 0.46), location: 1.00),
+                ],
+                startPoint: UnitPoint(x: 0.5, y: 0),
+                endPoint: UnitPoint(x: 0.5, y: 1)
+                )
+                )
             } else if orientation.isLandscape{
+                let screenSize = UIScreen.main.bounds
                 ZStack{
-                    Rectangle()
-                        .frame(width: UIScreen.main.bounds.width*0.8, height: UIScreen.main.bounds.height*0.5)
-                        .clipShape(RoundedRectangle(cornerRadius: 32, style: .circular))
-                        .foregroundStyle(.black)
-                        .opacity(0.4)
+                    ZStack{
+                        Rectangle()
+                            .foregroundStyle(.white)
+                            .opacity(0.1)
+                        HStack(){
+                            Spacer()
+                            ForEach((2...compass.pulse), id: \.self){ _ in
+                                Rectangle()
+                                    .stroke(Color(red: 0.61, green: 0.61, blue: 0.61), style: StrokeStyle(lineWidth: 1, dash: [3]))
+                                    .frame(width: 1)
+                                    .frame(maxHeight: .infinity)
+                                Spacer()
+                            }
+                        }
+                        HStack(alignment: .center, spacing: 5){
+                            ForEach(compass.notes, id: \.self) { nota in
+                                ZStack{
+                                    Rectangle()
+                                        .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white, lineWidth: 2))
+                                        .cornerRadius(20)
+                                        .foregroundStyle(getNoteColor(name: nota.name))
+                                    VStack(spacing: 13){
+                                        Circle()
+                                            .frame(width: 30)
+                                        Rectangle()
+                                            .frame(height: 1)
+                                            .padding(.horizontal, 10)
+                                        Image("\(nota.name)")
+                                            .colorInvert()
+                                            .scaleEffect(0.7)
+                                            .frame(height: 30)
+                                            .padding(.top, 10)
+                                    }
+                                }
+                                .frame(width: screenSize.width*0.75*(Double(compass.pulse) * nota.duration)/Double(compass.pulse), height: UIScreen.main.bounds.height*0.4)
+//                                .frame(width: 370*(Double(compass.pulse) * nota.duration)/Double(compass.pulse), height: 104)
+                            }
+                            Spacer()
+                                .frame(minWidth: 0)
+                                .background(Color.green)
+                        }
+                        .padding(.horizontal, 13)
+                    }
+                    .frame(width: screenSize.width*0.8, height: screenSize.height*0.5)
+                    .clipShape(RoundedRectangle(cornerRadius: 32, style: .circular))
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(
+                LinearGradient(
+                stops: [
+                Gradient.Stop(color: Color(red: 0.15, green: 0.1, blue: 0.24), location: 0.00),
+                Gradient.Stop(color: Color(red: 0.28, green: 0.19, blue: 0.46), location: 1.00),
+                ],
+                startPoint: UnitPoint(x: 0.5, y: 0),
+                endPoint: UnitPoint(x: 0.5, y: 1)
+                )
+                )
             }
         }
         .onRotate { newOrientation in

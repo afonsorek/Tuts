@@ -8,23 +8,31 @@
 
 /* Begin PBXBuildFile section */
 		A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */; };
-		A9ABA2CE2AEB1397000347EE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2CD2AEB1397000347EE /* ContentView.swift */; };
 		A9ABA2D02AEB139A000347EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9ABA2CF2AEB139A000347EE /* Assets.xcassets */; };
 		A9ABA2D32AEB139A000347EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9ABA2D22AEB139A000347EE /* Preview Assets.xcassets */; };
 		A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2D92AEB21E0000347EE /* SoundController.swift */; };
 		A9ABA2DC2AEB36B0000347EE /* beat.wav in Resources */ = {isa = PBXBuildFile; fileRef = A9ABA2DB2AEB36B0000347EE /* beat.wav */; };
 		A9ABA2FC2AEEAF52000347EE /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2FB2AEEAF52000347EE /* TimeController.swift */; };
+		A9ABA2FE2AF03B0F000347EE /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2FD2AF03B0F000347EE /* NoteModel.swift */; };
+		A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2FF2AF03B65000347EE /* CompassModel.swift */; };
+		A9ABA3022AF04039000347EE /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA3012AF04039000347EE /* CompassView.swift */; };
+		F0D110952AFAAD30008341AA /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D110942AFAAD30008341AA /* NotesData.swift */; };
+		F0D110972AFABF88008341AA /* CompassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D110962AFABF88008341AA /* CompassController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A9ABA2C82AEB1397000347EE /* BeatsTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeatsTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatsTestApp.swift; sourceTree = "<group>"; };
-		A9ABA2CD2AEB1397000347EE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A9ABA2CF2AEB139A000347EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9ABA2D22AEB139A000347EE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A9ABA2D92AEB21E0000347EE /* SoundController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundController.swift; sourceTree = "<group>"; };
 		A9ABA2DB2AEB36B0000347EE /* beat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = beat.wav; path = BeatsTest/Sounds/beat.wav; sourceTree = SOURCE_ROOT; };
 		A9ABA2FB2AEEAF52000347EE /* TimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
+		A9ABA2FD2AF03B0F000347EE /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = SOURCE_ROOT; };
+		A9ABA2FF2AF03B65000347EE /* CompassModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassModel.swift; sourceTree = SOURCE_ROOT; };
+		A9ABA3012AF04039000347EE /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
+		F0D110942AFAAD30008341AA /* NotesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesData.swift; sourceTree = "<group>"; };
+		F0D110962AFABF88008341AA /* CompassController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +49,6 @@
 		A9ABA2BF2AEB1397000347EE = {
 			isa = PBXGroup;
 			children = (
-				A9ABA2FB2AEEAF52000347EE /* TimeController.swift */,
 				A9ABA2CA2AEB1397000347EE /* BeatsTest */,
 				A9ABA2C92AEB1397000347EE /* Products */,
 			);
@@ -81,6 +88,7 @@
 		F04516752AEC492C009BF440 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				F0D110942AFAAD30008341AA /* NotesData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -96,6 +104,8 @@
 		F04516772AEC4953009BF440 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A9ABA2FD2AF03B0F000347EE /* NoteModel.swift */,
+				A9ABA2FF2AF03B65000347EE /* CompassModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -103,7 +113,7 @@
 		F04516782AEC495F009BF440 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A9ABA2CD2AEB1397000347EE /* ContentView.swift */,
+				A9ABA3012AF04039000347EE /* CompassView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -111,7 +121,9 @@
 		F04516792AEC4968009BF440 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A9ABA2FB2AEEAF52000347EE /* TimeController.swift */,
 				A9ABA2D92AEB21E0000347EE /* SoundController.swift */,
+				F0D110962AFABF88008341AA /* CompassController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -187,10 +199,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9ABA2CE2AEB1397000347EE /* ContentView.swift in Sources */,
+				A9ABA3022AF04039000347EE /* CompassView.swift in Sources */,
+				A9ABA2FE2AF03B0F000347EE /* NoteModel.swift in Sources */,
+				A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */,
 				A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */,
+				F0D110972AFABF88008341AA /* CompassController.swift in Sources */,
 				A9ABA2FC2AEEAF52000347EE /* TimeController.swift in Sources */,
 				A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */,
+				F0D110952AFAAD30008341AA /* NotesData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

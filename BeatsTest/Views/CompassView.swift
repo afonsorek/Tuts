@@ -45,6 +45,23 @@ struct CompassView: View {
     @State private var SelectedBPM : String = "60"
     @State private var animation = 0.0
     
+    @State var sizeCount = 0.0
+    
+    func calcSpacer(note: Note) -> Spacer?{
+        if sizeCount >= 0.25{
+            sizeCount = 0.0
+            return Spacer()
+        }
+        else{
+            sizeCount += note.duration
+            return nil
+        }
+    }
+    
+    func add(note: Double) {
+        sizeCount+=note
+    }
+    
     let soundManager = SoundManager()
     @StateObject var compass = Compass(pulse: 4, pulseDuration: 4, notes: [])
     
@@ -215,17 +232,21 @@ struct CompassView: View {
                         Rectangle()
                             .foregroundStyle(.white)
                             .opacity(0.1)
-                        HStack(){
+                        HStack(alignment: .center, spacing: 0){
                             Spacer()
                             ForEach((2...compass.pulse), id: \.self){ _ in
+                                Spacer()
                                 Rectangle()
                                     .stroke(Color(red: 0.61, green: 0.61, blue: 0.61), style: StrokeStyle(lineWidth: 1, dash: [3]))
                                     .frame(width: 1)
                                     .frame(maxHeight: .infinity)
+                                    .padding(.trailing, 15)
                                 Spacer()
                             }
+                            Spacer()
                         }
-                        HStack(alignment: .center, spacing: 5){
+                        HStack(alignment: .center, spacing: 0){
+                            Spacer()
                             ForEach(compass.notes, id: \.self) { nota in
                                 ZStack{
                                     Rectangle()
@@ -235,6 +256,7 @@ struct CompassView: View {
                                     VStack(spacing: 13){
                                         Circle()
                                             .frame(width: 30)
+                                            .foregroundStyle(.black)
                                         Rectangle()
                                             .frame(height: 1)
                                             .padding(.horizontal, 10)
@@ -246,13 +268,30 @@ struct CompassView: View {
                                     }
                                 }
                                 .frame(width: screenSize.width*0.75*(Double(compass.pulse) * nota.duration)/Double(compass.pulse), height: UIScreen.main.bounds.height*0.4)
-//                                .frame(width: 370*(Double(compass.pulse) * nota.duration)/Double(compass.pulse), height: 104)
+                                if sizeCount.truncatingRemainder(dividingBy:Double(1)/Double(compass.pulse)).isZero && sizeCount != 0.0 || nota.duration >= 0.25{
+                                    Spacer()
+                                        .onAppear{
+                                            sizeCount+=nota.duration
+//                                            print("\nIF\n----------")
+//                                            print(sizeCount)
+//                                            print(Double(1/compass.pulse))
+//                                            print(sizeCount.truncatingRemainder(dividingBy: Double(1/compass.pulse)).isZero)
+                                        }
+                                }else{
+                                    Rectangle()
+                                        .frame(width: 0, height: 0)
+                                        .onAppear{
+                                            sizeCount+=nota.duration
+//                                            print("\nELSE\n----------")
+//                                            print(sizeCount)
+//                                            print(Double(1/compass.pulse))
+//                                            print(sizeCount.truncatingRemainder(dividingBy: Double(1)/Double(compass.pulse)).isZero)
+                                        }
+                                }
                             }
+                            .padding(.horizontal, 0)
                             Spacer()
-                                .frame(minWidth: 0)
-                                .background(Color.green)
-                        }
-                        .padding(.horizontal, 13)
+                        }.padding(.horizontal, 0)
                     }
                     .frame(width: screenSize.width*0.8, height: screenSize.height*0.5)
                     .clipShape(RoundedRectangle(cornerRadius: 32, style: .circular))

@@ -9,32 +9,41 @@ class TimeController: ObservableObject {
     
     @Published var beats: Double = 0
     @Published var BPM: Double = 60
+    var timerListeners: [(Double) -> Void] = []
+    var soundController = SoundController()
     
     private var timer: AnyCancellable? // Usamos um AnyCancellable para armazenar o Timer
 
-    private init(beatsPerMinute: Double = 60) {
-        self.BPM = beatsPerMinute
-        setBeatsPerMinute(beatsPerMinute)
+    private init() {
+        initTimer()
     }
     
     func setBeatsPerMinute(_ newBPM: Double) {
-        self.BPM = newBPM
-        self.beats = 0
-        
-        RepublishTimer()
+        BPM = newBPM
+        beats = 0
     }
     
-    func RepublishTimer(){
-        timer?.cancel()
-        
-        let interval = 60.0 / BPM
+    func initTimer() {
+        let interval = 60.0 / (BPM*32.0)
         
         timer = Timer.publish(every: interval, on: .main, in: .default)
             .autoconnect()
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.beats += 1
+                beats += 1.0/32.0
+                for listener in timerListeners {
+                    listener(beats)
+                }
             }
+    }
+    
+    func stopTimer() {
+        timer?.cancel()
+    }
+    
+    func resetTimer() {
+        stopTimer()
+        initTimer()
     }
 }
 

@@ -27,7 +27,7 @@ struct CompassView: View {
             )
         )
         .onRotate { newOrientation in
-            if !newOrientation.isFlat{
+            if !(newOrientation.isFlat || newOrientation.rawValue == 2){
                 orientation = newOrientation
             }
         }

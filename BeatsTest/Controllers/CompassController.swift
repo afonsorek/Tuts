@@ -11,6 +11,7 @@ import SwiftUI
 class CompassController : ObservableObject {
     private let time = TimeController.shared
     private let soundController = SoundController()
+    let pulseDurationsValues = [1, 2, 4, 8, 16, 32]
     
     @Published var compass = Compass(pulseCount: 4, pulseDuration: 4, notes: [])
     var pulseCountStringBinding : Binding<String> = Binding ( get: {""}, set: {_ in })

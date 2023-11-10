@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A97AAE0D2AFD64D800DC89F5 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AAE0C2AFD64D800DC89F5 /* CircleView.swift */; };
 		A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */; };
 		A9ABA2D02AEB139A000347EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9ABA2CF2AEB139A000347EE /* Assets.xcassets */; };
 		A9ABA2D32AEB139A000347EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9ABA2D22AEB139A000347EE /* Preview Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A97AAE0C2AFD64D800DC89F5 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		A9ABA2C82AEB1397000347EE /* BeatsTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeatsTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatsTestApp.swift; sourceTree = "<group>"; };
 		A9ABA2CF2AEB139A000347EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -122,9 +124,11 @@
 		F04516782AEC495F009BF440 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A97AAE0C2AFD64D800DC89F5 /* CircleView.swift */,
+				A9ABA2CD2AEB1397000347EE /* ContentView.swift */,
 				A9ABA3012AF04039000347EE /* CompassView.swift */,
-				F084380D2AFD673A00EDF218 /* PortraitView.swift */,
-				F084380F2AFD67FF00EDF218 /* LandscapeView.swift */,
+                F084380D2AFD673A00EDF218 /* PortraitView.swift */,
+                F084380F2AFD67FF00EDF218 /* LandscapeView.swift */,
 				F08438112AFD690600EDF218 /* NoteView.swift */,
 			);
 			path = Views;
@@ -229,6 +233,7 @@
 				A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */,
 				F0D110972AFABF88008341AA /* CompassController.swift in Sources */,
 				A9ABA2FC2AEEAF52000347EE /* TimeController.swift in Sources */,
+				A97AAE0D2AFD64D800DC89F5 /* CircleView.swift in Sources */,
 				A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */,
 				F0D110952AFAAD30008341AA /* NotesData.swift in Sources */,
 			);

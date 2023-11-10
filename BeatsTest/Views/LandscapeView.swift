@@ -9,6 +9,8 @@ import SwiftUI
 
 struct LandscapeView: View {
     @ObservedObject var compassController : CompassController
+    let bigPadding : Double = 10
+    let smallPadding : Double = 5
     
     var body: some View {
         let screenSize = UIScreen.main.bounds
@@ -62,7 +64,6 @@ struct LandscapeView: View {
     }
     func sizeCount(notes:[Note], maxIndex: Int) -> Double {
         var sizeCount : Double = 0
-        print(maxIndex)
         for i in 0...maxIndex {
             sizeCount += notes[i].duration
         }
@@ -81,14 +82,14 @@ struct LandscapeView: View {
     }
     func leadingNotePadding(notes:[Note], maxIndex: Int) -> Double {
         if maxIndex == 0 {
-            return 10.0
+            return bigPadding
         }
         
         return notePadding(notes: notes, maxIndex: maxIndex-1)
     }
     func trailingNotePadding(notes:[Note], maxIndex: Int) -> Double {
         if maxIndex == notes.count-1 {
-            return 10.0
+            return bigPadding
         }
         
         return notePadding(notes: notes, maxIndex: maxIndex)
@@ -98,7 +99,7 @@ struct LandscapeView: View {
         let pulseCount = Double(compassController.compass.pulseCount)
         let remainderIsZero = sizeCount.truncatingRemainder(dividingBy:1.0/pulseCount).isZero
         
-        return remainderIsZero ? 10.0 : 5.0
+        return remainderIsZero ? bigPadding : smallPadding
     }
 }
 

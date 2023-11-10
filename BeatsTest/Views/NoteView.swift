@@ -1,8 +1,8 @@
 //
 //  NoteView.swift
 //  BeatsTest
-//
-//  Created by Afonso Rekbaim on 09/11/23.
+//  8=========================================================================================================D
+//  Created by Afonso Rekbaim and Rafa (Ruffles) 09/11/23.
 //
 
 import SwiftUI
@@ -10,18 +10,13 @@ import SwiftUI
 struct NoteView: View {
     let nota: Note
     
-    init(nota: Note) {
-        self.nota = nota
-    }
-    
     var body: some View {
         ZStack{
             Rectangle()
                 .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white, lineWidth: 2))
                 .cornerRadius(20)
-                .foregroundStyle(getNoteColor(name: nota.name))
-            VStack(spacing: 13){
-                //ANIMATION BRANCH
+                .foregroundColor(nota.color)
+            VStack (spacing: 13) {
                 ZStack{
                     Rectangle()
                         .stroke(style: StrokeStyle(lineWidth: 1, dash: [3]))
@@ -31,11 +26,10 @@ struct NoteView: View {
                         Spacer()
                     }
                 }
-                //----------------
                 Rectangle()
                     .frame(height: 1)
                     .padding(.horizontal, 10)
-                Image("\(nota.name)")
+                Image(nota.name.lowercased())
                     .colorInvert()
                     .scaleEffect(0.7)
                     .frame(height: 30)
@@ -46,5 +40,9 @@ struct NoteView: View {
 }
 
 #Preview {
-    NoteView(nota: Note(name: "a", duration: 1.0))
+    VStack {
+        ForEach(NotesData.notes, id: \.self) { nota in
+            NoteView(nota: nota)
+        }
+    }
 }

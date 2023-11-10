@@ -47,21 +47,6 @@ struct CompassView: View {
     
     @State var sizeCount = 0.0
     
-    func calcSpacer(note: Note) -> Spacer?{
-        if sizeCount >= 0.25{
-            sizeCount = 0.0
-            return Spacer()
-        }
-        else{
-            sizeCount += note.duration
-            return nil
-        }
-    }
-    
-    func add(note: Double) {
-        sizeCount+=note
-    }
-    
     let soundManager = SoundManager()
     @StateObject var compass = Compass(pulse: 4, pulseDuration: 4, notes: [])
     
@@ -248,50 +233,25 @@ struct CompassView: View {
                         HStack(alignment: .center, spacing: 0){
                             Spacer()
                             ForEach(compass.notes, id: \.self) { nota in
-                                ZStack{
-                                    Rectangle()
-                                        .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white, lineWidth: 2))
-                                        .cornerRadius(20)
-                                        .foregroundStyle(getNoteColor(name: nota.name))
-                                    VStack(spacing: 13){
-                                        Circle()
-                                            .frame(width: 30)
-                                            .foregroundStyle(.black)
-                                        Rectangle()
-                                            .frame(height: 1)
-                                            .padding(.horizontal, 10)
-                                        Image("\(nota.name)")
-                                            .colorInvert()
-                                            .scaleEffect(0.7)
-                                            .frame(height: 30)
-                                            .padding(.top, 10)
-                                    }
-                                }
+                                NoteView(nota: nota)
                                 .frame(width: screenSize.width*0.75*(Double(compass.pulse) * nota.duration)/Double(compass.pulse), height: UIScreen.main.bounds.height*0.4)
                                 if sizeCount.truncatingRemainder(dividingBy:Double(1)/Double(compass.pulse)).isZero && sizeCount != 0.0 || nota.duration >= 0.25{
                                     Spacer()
                                         .onAppear{
                                             sizeCount+=nota.duration
-//                                            print("\nIF\n----------")
-//                                            print(sizeCount)
-//                                            print(Double(1/compass.pulse))
-//                                            print(sizeCount.truncatingRemainder(dividingBy: Double(1/compass.pulse)).isZero)
                                         }
                                 }else{
                                     Rectangle()
                                         .frame(width: 0, height: 0)
                                         .onAppear{
                                             sizeCount+=nota.duration
-//                                            print("\nELSE\n----------")
-//                                            print(sizeCount)
-//                                            print(Double(1/compass.pulse))
-//                                            print(sizeCount.truncatingRemainder(dividingBy: Double(1)/Double(compass.pulse)).isZero)
                                         }
                                 }
                             }
                             .padding(.horizontal, 0)
                             Spacer()
-                        }.padding(.horizontal, 0)
+                        }
+                        .padding(.horizontal, 0)
                     }
                     .frame(width: screenSize.width*0.8, height: screenSize.height*0.5)
                     .clipShape(RoundedRectangle(cornerRadius: 32, style: .circular))

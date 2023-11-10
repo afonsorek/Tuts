@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A97AAE0B2AFD61D000DC89F5 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AAE0A2AFD61D000DC89F5 /* NoteView.swift */; };
+		A97AAE0D2AFD64D800DC89F5 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AAE0C2AFD64D800DC89F5 /* CircleView.swift */; };
 		A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */; };
 		A9ABA2CE2AEB1397000347EE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2CD2AEB1397000347EE /* ContentView.swift */; };
 		A9ABA2D02AEB139A000347EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9ABA2CF2AEB139A000347EE /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A97AAE0A2AFD61D000DC89F5 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
+		A97AAE0C2AFD64D800DC89F5 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		A9ABA2C82AEB1397000347EE /* BeatsTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeatsTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatsTestApp.swift; sourceTree = "<group>"; };
 		A9ABA2CD2AEB1397000347EE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,8 +115,10 @@
 		F04516782AEC495F009BF440 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A97AAE0C2AFD64D800DC89F5 /* CircleView.swift */,
 				A9ABA2CD2AEB1397000347EE /* ContentView.swift */,
 				A9ABA3012AF04039000347EE /* CompassView.swift */,
+				A97AAE0A2AFD61D000DC89F5 /* NoteView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -202,7 +208,9 @@
 				A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */,
 				A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */,
 				A9ABA2FC2AEEAF52000347EE /* TimeController.swift in Sources */,
+				A97AAE0D2AFD64D800DC89F5 /* CircleView.swift in Sources */,
 				A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */,
+				A97AAE0B2AFD61D000DC89F5 /* NoteView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

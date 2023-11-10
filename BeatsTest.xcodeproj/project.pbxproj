@@ -16,6 +16,9 @@
 		A9ABA2FE2AF03B0F000347EE /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2FD2AF03B0F000347EE /* NoteModel.swift */; };
 		A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2FF2AF03B65000347EE /* CompassModel.swift */; };
 		A9ABA3022AF04039000347EE /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA3012AF04039000347EE /* CompassView.swift */; };
+		F084380E2AFD673A00EDF218 /* PortraitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084380D2AFD673A00EDF218 /* PortraitView.swift */; };
+		F08438102AFD67FF00EDF218 /* LandscapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084380F2AFD67FF00EDF218 /* LandscapeView.swift */; };
+		F08438122AFD690600EDF218 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08438112AFD690600EDF218 /* NoteView.swift */; };
 		F0CF3B752AFC19BE00DF24EF /* OnRotateViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CF3B742AFC19BE00DF24EF /* OnRotateViewExtension.swift */; };
 		F0D110952AFAAD30008341AA /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D110942AFAAD30008341AA /* NotesData.swift */; };
 		F0D110972AFABF88008341AA /* CompassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D110962AFABF88008341AA /* CompassController.swift */; };
@@ -32,6 +35,9 @@
 		A9ABA2FD2AF03B0F000347EE /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = SOURCE_ROOT; };
 		A9ABA2FF2AF03B65000347EE /* CompassModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassModel.swift; sourceTree = SOURCE_ROOT; };
 		A9ABA3012AF04039000347EE /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
+		F084380D2AFD673A00EDF218 /* PortraitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitView.swift; sourceTree = "<group>"; };
+		F084380F2AFD67FF00EDF218 /* LandscapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeView.swift; sourceTree = "<group>"; };
+		F08438112AFD690600EDF218 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		F0CF3B742AFC19BE00DF24EF /* OnRotateViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnRotateViewExtension.swift; sourceTree = "<group>"; };
 		F0D110942AFAAD30008341AA /* NotesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesData.swift; sourceTree = "<group>"; };
 		F0D110962AFABF88008341AA /* CompassController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassController.swift; sourceTree = "<group>"; };
@@ -117,6 +123,9 @@
 			isa = PBXGroup;
 			children = (
 				A9ABA3012AF04039000347EE /* CompassView.swift */,
+				F084380D2AFD673A00EDF218 /* PortraitView.swift */,
+				F084380F2AFD67FF00EDF218 /* LandscapeView.swift */,
+				F08438112AFD690600EDF218 /* NoteView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -212,7 +221,10 @@
 			files = (
 				A9ABA3022AF04039000347EE /* CompassView.swift in Sources */,
 				A9ABA2FE2AF03B0F000347EE /* NoteModel.swift in Sources */,
+				F08438122AFD690600EDF218 /* NoteView.swift in Sources */,
+				F08438102AFD67FF00EDF218 /* LandscapeView.swift in Sources */,
 				F0CF3B752AFC19BE00DF24EF /* OnRotateViewExtension.swift in Sources */,
+				F084380E2AFD673A00EDF218 /* PortraitView.swift in Sources */,
 				A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */,
 				A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */,
 				F0D110972AFABF88008341AA /* CompassController.swift in Sources */,

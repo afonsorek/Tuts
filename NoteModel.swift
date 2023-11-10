@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Note: Hashable, Comparable{
     static func < (lhs: Note, rhs: Note) -> Bool {
@@ -14,12 +15,14 @@ struct Note: Hashable, Comparable{
     
     let name: String
     let duration: Double
+    let color: Color
     var imageName : String {
         "\(name)-Nota"
     }
     
-    init(name: String, duration: Double) {
+    init(name: String, duration: Double, color: Color = .white) {
         self.name = name
         self.duration = duration
+        self.color = color
     }
 }

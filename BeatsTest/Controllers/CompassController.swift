@@ -47,6 +47,7 @@ class CompassController : ObservableObject {
     func addNote(note: Note) -> Bool{
         if note.duration <= compass.remainingSize{
             compass.notes.append(note)
+            objectWillChange.send()
             return true
         }else{
             print("Não cabeu")
@@ -56,10 +57,12 @@ class CompassController : ObservableObject {
     
     func removeNote(){
         compass.notes.removeLast()
+        objectWillChange.send()
     }
     
     func removeAllNotes(){
         compass.notes.removeAll()
+        objectWillChange.send()
     }
     
     // Private functions
@@ -67,5 +70,6 @@ class CompassController : ObservableObject {
         while compass.remainingSize < 0 {
             removeNote()
         }
+        objectWillChange.send()
     }
 }

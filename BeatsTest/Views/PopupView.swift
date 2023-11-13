@@ -25,7 +25,7 @@ struct PopupView: View {
                         Spacer()
                         if editing == "compass"{
                             HStack{
-                                Picker("", selection: $compassController.compass.pulseCount) {
+                                Picker("", selection: compassController.pulseCountBinding) {
                                     ForEach(1...32, id: \.self) {
                                         Text("\($0)")
                                     }
@@ -33,7 +33,7 @@ struct PopupView: View {
                                 .pickerStyle(.wheel)
                                 .foregroundStyle(Color(red: 0.28, green: 0.2, blue: 0.45))
                                 Text("/")
-                                Picker("", selection: $compassController.compass.pulseDuration) {
+                                Picker("", selection: compassController.pulseDurationBinding) {
                                     ForEach(compassController.pulseDurationsValues, id: \.self) { value in
                                         Text("\(value)")
                                     }

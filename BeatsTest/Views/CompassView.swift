@@ -4,16 +4,17 @@ import SwiftUI
 
 struct CompassView: View {
     @ObservedObject var time = TimeController.shared
+    @ObservedObject var configController = ConfigController.shared
     @ObservedObject var compassController = CompassController()
     @State private var orientation = UIDeviceOrientation.unknown
     
     var body: some View {
         SwiftUI.Group{
-            if orientation.isPortrait || orientation.isFlat{
-                PortraitView(compassController: compassController)
-            }
-            else if orientation.isLandscape{
+            if configController.config.orientationLock || orientation.isLandscape{
                 LandscapeView(compassController: compassController)
+            }
+            else if orientation.isPortrait || orientation.isFlat {
+                PortraitView(compassController: compassController)
             }
         }
         .background(
@@ -27,7 +28,10 @@ struct CompassView: View {
             )
         )
         .onRotate { newOrientation in
-            if !newOrientation.isFlat{
+            if configController.config.orientationLock {
+                configController.forceScreenOrientation()
+            }
+            if !(newOrientation.isFlat || newOrientation.rawValue == 2) {
                 orientation = newOrientation
             }
         }

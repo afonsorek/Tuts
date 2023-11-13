@@ -14,6 +14,7 @@ class AppState: ObservableObject {
 struct PortraitView: View {
     @ObservedObject var compassController : CompassController
     @ObservedObject var timeController = TimeController.shared
+    @ObservedObject var configController = ConfigController.shared
     
     @StateObject private var appState = AppState() // Use StateObject here
     

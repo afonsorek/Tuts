@@ -9,10 +9,9 @@ import SwiftUI
 
 struct BarView: View {
     @ObservedObject var compassController : CompassController
+    @ObservedObject var configController = ConfigController.shared
     let bigPadding : Double = 10
     let smallPadding : Double = 5
-    @State var widthX = 0.0
-    @State var heightY = 0.0
 
     func check() -> Bool{
         return compassController.compass.pulseCount > 1
@@ -21,7 +20,8 @@ struct BarView: View {
     let orientation = UIDevice.current.orientation
     
     var body: some View {
-        let screenSize = UIScreen.main.bounds
+        let screenBounds = UIScreen.main.bounds
+        let screenSize = calcScreenSize(screenBounds: screenBounds)
 
         ZStack{
             Rectangle()
@@ -58,6 +58,14 @@ struct BarView: View {
         }
         .frame(width: orientation.isPortrait || orientation.isFlat ? UIScreen.main.bounds.height*0.8 : UIScreen.main.bounds.width*0.8, height: orientation.isPortrait || orientation.isFlat ? UIScreen.main.bounds.width*0.5 : UIScreen.main.bounds.height*0.5)
         .clipShape(RoundedRectangle(cornerRadius: 32, style: .circular))
+    }
+    
+    
+    func calcScreenSize(screenBounds: CGRect) -> CGRect {
+        if configController.config.orientationLock {
+            return CGRect(origin: screenBounds.origin, size: CGSize(width: screenBounds.height, height: screenBounds.width))
+        }
+        return screenBounds
     }
     
     func noteWidth(screenSize: CGRect, nota: Note) -> Double {

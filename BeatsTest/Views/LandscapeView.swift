@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LandscapeView: View {
+    @ObservedObject var configController = ConfigController.shared
     @ObservedObject var compassController : CompassController
     
     var body: some View {
@@ -16,8 +17,6 @@ struct LandscapeView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    
-    
 }
 
 #Preview {

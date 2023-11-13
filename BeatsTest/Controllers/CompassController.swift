@@ -14,8 +14,8 @@ class CompassController : ObservableObject {
     let pulseDurationsValues = [1, 2, 4, 8, 16, 32]
     
     @Published var compass = Compass(pulseCount: 4, pulseDuration: 4, notes: [])
-    var pulseCountStringBinding : Binding<String> = Binding ( get: {""}, set: {_ in })
-    var pulseDurationStringBinding : Binding<String> = Binding ( get: {""}, set: {_ in })
+    var pulseCountBinding : Binding<Int> = Binding ( get: {-1}, set: {_ in })
+    var pulseDurationBinding : Binding<Int> = Binding ( get: {-1}, set: {_ in })
     
     init() {
         time.timerListeners.append({beat in
@@ -26,18 +26,18 @@ class CompassController : ObservableObject {
                 }
             }
         })
-        pulseCountStringBinding = Binding(
-            get: {String(self.compass.pulseCount)},
+        pulseCountBinding = Binding(
+            get: {self.compass.pulseCount},
             set: {
-                self.compass.pulseCount = Int($0) ?? self.compass.pulseCount
+                self.compass.pulseCount = $0
                 TimeController.shared.resetTimer()
                 self.limitNotes()
             }
         )
-        pulseDurationStringBinding = Binding(
-            get: {String(self.compass.pulseDuration)},
+        pulseDurationBinding = Binding(
+            get: {self.compass.pulseDuration},
             set: {
-                self.compass.pulseDuration = Int($0) ?? self.compass.pulseDuration
+                self.compass.pulseDuration = $0
                 TimeController.shared.resetTimer()
                 self.limitNotes()
             }

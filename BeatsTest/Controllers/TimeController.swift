@@ -8,7 +8,7 @@ class TimeController: ObservableObject {
     }()
     
     @Published var beats: Double = 0
-    @Published var BPM: Double = 60
+    @Published var BPM: Int = 60
     var timerListeners: [(Double) -> Void] = []
     var soundController = SoundController()
     
@@ -18,13 +18,13 @@ class TimeController: ObservableObject {
         initTimer()
     }
     
-    func setBeatsPerMinute(_ newBPM: Double) {
+    func setBeatsPerMinute(_ newBPM: Int) {
         BPM = newBPM
         beats = 0
     }
     
     func initTimer() {
-        let interval = 60.0 / (BPM*32.0)
+        let interval = 60.0 / (Double(BPM)*32.0)
         
         timer = Timer.publish(every: interval, on: .main, in: .default)
             .autoconnect()

@@ -14,6 +14,10 @@ struct BarView: View {
     @State var widthX = 0.0
     @State var heightY = 0.0
 
+    func check() -> Bool{
+        return compassController.compass.pulseCount > 1
+    }
+    
     let orientation = UIDevice.current.orientation
     
     var body: some View {
@@ -25,7 +29,7 @@ struct BarView: View {
                 .opacity(0.1)
             HStack(alignment: .center, spacing: 0){
                 Spacer()
-                ForEach((2...compassController.compass.pulseCount), id: \.self){ _ in
+                ForEach((2...(check() ? compassController.compass.pulseCount : 2)), id: \.self){ _ in
                     Spacer()
                     Rectangle()
                         .stroke(Color(red: 0.61, green: 0.61, blue: 0.61), style: StrokeStyle(lineWidth: 1, dash: [3]))
@@ -52,17 +56,17 @@ struct BarView: View {
                 Spacer(minLength: 0)
             }.padding(.horizontal, 0)
         }
-        .frame(width: orientation.isPortrait ? UIScreen.main.bounds.height*0.8 : UIScreen.main.bounds.width*0.8, height: orientation.isPortrait ? UIScreen.main.bounds.width*0.5 : UIScreen.main.bounds.height*0.5)
+        .frame(width: orientation.isPortrait || orientation.isFlat ? UIScreen.main.bounds.height*0.8 : UIScreen.main.bounds.width*0.8, height: orientation.isPortrait || orientation.isFlat ? UIScreen.main.bounds.width*0.5 : UIScreen.main.bounds.height*0.5)
         .clipShape(RoundedRectangle(cornerRadius: 32, style: .circular))
     }
     
     func noteWidth(screenSize: CGRect, nota: Note) -> Double {
         let pulseCount = Double(compassController.compass.pulseCount)
         let pulseDuration = Double(compassController.compass.pulseDuration)
-        return (orientation.isPortrait ? UIScreen.main.bounds.height*0.8 : UIScreen.main.bounds.width*0.8)*nota.duration*pulseDuration/pulseCount
+        return (orientation.isPortrait || orientation.isFlat ? UIScreen.main.bounds.height*0.8 : UIScreen.main.bounds.width*0.8)*nota.duration*pulseDuration/pulseCount
     }
     func noteHeight(screenSize: CGRect) -> Double {
-        return orientation.isPortrait ? screenSize.width*0.4 : screenSize.height*0.4
+        return orientation.isPortrait || orientation.isFlat ? screenSize.width*0.4 : screenSize.height*0.4
     }
     func sizeCount(notes:[Note], maxIndex: Int) -> Double {
         var sizeCount : Double = 0

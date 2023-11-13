@@ -7,11 +7,17 @@
 
 import SwiftUI
 
+class AppState: ObservableObject {
+    @Published var popup = false
+}
+
 struct PortraitView: View {
     @ObservedObject var compassController : CompassController
     @ObservedObject var timeController = TimeController.shared
     
-    @State var popup = false
+    @StateObject private var appState = AppState() // Use StateObject here
+    
+    @State var edit = ""
     
     var body: some View {
         ZStack{
@@ -21,28 +27,54 @@ struct PortraitView: View {
                         HStack{
                             ZStack{
                                 HStack{
-                                    Picker("", selection: compassController.pulseCountStringBinding) {
-                                        ForEach(1...32, id: \.self) {
-                                            Text("\($0)")
-                                        }
-                                    }
-                                    .pickerStyle(.inline)
-                                    .frame(width: 10)
-                                    .foregroundStyle(Color(red: 0.28, green: 0.2, blue: 0.45))
-                                        
+                                    Text("\(compassController.compass.pulseCount)")
+                                        .font(.title3)
+                                        .bold()
+                                        .foregroundStyle(.white)
                                     Text("/")
-                                        .foregroundStyle(Color(red: 0.28, green: 0.2, blue: 0.45))
+                                        .font(.title3)
+                                        .bold()
+                                        .foregroundStyle(.white)
                                     Text("\(compassController.compass.pulseDuration)")
-                                        .onTapGesture {
-                                            popup = true
-                                        }
+                                        .font(.title3)
+                                        .bold()
+                                        .foregroundStyle(.white)
                                 }
                                 .padding(.horizontal, 13)
                                 .padding(.vertical, 11)
                             }
-                            .background(.white)
+                            .background(Color(white: 1, opacity: 0.1))
                             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 16, height: 16)))
+                            .onTapGesture {
+                                edit = "compass"
+                                withAnimation(.linear(duration: 0.3)){
+                                    appState.popup = true
+                                }
+                            }
                             Spacer()
+                            ZStack{
+                                HStack(spacing: 0){
+                                    Image(systemName: "metronome")
+                                        .font(.title3)
+                                        .bold()
+                                        .foregroundStyle(.white)
+                                    Text("\(Int(timeController.BPM)) BPM")
+                                        .font(.title3)
+                                        .bold()
+                                        .foregroundStyle(.white)
+                                }
+                                .padding(.horizontal, 13)
+                                .padding(.vertical, 11)
+                            }
+                            .background(Color(white: 1, opacity: 0.1))
+                            .clipShape(RoundedRectangle(cornerSize: CGSize(width: 16, height: 16)))
+                            .onTapGesture {
+                                edit = "bpm"
+                                withAnimation(.linear(duration: 0.3)){
+                                    appState.popup = true
+                                }
+                            }
+                            .padding(.trailing, 26)
                         }
                         .padding(.leading, 32)
                         .padding(.bottom, 14.5)
@@ -52,39 +84,93 @@ struct PortraitView: View {
                         }
                         .padding(.leading, 16.5)
                         .frame(maxWidth: .infinity)
+                        
+                        HStack{
+                            ZStack{
+                                HStack{
+                                    Text("Limpar")
+                                        .font(.title3)
+                                        .bold()
+                                        .foregroundStyle(.white)
+                                }
+                                .padding(.horizontal, 13)
+                                .padding(.vertical, 11)
+                            }
+                            .clipShape(RoundedRectangle(cornerSize: CGSize(width: 16, height: 16)))
+                            .onTapGesture {
+                                withAnimation(.linear(duration: 0.3)){
+                                    compassController.removeAllNotes()
+                                }
+                            }
+                            .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                            .inset(by: 0.5)
+                            .stroke(.white, lineWidth: 1)
+
+                            )
+                            
+                            ZStack{
+                                HStack{
+                                    Image(systemName: "arrow.uturn.backward")
+                                        .font(.title3)
+                                        .bold()
+                                        .foregroundStyle(.white)
+                                }
+                                .padding(.horizontal, 13)
+                                .padding(.vertical, 11)
+                            }
+                            .clipShape(RoundedRectangle(cornerSize: CGSize(width: 16, height: 16)))
+                            .onTapGesture {
+                                withAnimation(.linear(duration: 0.3)){
+                                    compassController.removeNote()
+                                }
+                            }
+                            .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                            .inset(by: 0.5)
+                            .stroke(.white, lineWidth: 1)
+
+                            )
+                            Spacer()
+                            ZStack{
+                                HStack(spacing: 0){
+                                    Image(systemName: "checkmark")
+                                        .font(.title3)
+                                        .bold()
+                                        .foregroundStyle(.white)
+                                }
+                                .padding(.horizontal, 13)
+                                .padding(.vertical, 11)
+                            }
+                            .background(Color(white: 1, opacity: 0.1))
+                            .clipShape(RoundedRectangle(cornerSize: CGSize(width: 16, height: 16)))
+                            .onTapGesture {
+                                withAnimation(.linear(duration: 0.3)){
+                                    //LOGICA DE ROTAÇÃO RAFA
+                                }
+                            }
+                            .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                            .inset(by: 0.5)
+                            .stroke(.white, lineWidth: 1)
+
+                            )
+                            .padding(.trailing, 26)
+                        }
+                        .padding(.leading, 32)
+                        .padding(.vertical, 14.5)
                     }
                 }
                 .foregroundStyle(.black)
                 .frame(height: 400)
-                HStack{
-                    Spacer()
-                    Text(String(timeController.BPM))
-                        .frame(width: 100)
-                        .multilineTextAlignment(.center)
-                        .disabled(true)
-                    Button("-"){
-                        timeController.setBeatsPerMinute(timeController.BPM - 1)
-                        timeController.resetTimer()
-                    }
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    .foregroundStyle(.black)
-                    .padding(.horizontal)
-                    Button("+"){
-                        timeController.setBeatsPerMinute(timeController.BPM + 1)
-                        timeController.resetTimer()
-                    }
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    .foregroundStyle(.black)
-                    .padding(.horizontal)
-                    Spacer()
-                }
-                .padding()
                 ScrollView(.horizontal){
                     HStack{
                         ForEach(NotesData.notes.sorted(by: {$0.duration > $1.duration }), id: \.self) { nota in
                             Image(nota.imageName)
                                 .onTapGesture {
-                                    _ = compassController.addNote(note: nota)
+                                    withAnimation(.linear(duration: 0.3)){
+                                        _ = compassController.addNote(note: nota)
+                                    }
                                 }
                         }
                     }
@@ -93,14 +179,16 @@ struct PortraitView: View {
                 .padding(.bottom, 50)
                 .scrollIndicators(.hidden)
             }
-            if popup{
-                PopupView()
+            if appState.popup { // Use appState.popup here
+                PopupView(compassController: compassController, editing: edit, isPopupVisible: $appState.popup)
             }
         }
         .frame(maxHeight: .infinity)
+        .environmentObject(appState)
     }
 }
 
 #Preview {
     PortraitView(compassController: CompassController())
+        .environmentObject(AppState())
 }

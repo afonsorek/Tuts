@@ -10,6 +10,7 @@ import SwiftUI
 struct PortraitView: View {
     @ObservedObject var compassController : CompassController
     @ObservedObject var timeController = TimeController.shared
+    @ObservedObject var configController = ConfigController.shared
     
     var body: some View {
         VStack{
@@ -64,6 +65,12 @@ struct PortraitView: View {
                     }
                     .frame(width: 270, height: 50)
                     .foregroundStyle(.white)
+                    
+                    Toggle(isOn: configController.orientationBinding) {
+                        Text("Lock de tela")
+                            .foregroundStyle(.white)
+                    }
+                    .frame(width: 250, height: 50)
                 }
             }
             .foregroundStyle(.black)

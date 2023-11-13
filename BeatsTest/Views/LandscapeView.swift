@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct LandscapeView: View {
+    @ObservedObject var configController = ConfigController.shared
     @ObservedObject var compassController : CompassController
     let bigPadding : Double = 10
     let smallPadding : Double = 5
     
     var body: some View {
-        let screenSize = UIScreen.main.bounds
+        let screenBounds = UIScreen.main.bounds
+        let screenSize = calcScreenSize(screenBounds: screenBounds)
         ZStack{
             ZStack{
                 Rectangle()
@@ -52,6 +54,13 @@ struct LandscapeView: View {
             .clipShape(RoundedRectangle(cornerRadius: 32, style: .circular))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    func calcScreenSize(screenBounds: CGRect) -> CGRect {
+        if configController.config.orientationLock {
+            return CGRect(origin: screenBounds.origin, size: CGSize(width: screenBounds.height, height: screenBounds.width))
+        }
+        return screenBounds
     }
     
     func noteWidth(screenSize: CGRect, nota: Note) -> Double {

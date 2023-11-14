@@ -44,7 +44,7 @@ struct LandscapeView: View {
                 
                 HStack(spacing: 13){
                     HStack(alignment: .center, spacing: 13) {
-                        Image(systemName: "play.fill")
+                        Image(systemName: isOnPlay ? "play.fill" : "pause.fill")
                             .font(.title)
                             .foregroundColor(isOnPlay ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
                     }

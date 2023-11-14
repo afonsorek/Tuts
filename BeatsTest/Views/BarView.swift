@@ -42,7 +42,7 @@ struct BarView: View {
             HStack(alignment: .center, spacing: 0){
                 let notes = compassController.compass.notes
                 ForEach(0..<notes.count, id: \.self) { i in
-                    NoteView(nota: notes[i], showcase: false)
+                    NoteView(nota: notes[i], showcase: false, compassController: compassController, actIndex: i)
                         .padding(.leading, leadingNotePadding(notes: notes, maxIndex: i))
                         .padding(.trailing, trailingNotePadding(notes: notes, maxIndex: i))
                         .frame(width: noteWidth(screenSize: screenSize, nota: notes[i]), height: noteHeight(screenSize: screenSize))

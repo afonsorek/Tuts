@@ -207,7 +207,7 @@ struct PortraitView: View {
                 ScrollView(.horizontal){
                     HStack(spacing: 25){
                         ForEach(NotesData.notes, id: \.self) { nota in
-                            NoteView(nota: nota, showcase: true)
+                            NoteView(nota: nota, showcase: true, compassController: compassController)
                                 .onTapGesture {
                                     withAnimation(.linear(duration: 0.3)){
                                         _ = compassController.addNote(note: nota)

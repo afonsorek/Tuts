@@ -17,6 +17,14 @@ struct PopupView: View {
     
     var body: some View {
         ZStack{
+            Rectangle()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .foregroundStyle(Color(red: 0.28, green: 0.2, blue: 0.45, opacity: 0.5))
+                .onTapGesture {
+                    withAnimation(.linear(duration: 0.3)){
+                        isPopupVisible = false
+                    }
+                }
             RoundedRectangle(cornerRadius: 14)
                 .fill(Color.white)
                 .frame(width: 332, height: 292)
@@ -81,8 +89,8 @@ struct PopupView: View {
                     }
                 )
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(red: 0.28, green: 0.2, blue: 0.45, opacity: 0.5))
+        .ignoresSafeArea()
+        .background(.clear)
     }
 }
 

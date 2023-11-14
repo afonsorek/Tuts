@@ -9,26 +9,36 @@ import SwiftUI
 
 struct NoteView: View {
     let nota: Note
+    @State var showcase : Bool
     
     var body: some View {
         ZStack{
             Rectangle()
-                .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white, lineWidth: 2))
+                .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white, lineWidth: showcase ? 6 : 2))
                 .cornerRadius(20)
                 .foregroundColor(nota.color)
             VStack (spacing: 13) {
                 ZStack{
-                    Rectangle()
-                        .stroke(style: StrokeStyle(lineWidth: 1, dash: [3]))
-                        .frame(height: 1)
+                    if !showcase{
+                        Rectangle()
+                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [3]))
+                            .frame(height: 1)
+                    }
                     HStack{
-                        CircleView(duration: nota.duration)
-                        Spacer()
+                        if showcase{
+                            Circle()
+                                .frame(width: 31)
+                                .foregroundStyle(.black)
+                        }else{
+                            CircleView(duration: nota.duration)
+                            Spacer()
+                        }
                     }
                 }
                 Rectangle()
                     .frame(height: 1)
                     .padding(.horizontal, 10)
+                    .foregroundStyle(.white)
                 Image(nota.name.lowercased())
                     .colorInvert()
                     .scaleEffect(0.7)
@@ -42,7 +52,7 @@ struct NoteView: View {
 #Preview {
     VStack {
         ForEach(NotesData.notes, id: \.self) { nota in
-            NoteView(nota: nota)
+            NoteView(nota: nota, showcase: false)
         }
     }
 }

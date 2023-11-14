@@ -57,8 +57,10 @@ class CompassController : ObservableObject {
     }
     
     func removeNote(){
-        compass.notes.removeLast()
-        objectWillChange.send()
+        if !compass.notes.isEmpty{
+            compass.notes.removeLast()
+            objectWillChange.send()
+        }
     }
     
     func removeAllNotes(){

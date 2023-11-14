@@ -53,7 +53,12 @@ class ConfigController : ObservableObject {
         config.orientationLock = true
     }
     func toggleOrientationLock() {
-        config.orientationLock = !config.orientationLock
+        if config.orientationLock {
+            unlockOrientation()
+        }
+        else {
+            lockOrientation()
+        }
     }
     func unlockOrientation() {
         config.orientationLock = false

@@ -19,15 +19,21 @@ struct PortraitView: View {
     @StateObject private var appState = AppState() // Use StateObject here
     
     @State var edit = ""
+    @State var flip = false
+    @State var alert = false
     
+    @State var buttonScaleEffect = 1.0
+    @State var buttonScaleEffect2 = 1.0
+        
     var body: some View {
         ZStack{
             VStack{
+                Spacer()
                 ZStack{
                     VStack{
                         HStack{
                             ZStack{
-                                HStack{
+                                HStack(spacing: 1){
                                     Text("\(compassController.compass.pulseCount)")
                                         .font(.title3)
                                         .bold()
@@ -59,7 +65,8 @@ struct PortraitView: View {
                                         .font(.title3)
                                         .bold()
                                         .foregroundStyle(.white)
-                                    Text("\(Int(timeController.BPM)) BPM")
+
+                                    Text(" \(Int(timeController.BPM)) BPM")
                                         .font(.title3)
                                         .bold()
                                         .foregroundStyle(.white)
@@ -78,7 +85,7 @@ struct PortraitView: View {
                             .padding(.trailing, 26)
                         }
                         .padding(.leading, 32)
-                        .padding(.bottom, 14.5)
+                        .padding(.bottom, 11)
                         
                         ScrollView(.horizontal){
                             BarView(compassController: compassController)
@@ -97,17 +104,22 @@ struct PortraitView: View {
                                 .padding(.horizontal, 13)
                                 .padding(.vertical, 11)
                             }
+                            .scaleEffect(CGSize(width: buttonScaleEffect, height: buttonScaleEffect))
                             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 16, height: 16)))
                             .onTapGesture {
                                 withAnimation(.linear(duration: 0.3)){
                                     compassController.removeAllNotes()
+                                    buttonScaleEffect -= 0.4
+                                    withAnimation(.easeOut(duration: 0.3)){
+                                        buttonScaleEffect = 1.0
+                                    }
                                 }
                             }
                             .overlay(
                             RoundedRectangle(cornerRadius: 16)
                             .inset(by: 0.5)
                             .stroke(.white, lineWidth: 1)
-
+                            .scaleEffect(CGSize(width: buttonScaleEffect, height: buttonScaleEffect))
                             )
                             
                             ZStack{
@@ -120,17 +132,22 @@ struct PortraitView: View {
                                 .padding(.horizontal, 13)
                                 .padding(.vertical, 11)
                             }
+                            .scaleEffect(CGSize(width: buttonScaleEffect2, height: buttonScaleEffect2))
                             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 16, height: 16)))
                             .onTapGesture {
                                 withAnimation(.linear(duration: 0.3)){
                                     compassController.removeNote()
+                                    buttonScaleEffect2 -= 0.4
+                                    withAnimation(.easeOut(duration: 0.3)){
+                                        buttonScaleEffect2 = 1.0
+                                    }
                                 }
                             }
                             .overlay(
                             RoundedRectangle(cornerRadius: 16)
                             .inset(by: 0.5)
                             .stroke(.white, lineWidth: 1)
-
+                            .scaleEffect(CGSize(width: buttonScaleEffect2, height: buttonScaleEffect2))
                             )
                             Spacer()
                             ZStack{
@@ -138,25 +155,33 @@ struct PortraitView: View {
                                     Image(systemName: "checkmark")
                                         .font(.title3)
                                         .bold()
-                                        .foregroundStyle(.white)
+                                        .foregroundStyle(compassController.compass.remainingSize < 1 ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
                                 }
                                 .padding(.horizontal, 13)
                                 .padding(.vertical, 11)
                             }
-                            .background(Color(white: 1, opacity: 0.1))
+                            .background(compassController.compass.remainingSize < 1 ? .white : .clear)
+                            .opacity(compassController.compass.remainingSize < 1 ? 1.0 : 0.5)
                             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 16, height: 16)))
                             .onTapGesture {
                                 withAnimation(.linear(duration: 0.3)){
                                     //LOGICA DE ROTAÇÃO RAFA
+                                    if compassController.compass.remainingSize < 1{
+                                        configController.toggleOrientationLock()
+                                    } else {
+                                        withAnimation{
+                                            alert = true
+                                        }
+                                    }
                                 }
                             }
                             .overlay(
                             RoundedRectangle(cornerRadius: 16)
                             .inset(by: 0.5)
                             .stroke(.white, lineWidth: 1)
-
                             )
                             .padding(.trailing, 26)
+                            .opacity(compassController.compass.remainingSize < 1 ? 1.0 : 0.5)
                         }
                         .padding(.leading, 32)
                         .padding(.vertical, 14.5)
@@ -164,20 +189,40 @@ struct PortraitView: View {
                 }
                 .foregroundStyle(.black)
                 .frame(height: 400)
+                
+                
+                if alert{
+                    Text("Selecione pelo menos uma das notas abaixo.")
+                        .foregroundStyle(.white)
+                        .bold()
+                        .onAppear{
+                            withAnimation(.easeIn(duration: 3)){
+                                alert = false
+                            }
+                        }
+                }
+                
+                Spacer()
+                
                 ScrollView(.horizontal){
-                    HStack{
-                        ForEach(NotesData.notes.sorted(by: {$0.duration > $1.duration }), id: \.self) { nota in
-                            Image(nota.imageName)
+                    HStack(spacing: 25){
+                        ForEach(NotesData.notes, id: \.self) { nota in
+                            NoteView(nota: nota, showcase: true)
                                 .onTapGesture {
                                     withAnimation(.linear(duration: 0.3)){
                                         _ = compassController.addNote(note: nota)
                                     }
                                 }
+                                .frame(width: 76, height: 163)
+                                .shadow(color: Color(white: 0, opacity: 0.25), radius: 4, y: 4)
                         }
+                        .frame(maxHeight: .infinity)
                     }
                     .padding(.leading, 20)
                 }
-                .padding(.bottom, 50)
+                .frame(height: 236)
+                .frame(maxWidth: .infinity)
+                .background(Color(white: 1, opacity: 0.2))
                 .scrollIndicators(.hidden)
             }
             if appState.popup { // Use appState.popup here
@@ -188,6 +233,7 @@ struct PortraitView: View {
         .environmentObject(appState)
     }
 }
+
 
 #Preview {
     PortraitView(compassController: CompassController())

@@ -23,6 +23,7 @@
 		F084380E2AFD673A00EDF218 /* PortraitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084380D2AFD673A00EDF218 /* PortraitView.swift */; };
 		F08438102AFD67FF00EDF218 /* LandscapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084380F2AFD67FF00EDF218 /* LandscapeView.swift */; };
 		F08438122AFD690600EDF218 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08438112AFD690600EDF218 /* NoteView.swift */; };
+		F08FDCCF2B03F17A00C4E2A6 /* ScreenSizeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08FDCCE2B03F17A00C4E2A6 /* ScreenSizeUtil.swift */; };
 		F0CF3B752AFC19BE00DF24EF /* OnRotateViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CF3B742AFC19BE00DF24EF /* OnRotateViewExtension.swift */; };
 		F0D110952AFAAD30008341AA /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D110942AFAAD30008341AA /* NotesData.swift */; };
 		F0D110972AFABF88008341AA /* CompassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D110962AFABF88008341AA /* CompassController.swift */; };
@@ -46,6 +47,7 @@
 		F084380D2AFD673A00EDF218 /* PortraitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitView.swift; sourceTree = "<group>"; };
 		F084380F2AFD67FF00EDF218 /* LandscapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeView.swift; sourceTree = "<group>"; };
 		F08438112AFD690600EDF218 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
+		F08FDCCE2B03F17A00C4E2A6 /* ScreenSizeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSizeUtil.swift; sourceTree = "<group>"; };
 		F0CF3B742AFC19BE00DF24EF /* OnRotateViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnRotateViewExtension.swift; sourceTree = "<group>"; };
 		F0D110942AFAAD30008341AA /* NotesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesData.swift; sourceTree = "<group>"; };
 		F0D110962AFABF88008341AA /* CompassController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				F0CF3B742AFC19BE00DF24EF /* OnRotateViewExtension.swift */,
+				F08FDCCE2B03F17A00C4E2A6 /* ScreenSizeUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				A9ABA2FC2AEEAF52000347EE /* TimeController.swift in Sources */,
 				A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */,
 				F0D110952AFAAD30008341AA /* NotesData.swift in Sources */,
+				F08FDCCF2B03F17A00C4E2A6 /* ScreenSizeUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

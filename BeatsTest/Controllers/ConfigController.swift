@@ -44,12 +44,12 @@ class ConfigController : ObservableObject {
     }
     
     // Public functions
-    func forceScreenOrientation() {
+    func forceScreenOrientation(orientation : UIInterfaceOrientationMask = .landscape) {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-        windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
+        windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: orientation))
     }
     func lockOrientation() {
-        forceScreenOrientation()
+        forceScreenOrientation(orientation: .landscape)
         config.orientationLock = true
     }
     func toggleOrientationLock() {
@@ -59,8 +59,14 @@ class ConfigController : ObservableObject {
         else {
             lockOrientation()
         }
+        
+        objectWillChange.send()
     }
     func unlockOrientation() {
+        let currentOrientation = UIDevice.current.orientation
+        if (currentOrientation.isPortrait || currentOrientation.isFlat) {
+            forceScreenOrientation(orientation: .portrait)
+        }
         config.orientationLock = false
     }
 }

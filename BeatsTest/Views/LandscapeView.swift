@@ -15,8 +15,6 @@ struct LandscapeView: View {
     @State var isOnLoop = true
     @State var isOnShuffle = false
     
-    @State var isRotateLocked = true
-    
     var body: some View {
         ZStack{
             VStack(spacing: 13){
@@ -111,20 +109,19 @@ struct LandscapeView: View {
                     HStack(alignment: .center, spacing: 13) {
                         Image(systemName: "rectangle.landscape.rotate")
                             .font(.title)
-                            .foregroundColor(isRotateLocked ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
+                            .foregroundColor(configController.config.orientationLock ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
                     }
                     .frame(width: 66, height: 55)
-                    .background(isRotateLocked ? .white : Color(red: 0.28, green: 0.2, blue: 0.45))
+                    .background(configController.config.orientationLock ? .white : Color(red: 0.28, green: 0.2, blue: 0.45))
                     .cornerRadius(16)
                     .overlay(
                     RoundedRectangle(cornerRadius: 16)
                     .inset(by: 0.5)
-                    .stroke(.white, lineWidth: isRotateLocked ? 0 : 2)
+                    .stroke(.white, lineWidth: configController.config.orientationLock ? 0 : 2)
                     .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.7), radius: 4, y: 4)
                     )
                     .onTapGesture {
                         withAnimation(.linear(duration: 0.3)){
-                            isRotateLocked.toggle()
                             configController.toggleOrientationLock()
                         }
                         //LÓGICA DE PLAY E PAUSE

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct NoteView: View {
     let nota: Note
+    let screenRect = ScreenSizeUtil.getScreenRect()
     @State var animationProgress = 0.0
-    let screenSize = UIScreen.main.bounds
     @State var showcase : Bool
     
     var body: some View {
@@ -59,10 +59,10 @@ struct NoteView: View {
     }
     
     func startMotion(){
-        animationProgress = screenSize.width*0.05*(4.0*nota.duration)/4.0
+        animationProgress = screenRect.width*0.05*(4.0*nota.duration)/4.0
         // Start the animation when the view appears
         withAnimation(Animation.linear(duration: 4*nota.duration)) {
-            animationProgress = screenSize.width*0.7*(Double(4) * nota.duration)/Double(4)
+            animationProgress = screenRect.width*0.7*(Double(4) * nota.duration)/Double(4)
         }
     }
 }

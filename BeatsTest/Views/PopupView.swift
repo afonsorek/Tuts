@@ -50,7 +50,7 @@ struct PopupView: View {
                                 .foregroundStyle(Color(red: 0.28, green: 0.2, blue: 0.45))
                             }
                         }else{
-                            Picker("", selection: $timeController.BPM) {
+                            Picker("", selection: timeController.bpmBinding) {
                                 ForEach(20...400, id: \.self) { value in
                                     Text("\(value)")
                                 }

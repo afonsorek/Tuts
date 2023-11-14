@@ -10,9 +10,10 @@ import SwiftUI
 struct BarView: View {
     @ObservedObject var compassController : CompassController
     @ObservedObject var configController = ConfigController.shared
+    let screenRect = ScreenSizeUtil.getScreenRect()
     let bigPadding : Double = 10
     let smallPadding : Double = 5
-
+    
     func check() -> Bool{
         return compassController.compass.pulseCount > 1
     }
@@ -20,9 +21,6 @@ struct BarView: View {
     let orientation = UIDevice.current.orientation
     
     var body: some View {
-        let screenBounds = UIScreen.main.bounds
-        let screenSize = calcScreenSize(screenBounds: screenBounds)
-
         ZStack{
             Rectangle()
                 .foregroundStyle(.white)
@@ -45,7 +43,7 @@ struct BarView: View {
                     NoteView(nota: notes[i], showcase: false)
                         .padding(.leading, leadingNotePadding(notes: notes, maxIndex: i))
                         .padding(.trailing, trailingNotePadding(notes: notes, maxIndex: i))
-                        .frame(width: noteWidth(screenSize: screenSize, nota: notes[i]), height: noteHeight(screenSize: screenSize))
+                        .frame(width: noteWidth(screenRect: screenRect, nota: notes[i]), height: noteHeight(screenRect: screenRect))
 //                        if spacerCheck(notes: notes, maxIndex: i) {
 //                            Spacer()
 //                                .background(.red)
@@ -56,25 +54,33 @@ struct BarView: View {
                 Spacer(minLength: 0)
             }.padding(.horizontal, 0)
         }
-        .frame(width: orientation.isPortrait || orientation.isFlat ? UIScreen.main.bounds.height*0.8 : UIScreen.main.bounds.width*0.8, height: orientation.isPortrait || orientation.isFlat ? UIScreen.main.bounds.width*0.5 : UIScreen.main.bounds.height*0.5)
+        .frame(width: barWidth(), height: barHeight())
         .clipShape(RoundedRectangle(cornerRadius: 32, style: .circular))
     }
     
-    
-    func calcScreenSize(screenBounds: CGRect) -> CGRect {
-        if configController.config.orientationLock {
-            return CGRect(origin: screenBounds.origin, size: CGSize(width: screenBounds.height, height: screenBounds.width))
+    func barWidth() -> Double {
+        if configController.config.orientationLock || orientation.isPortrait || orientation.isFlat {
+            return screenRect.height*0.8
         }
-        return screenBounds
+        else {
+            return screenRect.width*0.8
+        }
     }
-    
-    func noteWidth(screenSize: CGRect, nota: Note) -> Double {
+    func barHeight() -> Double {
+        if configController.config.orientationLock || orientation.isPortrait || orientation.isFlat {
+            return screenRect.width*0.5
+        }
+        else {
+            return screenRect.height*0.5
+        }
+    }
+    func noteWidth(screenRect: CGRect, nota: Note) -> Double {
         let pulseCount = Double(compassController.compass.pulseCount)
         let pulseDuration = Double(compassController.compass.pulseDuration)
-        return (orientation.isPortrait || orientation.isFlat ? UIScreen.main.bounds.height*0.8 : UIScreen.main.bounds.width*0.8)*nota.duration*pulseDuration/pulseCount
+        return barWidth()*nota.duration*pulseDuration/pulseCount
     }
-    func noteHeight(screenSize: CGRect) -> Double {
-        return orientation.isPortrait || orientation.isFlat ? screenSize.width*0.4 : screenSize.height*0.4
+    func noteHeight(screenRect: CGRect) -> Double {
+        return barHeight()*0.8
     }
     func sizeCount(notes:[Note], maxIndex: Int) -> Double {
         var sizeCount : Double = 0

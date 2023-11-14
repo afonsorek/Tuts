@@ -14,7 +14,6 @@ class SoundController : NSObject, AVAudioPlayerDelegate {
         }
     }
     
-    
     private func getAudioPlayer(sound: Sound) -> AVAudioPlayer? {
         if !audioPlayerPool.isEmpty {
             return audioPlayerPool.removeFirst()

@@ -20,9 +20,15 @@ struct Note: Hashable, Comparable{
         "\(name)-Nota"
     }
     
+    var act = false
+    
     init(name: String, duration: Double, color: Color = .white) {
         self.name = name
         self.duration = duration
         self.color = color
+    }
+    
+    mutating func changeState(){
+        self.act.toggle()
     }
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A97AAE0D2AFD64D800DC89F5 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AAE0C2AFD64D800DC89F5 /* CircleView.swift */; };
 		A97AAE112AFEA8DC00DC89F5 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AAE102AFEA8DC00DC89F5 /* BarView.swift */; };
 		A97AAE132AFEC0CD00DC89F5 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AAE122AFEC0CD00DC89F5 /* PopupView.swift */; };
 		A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */; };
@@ -30,7 +29,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A97AAE0C2AFD64D800DC89F5 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		A97AAE102AFEA8DC00DC89F5 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		A97AAE122AFEC0CD00DC89F5 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		A9ABA2C82AEB1397000347EE /* BeatsTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeatsTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,7 +131,6 @@
 		F04516782AEC495F009BF440 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A97AAE0C2AFD64D800DC89F5 /* CircleView.swift */,
 				A9ABA3012AF04039000347EE /* CompassView.swift */,
 				F084380D2AFD673A00EDF218 /* PortraitView.swift */,
 				A97AAE122AFEC0CD00DC89F5 /* PopupView.swift */,
@@ -248,7 +245,6 @@
 				A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */,
 				F0D110972AFABF88008341AA /* CompassController.swift in Sources */,
 				A9ABA2FC2AEEAF52000347EE /* TimeController.swift in Sources */,
-				A97AAE0D2AFD64D800DC89F5 /* CircleView.swift in Sources */,
 				A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */,
 				F0D110952AFAAD30008341AA /* NotesData.swift in Sources */,
 			);

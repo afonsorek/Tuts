@@ -9,6 +9,8 @@ import SwiftUI
 
 struct NoteView: View {
     let nota: Note
+    @State var animationProgress = 0.0
+    let screenSize = UIScreen.main.bounds
     @State var showcase : Bool
     
     var body: some View {
@@ -30,7 +32,13 @@ struct NoteView: View {
                                 .frame(width: 31)
                                 .foregroundStyle(.black)
                         }else{
-                            CircleView(duration: nota.duration)
+                            HStack{
+                                Circle()
+                                    .frame(width: 10)
+                                    .foregroundColor(.black)
+                                    .offset(x: animationProgress)
+                                Spacer()
+                            }
                             Spacer()
                         }
                     }
@@ -44,7 +52,17 @@ struct NoteView: View {
                     .scaleEffect(0.7)
                     .frame(height: 30)
                     .padding(.top, 10)
+            }.onChange(of: nota.act) { oldValue, newValue in
+                startMotion()
             }
+        }
+    }
+    
+    func startMotion(){
+        animationProgress = screenSize.width*0.05*(4.0*nota.duration)/4.0
+        // Start the animation when the view appears
+        withAnimation(Animation.linear(duration: 4*nota.duration)) {
+            animationProgress = screenSize.width*0.7*(Double(4) * nota.duration)/Double(4)
         }
     }
 }

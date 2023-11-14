@@ -13,6 +13,8 @@ class CompassController : ObservableObject {
     private let soundController = SoundController()
     let pulseDurationsValues = [1, 2, 4, 8, 16, 32]
     
+    @State var count = 0
+    
     @Published var compass = Compass(pulseCount: 4, pulseDuration: 4, notes: [])
     var pulseCountBinding : Binding<Int> = Binding ( get: {-1}, set: {_ in })
     var pulseDurationBinding : Binding<Int> = Binding ( get: {-1}, set: {_ in })
@@ -23,6 +25,7 @@ class CompassController : ObservableObject {
             for noteBeat in self.compass.noteBeats {
                 if truncatedBeat/Double(self.compass.pulseDuration) == noteBeat {
                     self.soundController.playBeat()
+                    self.compass.notes[self.count].changeState()
                 }
             }
         })

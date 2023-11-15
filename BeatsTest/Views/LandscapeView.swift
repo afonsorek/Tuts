@@ -9,9 +9,9 @@ import SwiftUI
 
 struct LandscapeView: View {
     @ObservedObject var configController = ConfigController.shared
+    @ObservedObject var timeController = TimeController.shared
     @ObservedObject var compassController : CompassController
     
-    @State var isOnPlay = true
     @State var isOnLoop = true
     @State var isOnShuffle = false
     
@@ -44,20 +44,20 @@ struct LandscapeView: View {
                     HStack(alignment: .center, spacing: 13) {
                         Image(systemName: "play.fill")
                             .font(.title)
-                            .foregroundColor(isOnPlay ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
+                            .foregroundColor(timeController.isPlaying ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
                     }
                     .frame(width: 66, height: 55)
-                    .background(isOnPlay ? .white : Color(red: 0.28, green: 0.2, blue: 0.45))
+                    .background(timeController.isPlaying ? .white : Color(red: 0.28, green: 0.2, blue: 0.45))
                     .cornerRadius(16)
                     .overlay(
                     RoundedRectangle(cornerRadius: 16)
                     .inset(by: 0.5)
-                    .stroke(.white, lineWidth: isOnPlay ? 0 : 2)
+                    .stroke(.white, lineWidth: timeController.isPlaying ? 0 : 2)
                     .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.7), radius: 4, y: 4)
                     )
                     .onTapGesture {
                         withAnimation(.linear(duration: 0.3)){
-                            isOnPlay.toggle()
+                            timeController.toggleTimer()
                         }
                         //LÓGICA DE PLAY E PAUSE
                     }

@@ -21,6 +21,10 @@ class CompassController : ObservableObject {
     
     init() {
         time.timerListeners.append({beat in
+            if beat < 0 {
+                return
+            }
+            
             let truncatedBeat = beat.truncatingRemainder(dividingBy: Double(self.compass.pulseCount))
             for noteBeat in self.compass.noteBeats {
                 if truncatedBeat/Double(self.compass.pulseDuration) == noteBeat {

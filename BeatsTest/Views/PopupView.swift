@@ -13,6 +13,8 @@ struct PopupView: View {
     
     @State var editing : String
     
+    @State var bpm = 1
+    
     @Binding var isPopupVisible: Bool
     
     var body: some View {
@@ -50,10 +52,14 @@ struct PopupView: View {
                                 .foregroundStyle(Color(red: 0.28, green: 0.2, blue: 0.45))
                             }
                         }else{
-                            Picker("", selection: $timeController.BPM) {
+                            Picker("", selection: timeController.BPMBinding) {
                                 ForEach(20...400, id: \.self) { value in
                                     Text("\(value)")
                                 }
+                            }
+                            .onChange(of: timeController.BPMBinding.wrappedValue) {
+                                bpm = timeController.BPMBinding.wrappedValue
+                                timeController.setBeatsPerMinute(bpm)
                             }
                             .pickerStyle(.wheel)
                             .foregroundStyle(Color(red: 0.28, green: 0.2, blue: 0.45))
@@ -89,6 +95,9 @@ struct PopupView: View {
                     }
                 )
         }
+        .sensoryFeedback(.levelChange, trigger: compassController.pulseDurationBinding.wrappedValue)
+        .sensoryFeedback(.levelChange, trigger: compassController.pulseCountBinding.wrappedValue)
+        .sensoryFeedback(.levelChange, trigger: timeController.BPMBinding.wrappedValue)
         .ignoresSafeArea()
         .background(.clear)
     }

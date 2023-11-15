@@ -12,10 +12,18 @@ class TimeController: ObservableObject {
     var timerListeners: [(Double) -> Void] = []
     var soundController = SoundController()
     
+    var BPMBinding : Binding<Int> = Binding ( get: {-1}, set: {_ in })
+    
     private var timer: AnyCancellable? // Usamos um AnyCancellable para armazenar o Timer
 
     private init() {
         initTimer()
+        BPMBinding = Binding(
+            get: {self.BPM},
+            set: {
+                self.BPM = $0
+            }
+        )
     }
     
     func setBeatsPerMinute(_ newBPM: Int) {

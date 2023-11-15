@@ -11,6 +11,8 @@ struct NoteView: View {
     @ObservedObject var compassController : CompassController
     @ObservedObject var configController = ConfigController.shared
     
+    let orientation = UIDevice.current.orientation
+    
     let nota: Note
     let showcase : Bool
     let actIndex : Int
@@ -24,7 +26,7 @@ struct NoteView: View {
     
     @State var animationProgress = 0.0
     @State var lightedUp = false
-    @State var transparent = true
+    @State var volta = false
     
     var body: some View {
         let screenBounds = UIScreen.main.bounds
@@ -38,23 +40,39 @@ struct NoteView: View {
                 ZStack{
                     if UIDevice.current.orientation.isLandscape && nota.duration > 1.0/Double(compassController.compass.pulseDuration){
                         Rectangle()
-                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [3]))
+                            .stroke(LinearGradient(colors: [.black.opacity(1), .black.opacity(0)], startPoint: .leading, endPoint: .trailing), style: StrokeStyle(lineWidth: 1, dash: [3]))
                             .frame(height: 1)
-                            .padding(.horizontal, 20)
+                            .frame(width: nota.duration != 0.5 ? noteWidth(screenSize: screenSize, nota: nota)*0.75 : noteWidth(screenSize: screenSize, nota: nota)*0.5)
+                        HStack{
+                            ForEach (1...Int(Double(compassController.compass.pulseDuration)*nota.duration), id: \.self){ a in
+                                Circle()
+                                    .stroke(.black, style: StrokeStyle(lineWidth: 1, dash: [3]))
+                                    .frame(width: 30)
+                                    .background(noteColor())
+                                    .onAppear{
+                                        print(Double(compassController.compass.pulseDuration)/nota.duration)
+                                    }
+                                if a != Int(Double(compassController.compass.pulseDuration)*nota.duration){
+                                    Spacer()
+                                }
+
+                            }
+                        }
+                        .frame(width: nota.duration != 0.5 ? noteWidth(screenSize: screenSize, nota: nota)*0.75 : noteWidth(screenSize: screenSize, nota: nota)*0.5)
                     }
                     HStack{
-                        if showcase || !UIDevice.current.orientation.isLandscape || nota.duration < 1.0/Double(compassController.compass.pulseDuration){
+                        if showcase || !UIDevice.current.orientation.isLandscape || nota.duration <= 1.0/Double(compassController.compass.pulseDuration){
                             Circle()
-                                .frame(width: 31)
+                                .frame(width: 30)
                                 .foregroundStyle(.black)
                         }else{
                             HStack{
                                 Circle()
-                                    .frame(width: 10)
+                                    .frame(width: 30)
                                     .foregroundColor(.black)
                                     .offset(x: animationProgress)
                                 Spacer()
-                            }
+                            }.frame(width: nota.duration != 0.5 ? noteWidth(screenSize: screenSize, nota: nota)*0.75 : noteWidth(screenSize: screenSize, nota: nota)*0.5)
                         }
                     }
                 }
@@ -69,22 +87,31 @@ struct NoteView: View {
                     .padding(.top, 10)
             }.onChange(of: compassController.currentNoteIndex) { oldValue, newValue in
                 if newValue == actIndex && UIDevice.current.orientation.isLandscape{
-                    print("Função de movimento chamada")
                     startMotion(screenSize: screenSize)
+                    volta = true
+                } else if newValue != actIndex && UIDevice.current.orientation.isLandscape && volta == true{
+                    undoMotion(screenSize: screenSize)
+                    volta = false
                 }
             }
         }
+        .sensoryFeedback(.success, trigger: compassController.currentNoteIndex)
         .onAppear{
-            animationProgress = screenSize.width*0.1*(4.0*nota.duration)/4.0
+            animationProgress = 0
         }
+    }
+    func noteWidth(screenSize: CGRect, nota: Note) -> Double {
+        let pulseCount = Double(compassController.compass.pulseCount)
+        let pulseDuration = Double(compassController.compass.pulseDuration)
+        return (orientation.isPortrait || orientation.isFlat ? UIScreen.main.bounds.height*0.8 : UIScreen.main.bounds.width*0.8)*nota.duration*pulseDuration/pulseCount
     }
     
     func noteColor() -> Color {
         if (!lightedUp) {
-            return nota.color
+            return nota.color.opacity(1)
         }
         else {
-            return .white.opacity(transparent ? 0 : 1)
+            return .white
         }
     }
     
@@ -96,21 +123,30 @@ struct NoteView: View {
     }
     
     func startMotion(screenSize: CGRect){
-        animationProgress = screenSize.width*0.1*(4.0*nota.duration)/4.0
+        animationProgress = 0
         // Start the animation when the view appears
         
         // Ball animation
         withAnimation(Animation.linear(duration: 4*nota.duration)) {
-            animationProgress = screenSize.width*0.5*(Double(4) * nota.duration)/Double(4)
+            animationProgress = (nota.duration != 0.5 ? noteWidth(screenSize: screenSize, nota: nota)*0.75 : noteWidth(screenSize: screenSize, nota: nota)*0.5)-25
         }
-//        // Color animation
-//        withAnimation(.linear(duration: 1)){
-//            self.transparent = true
-//            self.lightedUp = true
-//            withAnimation(.linear(duration: 1)){
-//                self.transparent = false
-//            }
-//        }
+        // Color animation
+        withAnimation(.linear(duration: 1)){
+            self.lightedUp = true
+            withAnimation(.linear(duration: 1)){
+                self.lightedUp = false
+            }
+        }
+    }
+    
+    func undoMotion(screenSize: CGRect){
+        animationProgress = (nota.duration != 0.5 ? noteWidth(screenSize: screenSize, nota: nota)*0.75 : noteWidth(screenSize: screenSize, nota: nota)*0.5)-25
+        // Start the animation when the view appears
+        
+        // Ball animation
+        withAnimation(Animation.linear(duration: nota.duration)) {
+            animationProgress = 0
+        }
     }
 }
 

@@ -213,6 +213,7 @@ struct PortraitView: View {
                                         _ = compassController.addNote(note: nota)
                                     }
                                 }
+                                .sensoryFeedback(.impact, trigger: compassController.compass.notes)
                                 .frame(width: 76, height: 163)
                                 .shadow(color: Color(white: 0, opacity: 0.25), radius: 4, y: 4)
                         }

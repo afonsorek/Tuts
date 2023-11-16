@@ -42,17 +42,17 @@ struct LandscapeView: View {
                 
                 HStack(spacing: 13){
                     HStack(alignment: .center, spacing: 13) {
-                        Image(systemName: "play.fill")
+                        Image(systemName: timeController.isPlaying ? "pause.fill" : "play.fill")
                             .font(.title)
-                            .foregroundColor(timeController.isPlaying ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
+                            .foregroundColor(timeController.isPlaying ? .white : Color(red: 0.28, green: 0.2, blue: 0.45))
                     }
                     .frame(width: 66, height: 55)
-                    .background(timeController.isPlaying ? .white : Color(red: 0.28, green: 0.2, blue: 0.45))
+                    .background(timeController.isPlaying ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
                     .cornerRadius(16)
                     .overlay(
                     RoundedRectangle(cornerRadius: 16)
                     .inset(by: 0.5)
-                    .stroke(.white, lineWidth: timeController.isPlaying ? 0 : 2)
+                    .stroke(.white, lineWidth: timeController.isPlaying ? 2 : 0)
                     .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.7), radius: 4, y: 4)
                     )
                     .onTapGesture {

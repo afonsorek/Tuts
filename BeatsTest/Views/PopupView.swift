@@ -89,6 +89,9 @@ struct PopupView: View {
                     }
                 )
         }
+        .sensoryFeedback(.levelChange, trigger: compassController.pulseDurationBinding.wrappedValue)
+        .sensoryFeedback(.levelChange, trigger: compassController.pulseCountBinding.wrappedValue)
+        .sensoryFeedback(.levelChange, trigger: timeController.bpmBinding.wrappedValue)
         .ignoresSafeArea()
         .background(.clear)
     }

@@ -15,7 +15,7 @@ struct Note: Hashable, Comparable{
     
     let name: String
     let duration: Double
-    let color: Color
+    var color: Color
     var imageName : String {
         "\(name)-Nota"
     }
@@ -26,9 +26,5 @@ struct Note: Hashable, Comparable{
         self.name = name
         self.duration = duration
         self.color = color
-    }
-    
-    mutating func changeState(){
-        self.act.toggle()
     }
 }

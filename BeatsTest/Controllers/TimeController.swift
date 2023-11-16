@@ -17,7 +17,7 @@ class TimeController: ObservableObject {
     private let beatMinInterval : Double = 1.0/32.0
     
     // Constructor
-    init() {
+    private init() {
         bpmBinding = Binding(get: { self.BPM }, set: { self.setBeatsPerMinute($0) })
     }
     
@@ -29,9 +29,7 @@ class TimeController: ObservableObject {
     }
     
     func initTimer() {
-        print("BPM: "+String(BPM))
         let interval = 60.0 / (Double(BPM)*32.0)
-        print("Interval: "+String(interval))
         beats = -beatMinInterval
         
         timer = Timer.publish(every: interval, on: .main, in: .default)

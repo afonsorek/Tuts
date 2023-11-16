@@ -33,6 +33,10 @@ struct CompassView: View {
             }
             if !(newOrientation.isFlat || newOrientation.rawValue == 2) {
                 orientation = newOrientation
+                
+                if (!configController.config.orientationLock && newOrientation.isPortrait) {
+                    time.stopTimer()
+                }
             }
         }
         .onAppear{

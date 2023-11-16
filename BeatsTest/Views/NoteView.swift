@@ -36,7 +36,7 @@ struct NoteView: View {
                 .foregroundColor(noteColor())
             VStack (spacing: 13) {
                 ZStack{
-                    if UIDevice.current.orientation.isLandscape && nota.duration > 1.0/Double(compassController.compass.pulseDuration){
+                    if showBeatLine(){
                         Rectangle()
                             .stroke(LinearGradient(colors: [.black.opacity(1), .black.opacity(0)], startPoint: .leading, endPoint: .trailing), style: StrokeStyle(lineWidth: 1, dash: [3]))
                             .frame(height: 1)
@@ -59,7 +59,7 @@ struct NoteView: View {
                         .frame(width: noteWidth(screenRect: screenRect, nota: nota))
                     }
                     HStack{
-                        if showcase || !UIDevice.current.orientation.isLandscape || nota.duration <= 1.0/Double(compassController.compass.pulseDuration){
+                        if showCircle(){
                             Circle()
                                 .frame(width: 30)
                                 .foregroundStyle(.black)
@@ -84,10 +84,10 @@ struct NoteView: View {
                     .frame(height: 30)
                     .padding(.top, 10)
             }.onChange(of: compassController.currentNoteIndex) { oldValue, newValue in
-                if newValue == actIndex && UIDevice.current.orientation.isLandscape{
+                if newValue == actIndex && isShowMode() {
                     startMotion(screenRect: screenRect)
                     volta = true
-                } else if newValue != actIndex && UIDevice.current.orientation.isLandscape && volta == true{
+                } else if newValue != actIndex && isShowMode() && volta == true{
                     undoMotion(screenRect: screenRect)
                     volta = false
                 }
@@ -128,6 +128,22 @@ struct NoteView: View {
             return CGRect(origin: screenBounds.origin, size: CGSize(width: screenBounds.height, height: screenBounds.width))
         }
         return screenBounds
+    }
+    
+    func isBigNote() -> Bool {
+        return nota.duration > 1.0/Double(compassController.compass.pulseDuration)
+    }
+    
+    func isShowMode() -> Bool {
+        return !orientation.isPortrait || configController.config.orientationLock
+    }
+    
+    func showBeatLine() -> Bool {
+        return isShowMode() && isBigNote()
+    }
+    
+    func showCircle() -> Bool {
+        return showcase || !showBeatLine()
     }
     
     func startMotion(screenRect: CGRect){

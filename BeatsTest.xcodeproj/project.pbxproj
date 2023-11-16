@@ -18,12 +18,12 @@
 		A9ABA2FE2AF03B0F000347EE /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2FD2AF03B0F000347EE /* NoteModel.swift */; };
 		A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2FF2AF03B65000347EE /* CompassModel.swift */; };
 		A9ABA3022AF04039000347EE /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA3012AF04039000347EE /* CompassView.swift */; };
+		F01FD4D02B06BF0A00FF61D7 /* RotationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01FD4CF2B06BF0A00FF61D7 /* RotationController.swift */; };
 		F046CADE2B02A2030099D8C1 /* ConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F046CADD2B02A2030099D8C1 /* ConfigModel.swift */; };
 		F046CAE02B02A2470099D8C1 /* ConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F046CADF2B02A2470099D8C1 /* ConfigController.swift */; };
 		F084380E2AFD673A00EDF218 /* PortraitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084380D2AFD673A00EDF218 /* PortraitView.swift */; };
 		F08438102AFD67FF00EDF218 /* LandscapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F084380F2AFD67FF00EDF218 /* LandscapeView.swift */; };
 		F08438122AFD690600EDF218 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08438112AFD690600EDF218 /* NoteView.swift */; };
-		F08FDCCF2B03F17A00C4E2A6 /* ScreenSizeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08FDCCE2B03F17A00C4E2A6 /* ScreenSizeUtil.swift */; };
 		F0CF3B752AFC19BE00DF24EF /* OnRotateViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CF3B742AFC19BE00DF24EF /* OnRotateViewExtension.swift */; };
 		F0D110952AFAAD30008341AA /* NotesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D110942AFAAD30008341AA /* NotesData.swift */; };
 		F0D110972AFABF88008341AA /* CompassController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D110962AFABF88008341AA /* CompassController.swift */; };
@@ -43,12 +43,12 @@
 		A9ABA2FD2AF03B0F000347EE /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = SOURCE_ROOT; };
 		A9ABA2FF2AF03B65000347EE /* CompassModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassModel.swift; sourceTree = SOURCE_ROOT; };
 		A9ABA3012AF04039000347EE /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
+		F01FD4CF2B06BF0A00FF61D7 /* RotationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationController.swift; sourceTree = "<group>"; };
 		F046CADD2B02A2030099D8C1 /* ConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigModel.swift; sourceTree = "<group>"; };
 		F046CADF2B02A2470099D8C1 /* ConfigController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigController.swift; sourceTree = "<group>"; };
 		F084380D2AFD673A00EDF218 /* PortraitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitView.swift; sourceTree = "<group>"; };
 		F084380F2AFD67FF00EDF218 /* LandscapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeView.swift; sourceTree = "<group>"; };
 		F08438112AFD690600EDF218 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
-		F08FDCCE2B03F17A00C4E2A6 /* ScreenSizeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSizeUtil.swift; sourceTree = "<group>"; };
 		F0CF3B742AFC19BE00DF24EF /* OnRotateViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnRotateViewExtension.swift; sourceTree = "<group>"; };
 		F0D110942AFAAD30008341AA /* NotesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesData.swift; sourceTree = "<group>"; };
 		F0D110962AFABF88008341AA /* CompassController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassController.swift; sourceTree = "<group>"; };
@@ -152,6 +152,7 @@
 				A9ABA2D92AEB21E0000347EE /* SoundController.swift */,
 				F0D110962AFABF88008341AA /* CompassController.swift */,
 				F046CADF2B02A2470099D8C1 /* ConfigController.swift */,
+				F01FD4CF2B06BF0A00FF61D7 /* RotationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -160,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				F0CF3B742AFC19BE00DF24EF /* OnRotateViewExtension.swift */,
-				F08FDCCE2B03F17A00C4E2A6 /* ScreenSizeUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -248,11 +248,11 @@
 				F084380E2AFD673A00EDF218 /* PortraitView.swift in Sources */,
 				A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */,
 				A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */,
+				F01FD4D02B06BF0A00FF61D7 /* RotationController.swift in Sources */,
 				F0D110972AFABF88008341AA /* CompassController.swift in Sources */,
 				A9ABA2FC2AEEAF52000347EE /* TimeController.swift in Sources */,
 				A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */,
 				F0D110952AFAAD30008341AA /* NotesData.swift in Sources */,
-				F08FDCCF2B03F17A00C4E2A6 /* ScreenSizeUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

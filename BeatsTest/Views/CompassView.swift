@@ -10,10 +10,10 @@ struct CompassView: View {
     
     var body: some View {
         SwiftUI.Group{
-            if configController.config.orientationLock || orientation.isLandscape{
+            if RotationController.isShowMode(orientation: orientation){
                 LandscapeView(compassController: compassController)
             }
-            else if orientation.isPortrait || orientation.isFlat {
+            else {
                 PortraitView(compassController: compassController)
             }
         }
@@ -29,18 +29,18 @@ struct CompassView: View {
         )
         .onRotate { newOrientation in
             if configController.config.orientationLock {
-                configController.forceScreenOrientation()
+                RotationController.forceScreenOrientation()
             }
-            if !(newOrientation.isFlat || newOrientation.rawValue == 2) {
+            if RotationController.isValidOrientation(orientation: newOrientation) {
                 orientation = newOrientation
-                
-                if (!configController.config.orientationLock && newOrientation.isPortrait) {
+                if (RotationController.isEditMode()) {
                     time.stopTimer()
                 }
             }
+            RotationController.shared.updateScreenRect()
         }
         .onAppear{
-            orientation = UIDevice.current.orientation
+            orientation = RotationController.isValidOrientation() ? UIDevice.current.orientation : .portrait
         }
     }
 }

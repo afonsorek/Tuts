@@ -49,9 +49,6 @@ struct NoteView: View {
                                     .stroke(.black, style: StrokeStyle(lineWidth: 1, dash: [3]))
                                     .frame(width: 30)
                                     .background(noteColor())
-                                    .onAppear{
-                                        print(Double(compassController.compass.pulseDuration)/nota.duration)
-                                    }
                                 if a != Int(Double(compassController.compass.pulseDuration)*nota.duration){
                                     Spacer()
                                 }

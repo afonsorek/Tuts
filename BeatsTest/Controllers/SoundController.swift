@@ -31,6 +31,8 @@ class SoundController : NSObject, AVAudioPlayerDelegate {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.prepareToPlay()
+//            audioPlayer?.volume = 100.0
+//            audioPlayer?.pan = 5.0
             return audioPlayer
         } catch {
             print("Fail to load \(sound)")

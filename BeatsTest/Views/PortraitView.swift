@@ -24,7 +24,9 @@ struct PortraitView: View {
     
     @State var buttonScaleEffect = 1.0
     @State var buttonScaleEffect2 = 1.0
-        
+    @State var scaleAnimation = 1.0
+    @State var scaleAnimation2 = 1.0
+    
     var body: some View {
         ZStack{
             VStack{
@@ -74,10 +76,12 @@ struct PortraitView: View {
                                 .padding(.horizontal, 13)
                                 .padding(.vertical, 11)
                             }
+                            .scaleEffect(scaleAnimation)
                             .background(Color(white: 1, opacity: 0.1))
                             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 16, height: 16)))
                             .onTapGesture {
                                 edit = "bpm"
+                                ScaleAnimation()
                                 withAnimation(.linear(duration: 0.3)){
                                     appState.popup = true
                                 }
@@ -232,6 +236,24 @@ struct PortraitView: View {
         }
         .frame(maxHeight: .infinity)
         .environmentObject(appState)
+    }
+    
+    func ScaleAnimation(){
+        withAnimation(.linear(duration: 0.3)){
+            scaleAnimation -= 0.5
+            withAnimation(.linear(duration: 0.2)){
+                scaleAnimation += 0.5
+            }
+        }
+    }
+    
+    func ScaleAnimation2(){
+        withAnimation(.linear(duration: 0.3)){
+            scaleAnimation -= 0.5
+            withAnimation(.linear(duration: 0.2)){
+                scaleAnimation += 0.5
+            }
+        }
     }
 }
 

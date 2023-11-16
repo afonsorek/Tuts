@@ -25,13 +25,15 @@ struct NoteView: View {
     }
     
     @State var animationProgress = 0.0
+    @State var scaleAnimation = 1.0
     @State var lightedUp = false
     @State var volta = false
+    @State var isPausa = false
     
     var body: some View {
         ZStack{
             Rectangle()
-                .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white, lineWidth: showcase ? 6 : 2))
+                .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white, style: StrokeStyle(lineWidth: showcase ? 6 : 2, dash: [isPausa ? 3 : .infinity])))
                 .cornerRadius(20)
                 .foregroundColor(noteColor())
             VStack (spacing: 13) {
@@ -60,9 +62,17 @@ struct NoteView: View {
                     }
                     HStack{
                         if showCircle(){
-                            Circle()
-                                .frame(width: 30)
-                                .foregroundStyle(.black)
+                            if isPausa {
+                                Circle()
+                                    .stroke(.white, style: StrokeStyle(lineWidth: 4, dash: [3]))
+                                    .frame(width: 30)
+                                    .foregroundStyle(.clear)
+                            }
+                            else {
+                                Circle()
+                                    .frame(width: 30)
+                                    .foregroundStyle(.black)
+                            }
                         }else{
                             HStack{
                                 Circle()
@@ -78,11 +88,19 @@ struct NoteView: View {
                     .frame(height: 1)
                     .padding(.horizontal, 10)
                     .foregroundStyle(.white)
-                Image(nota.name.lowercased())
-                    .colorInvert()
-                    .scaleEffect(0.7)
-                    .frame(height: 30)
-                    .padding(.top, 10)
+                if isPausa{
+                    Image("\(nota.name.lowercased())-pausa")
+                        .scaleEffect(0.7)
+                        .frame(height: 30)
+                        .padding(.top, 10)
+                        .colorInvert()
+                }else{
+                    Image(nota.name.lowercased())
+                        .scaleEffect(0.7)
+                        .frame(height: 30)
+                        .padding(.top, 10)
+                }
+                    
             }.onChange(of: compassController.currentNoteIndex) { oldValue, newValue in
                 if newValue == actIndex && isShowMode() {
                     startMotion(screenRect: screenRect)
@@ -93,10 +111,17 @@ struct NoteView: View {
                 }
             }
         }
+        .scaleEffect(scaleAnimation)
         .sensoryFeedback(.success, trigger: compassController.currentNoteIndex)
+        .sensoryFeedback(.success, trigger: isPausa)
         .onAppear{
             animationProgress = 0
         }
+//        .onLongPressGesture {
+//            isPausa.toggle()
+//            ColorAnimation()
+//            ScaleAnimation()
+//        }
     }
     func noteWidth(screenRect: CGRect, nota: Note) -> Double {
         // Calculando tamanho total da barra com base na orientação
@@ -130,6 +155,24 @@ struct NoteView: View {
         return screenBounds
     }
     
+    func ColorAnimation(){
+        // Color animation
+        withAnimation(.linear(duration: 0.2)){
+            self.lightedUp = true
+            withAnimation(.linear(duration: 0.3)){
+                self.lightedUp = false
+            }
+        }
+    }
+    
+    func ScaleAnimation(){
+        withAnimation(.linear(duration: 0.3)){
+            scaleAnimation -= 0.5
+            withAnimation(.linear(duration: 0.2)){
+                scaleAnimation += 0.5
+            }
+        }
+    }
     func isBigNote() -> Bool {
         return nota.duration > 1.0/Double(compassController.compass.pulseDuration)
     }
@@ -154,13 +197,9 @@ struct NoteView: View {
         withAnimation(Animation.linear(duration: 4*nota.duration)) {
             animationProgress = noteWidth(screenRect: screenRect, nota: nota)-25
         }
-        // Color animation
-        withAnimation(.linear(duration: 1)){
-            self.lightedUp = true
-            withAnimation(.linear(duration: 1)){
-                self.lightedUp = false
-            }
-        }
+        
+        ColorAnimation()
+        ScaleAnimation()
     }
     
     func undoMotion(screenRect: CGRect){

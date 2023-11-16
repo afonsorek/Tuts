@@ -83,26 +83,26 @@ struct LandscapeView: View {
                         //LÓGICA DE LOOP
                     }
                     
-                    HStack(alignment: .center, spacing: 13) {
-                        Image(systemName: "shuffle")
-                            .font(.title)
-                            .foregroundColor(isOnShuffle ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
-                    }
-                    .frame(width: 66, height: 55)
-                    .background(isOnShuffle ? .white : Color(red: 0.28, green: 0.2, blue: 0.45))
-                    .cornerRadius(16)
-                    .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                    .inset(by: 0.5)
-                    .stroke(.white, lineWidth: isOnShuffle ? 0 : 2)
-                    .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.7), radius: 4, y: 4)
-                    )
-                    .onTapGesture {
-                        withAnimation(.linear(duration: 0.3)){
-                            isOnShuffle.toggle()
-                        }
-                        //LÓGICA DE SHUFFLE
-                    }
+//                    HStack(alignment: .center, spacing: 13) {
+//                        Image(systemName: "shuffle")
+//                            .font(.title)
+//                            .foregroundColor(isOnShuffle ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
+//                    }
+//                    .frame(width: 66, height: 55)
+//                    .background(isOnShuffle ? .white : Color(red: 0.28, green: 0.2, blue: 0.45))
+//                    .cornerRadius(16)
+//                    .overlay(
+//                    RoundedRectangle(cornerRadius: 16)
+//                    .inset(by: 0.5)
+//                    .stroke(.white, lineWidth: isOnShuffle ? 0 : 2)
+//                    .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.7), radius: 4, y: 4)
+//                    )
+//                    .onTapGesture {
+//                        withAnimation(.linear(duration: 0.3)){
+//                            isOnShuffle.toggle()
+//                        }
+//                        //LÓGICA DE SHUFFLE
+//                    }
                     
                     Spacer()
                     

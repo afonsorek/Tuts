@@ -27,14 +27,4 @@ struct Note: Hashable, Comparable{
         self.duration = duration
         self.color = color
     }
-    
-//    mutating func changeState(){
-//        self.act.toggle()
-//        withAnimation(.linear(duration: 1)){
-//            self.color = .white.opacity(0)
-//            withAnimation(.linear(duration: 1)){
-//                self.color = .white.opacity(1)
-//            }
-//        }
-//    }
 }

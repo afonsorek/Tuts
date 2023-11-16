@@ -12,8 +12,8 @@ struct NoteView: View {
     @ObservedObject var configController = ConfigController.shared
     
     let orientation = UIDevice.current.orientation
-    
     let nota: Note
+    let screenRect = ScreenSizeUtil.getScreenRect()
     let showcase : Bool
     let actIndex : Int
     
@@ -31,8 +31,6 @@ struct NoteView: View {
     @State var isPausa = false
     
     var body: some View {
-        let screenBounds = UIScreen.main.bounds
-        let screenSize = calcScreenSize(screenBounds: screenBounds)
         ZStack{
             Rectangle()
                 .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white, style: StrokeStyle(lineWidth: showcase ? 6 : 2, dash: [isPausa ? 3 : .infinity])))
@@ -40,11 +38,11 @@ struct NoteView: View {
                 .foregroundColor(noteColor())
             VStack (spacing: 13) {
                 ZStack{
-                    if UIDevice.current.orientation.isLandscape && nota.duration > 1.0/Double(compassController.compass.pulseDuration){
+                    if showBeatLine(){
                         Rectangle()
                             .stroke(LinearGradient(colors: [.black.opacity(1), .black.opacity(0)], startPoint: .leading, endPoint: .trailing), style: StrokeStyle(lineWidth: 1, dash: [3]))
                             .frame(height: 1)
-                            .frame(width: nota.duration != 0.5 ? noteWidth(screenSize: screenSize, nota: nota)*0.75 : noteWidth(screenSize: screenSize, nota: nota)*0.5)
+                            .frame(width: noteWidth(screenRect: screenRect, nota: nota))
                         HStack{
                             ForEach (1...Int(Double(compassController.compass.pulseDuration)*nota.duration), id: \.self){ a in
                                 Circle()
@@ -60,19 +58,20 @@ struct NoteView: View {
 
                             }
                         }
-                        .frame(width: nota.duration != 0.5 ? noteWidth(screenSize: screenSize, nota: nota)*0.75 : noteWidth(screenSize: screenSize, nota: nota)*0.5)
+                        .frame(width: noteWidth(screenRect: screenRect, nota: nota))
                     }
                     HStack{
-                        if showcase || !UIDevice.current.orientation.isLandscape || nota.duration <= 1.0/Double(compassController.compass.pulseDuration){
-                            if !isPausa{
-                                Circle()
-                                    .frame(width: 30)
-                                    .foregroundStyle(.black)
-                            }else{
+                        if showCircle(){
+                            if isPausa {
                                 Circle()
                                     .stroke(.white, style: StrokeStyle(lineWidth: 4, dash: [3]))
                                     .frame(width: 30)
                                     .foregroundStyle(.clear)
+                            }
+                            else {
+                                Circle()
+                                    .frame(width: 30)
+                                    .foregroundStyle(.black)
                             }
                         }else{
                             HStack{
@@ -81,7 +80,7 @@ struct NoteView: View {
                                     .foregroundColor(.black)
                                     .offset(x: animationProgress)
                                 Spacer()
-                            }.frame(width: nota.duration != 0.5 ? noteWidth(screenSize: screenSize, nota: nota)*0.75 : noteWidth(screenSize: screenSize, nota: nota)*0.5)
+                            }.frame(width: noteWidth(screenRect: screenRect, nota: nota))
                         }
                     }
                 }
@@ -103,11 +102,11 @@ struct NoteView: View {
                 }
                     
             }.onChange(of: compassController.currentNoteIndex) { oldValue, newValue in
-                if newValue == actIndex && UIDevice.current.orientation.isLandscape{
-                    startMotion(screenSize: screenSize)
+                if newValue == actIndex && isShowMode() {
+                    startMotion(screenRect: screenRect)
                     volta = true
-                } else if newValue != actIndex && UIDevice.current.orientation.isLandscape && volta == true{
-                    undoMotion(screenSize: screenSize)
+                } else if newValue != actIndex && isShowMode() && volta == true{
+                    undoMotion(screenRect: screenRect)
                     volta = false
                 }
             }
@@ -124,10 +123,20 @@ struct NoteView: View {
 //            ScaleAnimation()
 //        }
     }
-    func noteWidth(screenSize: CGRect, nota: Note) -> Double {
+    func noteWidth(screenRect: CGRect, nota: Note) -> Double {
+        // Calculando tamanho total da barra com base na orientação
+        var barWidth = screenRect.width*0.8
+        if configController.config.orientationLock || orientation.isPortrait || orientation.isFlat {
+            barWidth = screenRect.height*0.8
+        }
+        
+        // Calculando o duration multiplier
+        let durationMultiplier = nota.duration == 0.5 ? 0.5 : 0.75
+        
+        // Calculando versão final do width
         let pulseCount = Double(compassController.compass.pulseCount)
         let pulseDuration = Double(compassController.compass.pulseDuration)
-        return (orientation.isPortrait || orientation.isFlat ? UIScreen.main.bounds.height*0.8 : UIScreen.main.bounds.width*0.8)*nota.duration*pulseDuration/pulseCount
+        return durationMultiplier*barWidth*nota.duration*pulseDuration/pulseCount
     }
     
     func noteColor() -> Color {
@@ -164,22 +173,37 @@ struct NoteView: View {
             }
         }
     }
+    func isBigNote() -> Bool {
+        return nota.duration > 1.0/Double(compassController.compass.pulseDuration)
+    }
     
-    func startMotion(screenSize: CGRect){
+    func isShowMode() -> Bool {
+        return !orientation.isPortrait || configController.config.orientationLock
+    }
+    
+    func showBeatLine() -> Bool {
+        return isShowMode() && isBigNote()
+    }
+    
+    func showCircle() -> Bool {
+        return showcase || !showBeatLine()
+    }
+    
+    func startMotion(screenRect: CGRect){
         animationProgress = 0
         // Start the animation when the view appears
         
         // Ball animation
         withAnimation(Animation.linear(duration: 4*nota.duration)) {
-            animationProgress = (nota.duration != 0.5 ? noteWidth(screenSize: screenSize, nota: nota)*0.75 : noteWidth(screenSize: screenSize, nota: nota)*0.5)-25
+            animationProgress = noteWidth(screenRect: screenRect, nota: nota)-25
         }
         
         ColorAnimation()
         ScaleAnimation()
     }
     
-    func undoMotion(screenSize: CGRect){
-        animationProgress = (nota.duration != 0.5 ? noteWidth(screenSize: screenSize, nota: nota)*0.75 : noteWidth(screenSize: screenSize, nota: nota)*0.5)-25
+    func undoMotion(screenRect: CGRect){
+        animationProgress = noteWidth(screenRect: screenRect, nota: nota)-25
         // Start the animation when the view appears
         
         // Ball animation

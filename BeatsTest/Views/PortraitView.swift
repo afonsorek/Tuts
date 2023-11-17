@@ -12,6 +12,8 @@ class AppState: ObservableObject {
 }
 
 struct PortraitView: View {
+    @Binding var mostrandoTela: Int
+    
     @ObservedObject var compassController : CompassController
     @ObservedObject var timeController = TimeController.shared
     @ObservedObject var configController = ConfigController.shared
@@ -30,9 +32,27 @@ struct PortraitView: View {
     var body: some View {
         ZStack{
             VStack{
-                Spacer()
                 ZStack{
                     VStack{
+                        HStack{
+                            Spacer()
+                            Button(action: {
+                                withAnimation(.easeInOut){
+                                    mostrandoTela = 1
+                                }
+                            }, label: {
+                                Image(systemName: "gearshape.fill")
+                                    .font(
+                                    Font.custom("SF Pro Text", size: 36)
+                                    .weight(.semibold)
+                                    )
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.white)
+                            })
+                        }
+                        .padding(.trailing, 25)
+                        .padding(.vertical, 45)
+                        Spacer()
                         HStack{
                             ZStack{
                                 HStack(spacing: 1){
@@ -259,6 +279,6 @@ struct PortraitView: View {
 
 
 #Preview {
-    PortraitView(compassController: CompassController())
+    PortraitView(mostrandoTela: .constant(0), compassController: CompassController())
         .environmentObject(AppState())
 }

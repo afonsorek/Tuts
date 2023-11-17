@@ -121,7 +121,7 @@ struct NoteView: View {
     }
     func noteWidth(nota: Note) -> Double {
         // Calculando tamanho total da barra com base na orientação
-        var barWidth = rotationController.screenRect.width*0.8
+        let barWidth = rotationController.screenRect.width*0.8
         
         // Calculando o duration multiplier
         let durationMultiplier = nota.duration == 0.5 ? 0.5 : 0.75

@@ -6,6 +6,9 @@ struct CompassView: View {
     @ObservedObject var time = TimeController.shared
     @ObservedObject var configController = ConfigController.shared
     @ObservedObject var compassController = CompassController()
+    
+    @State var mostrandoTela = 0
+    
     @State private var orientation = UIDeviceOrientation.unknown
     
     var body: some View {
@@ -14,7 +17,15 @@ struct CompassView: View {
                 LandscapeView(compassController: compassController)
             }
             else {
-                PortraitView(compassController: compassController)
+                ZStack {
+                    PortraitView(mostrandoTela: $mostrandoTela, compassController: compassController)
+                        .transition(.opacity)
+                    if mostrandoTela == 1 {
+                        ConfigView(mostrandoTela: $mostrandoTela)
+                            .transition(.move(edge: .trailing))
+                    }
+                }
+
             }
         }
         .background(

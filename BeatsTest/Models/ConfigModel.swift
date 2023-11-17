@@ -13,4 +13,5 @@ class Config : ObservableObject {
     @Published var noteColors : Bool = true
     @Published var colorblindAccessibility : Bool = false
     @Published var metronomeActive : Bool = false
+    @Published var loopCompass : Bool = true
 }

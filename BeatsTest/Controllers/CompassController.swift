@@ -9,33 +9,39 @@ import Foundation
 import SwiftUI
 
 class CompassController : ObservableObject {
+    private let configController = ConfigController.shared
     private let time = TimeController.shared
     private let soundController = SoundController()
-    let pulseDurationsValues = [1, 2, 4, 8, 16, 32]
     
     @Published var compass = Compass(pulseCount: 4, pulseDuration: 4, notes: [])
     @Published var currentNoteIndex = -1
     var currentNoteIndexListeners : [(Int) -> Void] = []
+    var looped : Bool = false
     var pulseCountBinding : Binding<Int> = Binding ( get: {-1}, set: {_ in })
     var pulseDurationBinding : Binding<Int> = Binding ( get: {-1}, set: {_ in })
     
     init() {
         time.timerListeners.append({beat in
             if beat < 0 {
+                self.looped = false
                 return
             }
             
             let truncatedBeat = beat.truncatingRemainder(dividingBy: Double(self.compass.pulseCount))
             if truncatedBeat == 0 {
-                self.currentNoteIndex = -1
-                self.emitCurrentNoteIndex()
+                self.setCurrentNoteIndex(value: -1)
+                if (self.looped && !self.configController.config.loopCompass) {
+                    self.time.stopTimer()
+                }
+                else {
+                    self.looped = true
+                }
             }
             
             for i in 0..<self.compass.noteBeats.count {
-                if truncatedBeat/Double(self.compass.pulseDuration) == self.compass.noteBeats[i] {
+                if self.time.isPlaying && truncatedBeat/Double(self.compass.pulseDuration) == self.compass.noteBeats[i] {
                     if self.currentNoteIndex != i {
-                        self.currentNoteIndex = i
-                        self.emitCurrentNoteIndex()
+                        self.setCurrentNoteIndex(value: i)
                     }
                     
                     if !self.compass.notes[i].pause {
@@ -103,16 +109,17 @@ class CompassController : ObservableObject {
     }
     
     // Private functions
-    private func emitCurrentNoteIndex() {
-        for listener in currentNoteIndexListeners {
-            listener(currentNoteIndex)
-        }
-    }
-    
     private func limitNotes() {
         while compass.remainingSize < 0 {
             removeNote()
         }
         objectWillChange.send()
+    }
+    
+    private func setCurrentNoteIndex(value : Int) {
+        currentNoteIndex = value
+        for listener in currentNoteIndexListeners {
+            listener(currentNoteIndex)
+        }
     }
 }

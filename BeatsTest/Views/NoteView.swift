@@ -44,12 +44,13 @@ struct NoteView: View {
                             .frame(height: 1)
                             .frame(width: noteWidth(nota: nota))
                         HStack{
-                            ForEach (1...Int(Double(compassController.compass.pulseDuration)*nota.duration), id: \.self){ a in
+                            ForEach (1...Int(Double(compassController.compass.pulseDuration)*nota.duration+1), id: \.self){ a in
                                 Circle()
-                                    .stroke(.black, style: StrokeStyle(lineWidth: 1, dash: [3]))
+                                    .stroke(.black, style: StrokeStyle(lineWidth: a != Int(Double(compassController.compass.pulseDuration)*nota.duration+1) ? 1 : 0, dash: [3]))
                                     .frame(width: 30)
                                     .background(noteColor())
-                                if a != Int(Double(compassController.compass.pulseDuration)*nota.duration){
+//                                Spacer()
+                                if a != Int(Double(compassController.compass.pulseDuration)*nota.duration+1){
                                     Spacer()
                                 }
 
@@ -200,7 +201,8 @@ struct NoteView: View {
         // Start the animation when the view appears
         
         // Ball animation
-        withAnimation(Animation.linear(duration: nota.duration*60.0/Double(timeController.BPM))) {
+//        withAnimation(Animation.linear(duration: nota.duration*60.0/Double(timeController.BPM))) {
+        withAnimation(Animation.easeInOut(duration: (1/4)*nota.duration*60.0/Double(timeController.BPM))) {
             animationProgress = 0
         }
     }

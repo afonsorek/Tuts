@@ -10,15 +10,13 @@ import SwiftUI
 struct BarView: View {
     @ObservedObject var compassController : CompassController
     @ObservedObject var configController = ConfigController.shared
-    let screenRect = ScreenSizeUtil.getScreenRect()
+    @ObservedObject var rotationController = RotationController.shared
     let bigPadding : Double = 10
     let smallPadding : Double = 5
     
     func check() -> Bool{
         return compassController.compass.pulseCount > 1
     }
-    
-    let orientation = UIDevice.current.orientation
     
     var body: some View {
         ZStack{
@@ -43,7 +41,7 @@ struct BarView: View {
                     NoteView(nota: notes[i], showcase: false, compassController: compassController, actIndex: i)
                         .padding(.leading, leadingNotePadding(notes: notes, maxIndex: i))
                         .padding(.trailing, trailingNotePadding(notes: notes, maxIndex: i))
-                        .frame(width: noteWidth(screenRect: screenRect, nota: notes[i]), height: noteHeight(screenRect: screenRect))
+                        .frame(width: noteWidth(nota: notes[i]), height: noteHeight())
 //                        if spacerCheck(notes: notes, maxIndex: i) {
 //                            Spacer()
 //                                .background(.red)
@@ -59,27 +57,17 @@ struct BarView: View {
     }
     
     func barWidth() -> Double {
-        if configController.config.orientationLock || orientation.isPortrait || orientation.isFlat {
-            return screenRect.height*0.8
-        }
-        else {
-            return screenRect.width*0.8
-        }
+        return rotationController.screenRect.width*0.8
     }
     func barHeight() -> Double {
-        if configController.config.orientationLock || orientation.isPortrait || orientation.isFlat {
-            return screenRect.width*0.5
-        }
-        else {
-            return screenRect.height*0.5
-        }
+        return rotationController.screenRect.height*0.5
     }
-    func noteWidth(screenRect: CGRect, nota: Note) -> Double {
+    func noteWidth(nota: Note) -> Double {
         let pulseCount = Double(compassController.compass.pulseCount)
         let pulseDuration = Double(compassController.compass.pulseDuration)
         return barWidth()*nota.duration*pulseDuration/pulseCount
     }
-    func noteHeight(screenRect: CGRect) -> Double {
+    func noteHeight() -> Double {
         return barHeight()*0.8
     }
     func sizeCount(notes:[Note], maxIndex: Int) -> Double {

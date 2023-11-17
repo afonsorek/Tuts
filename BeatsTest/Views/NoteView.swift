@@ -11,10 +11,12 @@ struct NoteView: View {
     @ObservedObject var compassController : CompassController
     @ObservedObject var configController = ConfigController.shared
     @ObservedObject var rotationController = RotationController.shared
+    @ObservedObject var timeController = TimeController.shared
     
     @State var nota: Note
     let showcase : Bool
     let actIndex : Int
+    let animationEndOffset : Double = 30
     
     init(nota: Note, showcase: Bool, compassController: CompassController? = nil, actIndex: Int = -1) {
         self.nota = nota
@@ -96,22 +98,20 @@ struct NoteView: View {
                         .padding(.top, 10)
                 }
                     
-            }.onChange(of: compassController.currentNoteIndex) { oldValue, newValue in
-                if newValue == actIndex && RotationController.isShowMode() {
-                    startMotion()
-                    volta = true
-                } else if newValue != actIndex && RotationController.isShowMode() && volta == true{
-                    undoMotion()
-                    volta = false
-                }
+            }
+            .onAppear() {
+                compassController.currentNoteIndexListeners.append({ noteIndex in
+                    if noteIndex == actIndex && RotationController.isShowMode() {
+                        startMotion()
+                    } else if noteIndex != actIndex && noteIndex >= 0 && RotationController.isShowMode() && animationProgress == endAnimationProgress(){
+                        undoMotion()
+                    }
+                })
             }
         }
         .scaleEffect(scaleAnimation)
         .sensoryFeedback(.success, trigger: compassController.currentNoteIndex)
         .sensoryFeedback(.success, trigger: nota)
-        .onAppear{
-            animationProgress = 0
-        }
         .onTapGesture {
             if (showcase) {
                 withAnimation(.linear(duration: 0.3)){
@@ -185,11 +185,10 @@ struct NoteView: View {
     
     func startMotion(){
         animationProgress = 0
-        // Start the animation when the view appears
         
         // Ball animation
-        withAnimation(Animation.linear(duration: 4*nota.duration)) {
-            animationProgress = noteWidth(nota: nota)-25
+        withAnimation(Animation.linear(duration: 4*nota.duration*60.0/Double(timeController.BPM))) {
+            animationProgress = endAnimationProgress()
         }
         
         ColorAnimation()
@@ -197,13 +196,17 @@ struct NoteView: View {
     }
     
     func undoMotion(){
-        animationProgress = noteWidth(nota: nota)-25
+        animationProgress = endAnimationProgress()
         // Start the animation when the view appears
         
         // Ball animation
-        withAnimation(Animation.linear(duration: nota.duration)) {
+        withAnimation(Animation.linear(duration: nota.duration*60.0/Double(timeController.BPM))) {
             animationProgress = 0
         }
+    }
+    
+    func endAnimationProgress() -> Double {
+        noteWidth(nota: nota)-animationEndOffset
     }
 }
 

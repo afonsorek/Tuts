@@ -15,6 +15,7 @@ class CompassController : ObservableObject {
     
     @Published var compass = Compass(pulseCount: 4, pulseDuration: 4, notes: [])
     @Published var currentNoteIndex = -1
+    var currentNoteIndexListeners : [(Int) -> Void] = []
     var pulseCountBinding : Binding<Int> = Binding ( get: {-1}, set: {_ in })
     var pulseDurationBinding : Binding<Int> = Binding ( get: {-1}, set: {_ in })
     
@@ -25,10 +26,16 @@ class CompassController : ObservableObject {
             }
             
             let truncatedBeat = beat.truncatingRemainder(dividingBy: Double(self.compass.pulseCount))
+            if truncatedBeat == 0 {
+                self.currentNoteIndex = -1
+                self.emitCurrentNoteIndex()
+            }
+            
             for i in 0..<self.compass.noteBeats.count {
                 if truncatedBeat/Double(self.compass.pulseDuration) == self.compass.noteBeats[i] {
                     if self.currentNoteIndex != i {
                         self.currentNoteIndex = i
+                        self.emitCurrentNoteIndex()
                     }
                     
                     if !self.compass.notes[i].pause {
@@ -96,6 +103,12 @@ class CompassController : ObservableObject {
     }
     
     // Private functions
+    private func emitCurrentNoteIndex() {
+        for listener in currentNoteIndexListeners {
+            listener(currentNoteIndex)
+        }
+    }
+    
     private func limitNotes() {
         while compass.remainingSize < 0 {
             removeNote()

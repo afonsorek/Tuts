@@ -12,7 +12,7 @@ struct NoteView: View {
     @ObservedObject var configController = ConfigController.shared
     @ObservedObject var rotationController = RotationController.shared
     
-    let nota: Note
+    @State var nota: Note
     let showcase : Bool
     let actIndex : Int
     
@@ -27,12 +27,11 @@ struct NoteView: View {
     @State var scaleAnimation = 1.0
     @State var lightedUp = false
     @State var volta = false
-    @State var isPausa = false
     
     var body: some View {
         ZStack{
             Rectangle()
-                .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white, style: StrokeStyle(lineWidth: showcase ? 6 : 2, dash: [isPausa ? 3 : .infinity])))
+                .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white, style: StrokeStyle(lineWidth: showcase ? 6 : 2, dash: [nota.pause ? 3 : .infinity])))
                 .cornerRadius(20)
                 .foregroundColor(noteColor())
             VStack (spacing: 13) {
@@ -58,7 +57,7 @@ struct NoteView: View {
                     }
                     HStack{
                         if showCircle(){
-                            if isPausa {
+                            if nota.pause {
                                 Circle()
                                     .stroke(.white, style: StrokeStyle(lineWidth: 4, dash: [3]))
                                     .frame(width: 30)
@@ -84,7 +83,7 @@ struct NoteView: View {
                     .frame(height: 1)
                     .padding(.horizontal, 10)
                     .foregroundStyle(.white)
-                if isPausa{
+                if nota.pause{
                     Image("\(nota.name.lowercased())-pausa")
                         .scaleEffect(0.7)
                         .frame(height: 30)
@@ -109,19 +108,32 @@ struct NoteView: View {
         }
         .scaleEffect(scaleAnimation)
         .sensoryFeedback(.success, trigger: compassController.currentNoteIndex)
-        .sensoryFeedback(.success, trigger: isPausa)
+        .sensoryFeedback(.success, trigger: nota)
         .onAppear{
             animationProgress = 0
         }
-//        .onLongPressGesture {
-//            isPausa.toggle()
-//            ColorAnimation()
-//            ScaleAnimation()
-//        }
+        .onTapGesture {
+            if (showcase) {
+                withAnimation(.linear(duration: 0.3)){
+                    _ = compassController.addNote(note: nota)
+                }
+            }
+        }
+        .onLongPressGesture {
+            nota = nota.togglePause()
+            compassController.setNotePause(noteIndex: actIndex, pause: nota.pause)
+            ColorAnimation()
+            ScaleAnimation()
+        }
     }
+    
+    func togglePause() {
+        nota = Note(name: nota.name, duration: nota.duration, color: nota.color, pause: !nota.pause)
+    }
+    
     func noteWidth(nota: Note) -> Double {
         // Calculando tamanho total da barra com base na orientação
-        var barWidth = rotationController.screenRect.width*0.8
+        let barWidth = rotationController.screenRect.width*0.8
         
         // Calculando o duration multiplier
         let durationMultiplier = nota.duration == 0.5 ? 0.5 : 0.75

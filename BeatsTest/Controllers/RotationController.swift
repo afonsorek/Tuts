@@ -41,7 +41,7 @@ class RotationController : ObservableObject {
     }
     
     static func isShowMode(orientation : UIDeviceOrientation = UIDevice.current.orientation) -> Bool {
-        return ConfigController.shared.config.orientationLock || orientation.isLandscape || orientation.isFlat
+        return ConfigController.shared.config.orientationLock || orientation.isLandscape
     }
     
     static func isEditMode(orientation : UIDeviceOrientation = UIDevice.current.orientation) -> Bool {

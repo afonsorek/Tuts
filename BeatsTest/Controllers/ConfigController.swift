@@ -60,7 +60,7 @@ class ConfigController : ObservableObject {
     }
     func unlockOrientation() {
         config.orientationLock = false
-        if (RotationController.isEditMode()) {
+        if (RotationController.isEditMode() || !RotationController.isValidOrientation()) {
             RotationController.forceScreenOrientation(orientation: .portrait)
             TimeController.shared.stopTimer()
         }

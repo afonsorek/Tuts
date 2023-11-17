@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A95012902B07D9A600573BDE /* ConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A950128F2B07D9A600573BDE /* ConfigView.swift */; };
 		A97AAE112AFEA8DC00DC89F5 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AAE102AFEA8DC00DC89F5 /* BarView.swift */; };
 		A97AAE132AFEC0CD00DC89F5 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AAE122AFEC0CD00DC89F5 /* PopupView.swift */; };
 		A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		A950128E2B0689CA00573BDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A950128F2B07D9A600573BDE /* ConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigView.swift; sourceTree = "<group>"; };
 		A97AAE102AFEA8DC00DC89F5 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		A97AAE122AFEC0CD00DC89F5 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		A9ABA2C82AEB1397000347EE /* BeatsTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeatsTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +143,7 @@
 				F084380F2AFD67FF00EDF218 /* LandscapeView.swift */,
 				A97AAE102AFEA8DC00DC89F5 /* BarView.swift */,
 				F08438112AFD690600EDF218 /* NoteView.swift */,
+				A950128F2B07D9A600573BDE /* ConfigView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				F084380E2AFD673A00EDF218 /* PortraitView.swift in Sources */,
 				A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */,
 				A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */,
+				A95012902B07D9A600573BDE /* ConfigView.swift in Sources */,
 				F01FD4D02B06BF0A00FF61D7 /* RotationController.swift in Sources */,
 				F0D110972AFABF88008341AA /* CompassController.swift in Sources */,
 				A9ABA2FC2AEEAF52000347EE /* TimeController.swift in Sources */,

@@ -26,8 +26,10 @@ struct PortraitView: View {
     
     @State var buttonScaleEffect = 1.0
     @State var buttonScaleEffect2 = 1.0
+    @State var buttonScaleEffect3 = 1.0
     @State var scaleAnimation = 1.0
     @State var scaleAnimation2 = 1.0
+    @State var scaleAnimation3 = 1.0
     
     var body: some View {
         ZStack{
@@ -168,10 +170,38 @@ struct PortraitView: View {
                                 }
                             }
                             .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                            .inset(by: 0.5)
-                            .stroke(.white, lineWidth: 1)
-                            .scaleEffect(CGSize(width: buttonScaleEffect2, height: buttonScaleEffect2))
+                                RoundedRectangle(cornerRadius: 16)
+                                .inset(by: 0.5)
+                                .stroke(.white, lineWidth: 1)
+                                .scaleEffect(CGSize(width: buttonScaleEffect2, height: buttonScaleEffect2))
+                            )
+                            
+                            ZStack{
+                                HStack{
+                                    Image(systemName: "gift")
+                                        .font(.title3)
+                                        .bold()
+                                        .foregroundStyle(.white)
+                                }
+                                .padding(.horizontal, 13)
+                                .padding(.vertical, 11)
+                            }
+                            .scaleEffect(CGSize(width: buttonScaleEffect3, height: buttonScaleEffect3))
+                            .clipShape(RoundedRectangle(cornerSize: CGSize(width: 16, height: 16)))
+                            .onTapGesture {
+                                withAnimation(.linear(duration: 0.3)){
+                                    compassController.randomizeNotes()
+                                    buttonScaleEffect3 -= 0.4
+                                    withAnimation(.easeOut(duration: 0.3)){
+                                        buttonScaleEffect3 = 1.0
+                                    }
+                                }
+                            }
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                .inset(by: 0.5)
+                                .stroke(.white, lineWidth: 1)
+                                .scaleEffect(CGSize(width: buttonScaleEffect2, height: buttonScaleEffect2))
                             )
                             Spacer()
                             ZStack{

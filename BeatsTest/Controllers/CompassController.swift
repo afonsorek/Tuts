@@ -27,10 +27,12 @@ class CompassController : ObservableObject {
             let truncatedBeat = beat.truncatingRemainder(dividingBy: Double(self.compass.pulseCount))
             for i in 0..<self.compass.noteBeats.count {
                 if truncatedBeat/Double(self.compass.pulseDuration) == self.compass.noteBeats[i] {
-                    self.soundController.playBeat()
-                    
                     if self.currentNoteIndex != i {
                         self.currentNoteIndex = i
+                    }
+                    
+                    if !self.compass.notes[i].pause {
+                        self.soundController.playBeat()
                     }
                 }
             }
@@ -54,9 +56,14 @@ class CompassController : ObservableObject {
     }
     
     // Public functions
-    func addNote(note: Note) -> Bool{
+    func addNote(note: Note, index: Int = -1) -> Bool{
         if note.duration <= compass.remainingSize{
-            compass.notes.append(note)
+            if index <= -1 {
+                compass.notes.append(note)
+            }
+            else {
+                compass.notes.insert(note, at: index)
+            }
             objectWillChange.send()
             return true
         }else{
@@ -65,9 +72,20 @@ class CompassController : ObservableObject {
         }
     }
     
-    func removeNote(){
+    func setNotePause(noteIndex: Int, pause: Bool) {
+        let note = compass.notes[noteIndex]
+        removeNote(index: noteIndex)
+        _ = addNote(note: note.togglePause(), index: noteIndex)
+    }
+    
+    func removeNote(index: Int = -1){
         if !compass.notes.isEmpty{
-            compass.notes.removeLast()
+            if (index <= -1) {
+                compass.notes.removeLast()
+            }
+            else if index < compass.notes.count {
+                compass.notes.remove(at: index)
+            }
             objectWillChange.send()
         }
     }

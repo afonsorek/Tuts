@@ -212,11 +212,6 @@ struct PortraitView: View {
                     HStack(spacing: 25){
                         ForEach(NotesData.notes, id: \.self) { nota in
                             NoteView(nota: nota, showcase: true, compassController: compassController)
-                                .onTapGesture {
-                                    withAnimation(.linear(duration: 0.3)){
-                                        _ = compassController.addNote(note: nota)
-                                    }
-                                }
                                 .sensoryFeedback(.impact, trigger: compassController.compass.notes)
                                 .frame(width: 76, height: 163)
                                 .shadow(color: Color(white: 0, opacity: 0.25), radius: 4, y: 4)

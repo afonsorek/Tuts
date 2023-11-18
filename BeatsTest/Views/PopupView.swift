@@ -13,6 +13,8 @@ struct PopupView: View {
     
     @State var editing : String
     
+     let pulseDurationsValues = [1, 2, 4, 8, 16, 32]
+    
     @Binding var isPopupVisible: Bool
     
     var body: some View {
@@ -42,7 +44,7 @@ struct PopupView: View {
                                 .foregroundStyle(Color(red: 0.28, green: 0.2, blue: 0.45))
                                 Text("/")
                                 Picker("", selection: compassController.pulseDurationBinding) {
-                                    ForEach(compassController.pulseDurationsValues, id: \.self) { value in
+                                    ForEach(pulseDurationsValues, id: \.self) { value in
                                         Text("\(value)")
                                     }
                                 }

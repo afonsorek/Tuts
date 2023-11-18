@@ -30,16 +30,13 @@ class TimeController: ObservableObject {
     
     func initTimer() {
         let interval = 60.0 / (Double(BPM)*32.0)
-        beats = -beatMinInterval
+        setBeats(value: -beatMinInterval)
         
         timer = Timer.publish(every: interval, on: .main, in: .default)
             .autoconnect()
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                beats += beatMinInterval
-                for listener in timerListeners {
-                    listener(beats)
-                }
+                setBeats(value: beats+beatMinInterval)
             }
         
         isPlaying = true
@@ -65,6 +62,14 @@ class TimeController: ObservableObject {
         }
         else {
             initTimer()
+        }
+    }
+    
+    // Private functions
+    func setBeats(value: Double) {
+        beats = value
+        for listener in timerListeners {
+            listener(beats)
         }
     }
 }

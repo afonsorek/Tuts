@@ -13,4 +13,12 @@ class Config : ObservableObject {
     @Published var noteColors : Bool = true
     @Published var colorblindAccessibility : Bool = false
     @Published var metronomeActive : Bool = false
+    
+    init(orientationLock: Bool, showBeats: Bool, noteColors: Bool, colorblindAccessibility: Bool, metronomeActive: Bool) {
+        self.orientationLock = orientationLock
+        self.showBeats = showBeats
+        self.noteColors = noteColors
+        self.colorblindAccessibility = colorblindAccessibility
+        self.metronomeActive = metronomeActive
+    }
 }

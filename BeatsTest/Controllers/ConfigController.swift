@@ -14,7 +14,14 @@ class ConfigController : ObservableObject {
         return instance
     }()
     
-    @Published var config = Config()
+    @Published var config = Config(orientationLock: false, showBeats: true, noteColors: true, colorblindAccessibility: false, metronomeActive: false)
+    
+    //GAMBIARRA FUNCIONAL
+    @Published var showBeats = true
+    @Published var noteColors = true
+    @Published var colorblindAccessibility = false
+    @Published var metronomeActive = false
+    //---------------------------------------------
     
     var orientationBinding : Binding<Bool> = Binding(get: {false}, set: {_ in })
     var showBeatsBinding : Binding<Bool> = Binding(get: {false}, set: {_ in })

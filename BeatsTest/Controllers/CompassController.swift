@@ -82,6 +82,7 @@ class CompassController : ObservableObject {
             return true
         }else{
             print("Não cabeu")
+            objectWillChange.send()
             return false
         }
     }

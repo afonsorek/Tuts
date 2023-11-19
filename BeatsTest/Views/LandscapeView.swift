@@ -12,7 +12,7 @@ struct LandscapeView: View {
     @ObservedObject var timeController = TimeController.shared
     @ObservedObject var compassController : CompassController
     
-    @State var isOnShuffle = false
+    @State var reloaded = true
     
     var body: some View {
         ZStack{
@@ -37,7 +37,11 @@ struct LandscapeView: View {
                     .padding(.leading, 55)
                     Spacer()
                 }
-                BarView(compassController: compassController)
+                if reloaded{
+                    BarView(compassController: compassController)
+                }else{
+                    BarView(compassController: CompassController())
+                }
                 
                 HStack(spacing: 13){
                     HStack(alignment: .center, spacing: 13) {
@@ -58,7 +62,6 @@ struct LandscapeView: View {
                         withAnimation(.linear(duration: 0.3)){
                             timeController.toggleTimer()
                         }
-                        //LÓGICA DE PLAY E PAUSE
                     }
                     
                     HStack(alignment: .center, spacing: 13) {
@@ -79,29 +82,35 @@ struct LandscapeView: View {
                         withAnimation(.linear(duration: 0.3)){
                             configController.toggleLoopCompass()
                         }
-                        //LÓGICA DE LOOP
                     }
                     
-//                    HStack(alignment: .center, spacing: 13) {
-//                        Image(systemName: "shuffle")
-//                            .font(.title)
-//                            .foregroundColor(isOnShuffle ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
-//                    }
-//                    .frame(width: 66, height: 55)
-//                    .background(isOnShuffle ? .white : Color(red: 0.28, green: 0.2, blue: 0.45))
-//                    .cornerRadius(16)
-//                    .overlay(
-//                    RoundedRectangle(cornerRadius: 16)
-//                    .inset(by: 0.5)
-//                    .stroke(.white, lineWidth: isOnShuffle ? 0 : 2)
-//                    .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.7), radius: 4, y: 4)
-//                    )
-//                    .onTapGesture {
-//                        withAnimation(.linear(duration: 0.3)){
-//                            isOnShuffle.toggle()
-//                        }
-//                        //LÓGICA DE SHUFFLE
-//                    }
+                    HStack(alignment: .center, spacing: 13) {
+                        Image(systemName: "gift.fill")
+                            .font(.title)
+                            .foregroundColor(.white)
+                    }
+                    .frame(width: 66, height: 55)
+                    .background(Color(red: 0.28, green: 0.2, blue: 0.45))
+                    .cornerRadius(16)
+                    .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                    .inset(by: 0.5)
+                    .stroke(.white, lineWidth: 2)
+                    .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.7), radius: 4, y: 4)
+                    )
+                    .onTapGesture {
+                        withAnimation(.easeOut(duration: 0.1)){
+                            reloaded = false
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            compassController.random()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation(.easeIn(duration: 0.2)){
+                                reloaded = true
+                            }
+                        }
+                    }
                     
                     Spacer()
                     
@@ -123,7 +132,6 @@ struct LandscapeView: View {
                         withAnimation(.linear(duration: 0.3)){
                             configController.toggleOrientationLock()
                         }
-                        //LÓGICA DE PLAY E PAUSE
                     }
                 }
                 .padding(.top, 8)

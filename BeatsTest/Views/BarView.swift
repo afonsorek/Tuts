@@ -19,41 +19,82 @@ struct BarView: View {
     }
     
     var body: some View {
-        ZStack{
-            Rectangle()
-                .foregroundStyle(.white)
-                .opacity(0.1)
-            HStack(alignment: .center, spacing: 0){
-                Spacer()
-                ForEach((2...(check() ? compassController.compass.pulseCount : 2)), id: \.self){ _ in
-                    Spacer()
+        if UIDevice.current.orientation == .portrait || UIDevice.current.orientation == .portraitUpsideDown{
+        ScrollViewReader{ scrollView in
+            ScrollView(.horizontal){
+                ZStack{
                     Rectangle()
-                        .stroke(Color(red: 0.61, green: 0.61, blue: 0.61), style: StrokeStyle(lineWidth: 1, dash: [3]))
-                        .frame(width: 1)
-                        .frame(maxHeight: .infinity)
+                        .foregroundStyle(.white)
+                        .opacity(0.1)
+                    HStack(alignment: .center, spacing: 0){
+                        Spacer()
+                        ForEach((2...(check() ? compassController.compass.pulseCount : 2)), id: \.self){ _ in
+                            Spacer()
+                            Rectangle()
+                                .stroke(Color(red: 0.61, green: 0.61, blue: 0.61), style: StrokeStyle(lineWidth: 1, dash: [3]))
+                                .frame(width: 1)
+                                .frame(maxHeight: .infinity)
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                    HStack(alignment: .center, spacing: 0){
+                        let notes = compassController.compass.notes
+                        ForEach(0..<notes.count, id: \.self) { i in
+                            NoteView(nota: notes[i], showcase: false, compassController: compassController, actIndex: i)
+                                .padding(.leading, leadingNotePadding(notes: notes, maxIndex: i))
+                                .padding(.trailing, trailingNotePadding(notes: notes, maxIndex: i))
+                                .frame(width: noteWidth(nota: notes[i]), height: noteHeight())
+                                .id(i)
+                                .onAppear{
+                                    withAnimation(.easeIn(duration: 0.3)){
+                                        scrollView.scrollTo(notes.endIndex, anchor: .leading)
+                                    }
+                                }
+                        }
+                        .padding(.horizontal, 0)
+                        Spacer(minLength: 0)
+                    }.padding(.horizontal, 0)
+                }
+                .frame(width: barWidth(), height: barHeight())
+                .clipShape(RoundedRectangle(cornerRadius: 32, style: .circular))
+            }
+        }
+        
+    }else{
+            ZStack{
+                Rectangle()
+                    .foregroundStyle(.white)
+                    .opacity(0.1)
+                HStack(alignment: .center, spacing: 0){
+                    Spacer()
+                    ForEach((2...(check() ? compassController.compass.pulseCount : 2)), id: \.self){ _ in
+                        Spacer()
+                        Rectangle()
+                            .stroke(Color(red: 0.61, green: 0.61, blue: 0.61), style: StrokeStyle(lineWidth: 1, dash: [3]))
+                            .frame(width: 1)
+                            .frame(maxHeight: .infinity)
+                        Spacer()
+                    }
                     Spacer()
                 }
-                Spacer()
+                HStack(alignment: .center, spacing: 0){
+                    let notes = compassController.compass.notes
+                    ForEach(0..<notes.count, id: \.self) { i in
+                        NoteView(nota: notes[i], showcase: false, compassController: compassController, actIndex: i)
+                            .padding(.leading, leadingNotePadding(notes: notes, maxIndex: i))
+                            .padding(.trailing, trailingNotePadding(notes: notes, maxIndex: i))
+                            .frame(width: noteWidth(nota: notes[i]), height: noteHeight())
+                            .id(i)
+                            .onAppear()
+                    }
+                    .padding(.horizontal, 0)
+                    Spacer(minLength: 0)
+                }.padding(.horizontal, 0)
             }
-            HStack(alignment: .center, spacing: 0){
-                let notes = compassController.compass.notes
-                ForEach(0..<notes.count, id: \.self) { i in
-                    NoteView(nota: notes[i], showcase: false, compassController: compassController, actIndex: i)
-                        .padding(.leading, leadingNotePadding(notes: notes, maxIndex: i))
-                        .padding(.trailing, trailingNotePadding(notes: notes, maxIndex: i))
-                        .frame(width: noteWidth(nota: notes[i]), height: noteHeight())
-//                        if spacerCheck(notes: notes, maxIndex: i) {
-//                            Spacer()
-//                                .background(.red)
-//                                .padding(.leading, 20)
-//                        }
-                }
-                .padding(.horizontal, 0)
-                Spacer(minLength: 0)
-            }.padding(.horizontal, 0)
+            .frame(width: barWidth(), height: barHeight())
+            .clipShape(RoundedRectangle(cornerRadius: 32, style: .circular))
         }
-        .frame(width: barWidth(), height: barHeight())
-        .clipShape(RoundedRectangle(cornerRadius: 32, style: .circular))
     }
     
     func barWidth() -> Double {

@@ -12,7 +12,6 @@ struct LandscapeView: View {
     @ObservedObject var timeController = TimeController.shared
     @ObservedObject var compassController : CompassController
     
-    @State var isOnLoop = true
     @State var isOnShuffle = false
     
     var body: some View {
@@ -65,20 +64,20 @@ struct LandscapeView: View {
                     HStack(alignment: .center, spacing: 13) {
                         Image(systemName: "infinity")
                             .font(.title)
-                            .foregroundColor(isOnLoop ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
+                            .foregroundColor(configController.config.loopCompass ? Color(red: 0.28, green: 0.2, blue: 0.45) : .white)
                     }
                     .frame(width: 66, height: 55)
-                    .background(isOnLoop ? .white : Color(red: 0.28, green: 0.2, blue: 0.45))
+                    .background(configController.config.loopCompass ? .white : Color(red: 0.28, green: 0.2, blue: 0.45))
                     .cornerRadius(16)
                     .overlay(
                     RoundedRectangle(cornerRadius: 16)
                     .inset(by: 0.5)
-                    .stroke(.white, lineWidth: isOnLoop ? 0 : 2)
+                    .stroke(.white, lineWidth: configController.config.loopCompass ? 0 : 2)
                     .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.7), radius: 4, y: 4)
                     )
                     .onTapGesture {
                         withAnimation(.linear(duration: 0.3)){
-                            isOnLoop.toggle()
+                            configController.toggleLoopCompass()
                         }
                         //LÓGICA DE LOOP
                     }

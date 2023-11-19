@@ -2,9 +2,15 @@ import SwiftUI
 
 @main
 struct BeatsTestApp: App {
+    @AppStorage("showOnboarding") private var showOnboarding = true
+    
     var body: some Scene {
         WindowGroup {
-            CompassView()
+            if showOnboarding{
+                NewUserView(showOnboarding: $showOnboarding)
+            }else{
+                CompassView()
+            }
         }
     }
 }

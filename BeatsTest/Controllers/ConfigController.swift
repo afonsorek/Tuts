@@ -55,6 +55,10 @@ class ConfigController : ObservableObject {
         config.orientationLock = true
         RotationController.forceScreenOrientation(orientation: .landscape)
     }
+    func toggleLoopCompass() {
+        config.loopCompass.toggle()
+        objectWillChange.send()
+    }
     func toggleOrientationLock() {
         if config.orientationLock {
             unlockOrientation()

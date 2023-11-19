@@ -21,6 +21,7 @@ struct PortraitView: View {
     @StateObject private var appState = AppState() // Use StateObject here
     
     @State var edit = ""
+    
     @State var flip = false
     @State var alert = false
     
@@ -28,7 +29,7 @@ struct PortraitView: View {
     @State var buttonScaleEffect2 = 1.0
     @State var scaleAnimation = 1.0
     @State var scaleAnimation2 = 1.0
-    
+        
     var body: some View {
         ZStack{
             VStack{
@@ -111,11 +112,10 @@ struct PortraitView: View {
                         .padding(.leading, 32)
                         .padding(.bottom, 11)
                         
-                        ScrollView(.horizontal){
-                            BarView(compassController: compassController)
-                        }
-                        .padding(.leading, 16.5)
-                        .frame(maxWidth: .infinity)
+                        BarView(compassController: compassController)
+                            .padding(.leading, 16.5)
+                            .frame(maxWidth: .infinity)
+                        
                         
                         HStack{
                             ZStack{

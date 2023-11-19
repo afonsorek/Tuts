@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ConfigView: View {
-    
-    let configController = ConfigController.shared
+    @ObservedObject var configController = ConfigController.shared
+    @ObservedObject var compassController = CompassController(compass: Compass(pulseCount: 8, pulseDuration: 4, notes: NotesData.notes))
     
     @Binding var mostrandoTela: Int
     
@@ -43,11 +43,10 @@ struct ConfigView: View {
                         }
                         .padding(.trailing, 32)
                     })
-                }
+                }.padding(.top, 0)
                                 
                 ZStack{
                     VStack{
-                        // Title 3
                         Text("Visualização:")
                             .fontWeight(.heavy)
                             .font(.system(size: 20))
@@ -56,7 +55,7 @@ struct ConfigView: View {
                             .padding(.bottom, 15)
                         
                         HStack{
-                            Toggle(isOn: configController.showBeatsBinding, label: {
+                            Toggle(isOn: $configController.showBeats, label: {
                                 VStack{
                                     Text("Círculos/Batidas")
                                       .font(Font.custom("SF Pro", size: 17))
@@ -73,7 +72,7 @@ struct ConfigView: View {
                             .padding(.vertical, 10)
                         
                         HStack{
-                            Toggle(isOn: configController.noteColorsBinding, label: {
+                            Toggle(isOn: $configController.noteColors, label: {
                                 Text("Cores")
                                   .font(Font.custom("SF Pro", size: 17))
                                   .foregroundColor(.white)
@@ -88,12 +87,16 @@ struct ConfigView: View {
                             .padding(.vertical, 10)
                         
                         HStack{
-                            Toggle(isOn: configController.colorblindAccessibilityBinding, label: {
-                                Text("Daltonismo")
+                            Toggle(isOn: $configController.colorblindAccessibility, label: {
+                                Text("Daltonismo (Em breve)")
                                   .font(Font.custom("SF Pro", size: 17))
                                   .foregroundColor(.white)
-                                  .frame(width: 145, height: 16, alignment: .topLeading)
+                                  .frame(width: 180, height: 16, alignment: .topLeading)
+                                //TIRAR QUANDO IMPLEMENTAR
+                                  .opacity(0.2)
                             })
+                            //TIRAR QUANDO IMPLEMENTAR
+                            .disabled(true)
                         }
                         .frame(width: 289)
                         
@@ -103,12 +106,16 @@ struct ConfigView: View {
                             .padding(.vertical, 10)
                         
                         HStack{
-                            Toggle(isOn: configController.metronomeActiveBinding, label: {
-                                Text("Metrônomo")
+                            Toggle(isOn: $configController.metronomeActive, label: {
+                                Text("Metrônomo (Em breve)")
                                   .font(Font.custom("SF Pro", size: 17))
                                   .foregroundColor(.white)
-                                  .frame(width: 145, height: 16, alignment: .topLeading)
+                                  .frame(width: 180, height: 16, alignment: .topLeading)
+                                //TIRAR QUANDO IMPLEMENTAR
+                                  .opacity(0.2)
                             })
+                            //TIRAR QUANDO IMPLEMENTAR
+                            .disabled(true)
                         }
                         .frame(width: 289)
                         
@@ -122,6 +129,23 @@ struct ConfigView: View {
                 .cornerRadius(16)
                 
                 Spacer()
+                
+                VStack{
+                    Text("Pré visualização:")
+                      .font(
+                        Font.custom("SF Pro", size: 20)
+                          .weight(.heavy)
+                      )
+                      .foregroundColor(.white)
+                      .frame(width: 300, height: 29, alignment: .topLeading)
+                    ScrollView(.horizontal){
+                        ZStack{
+                            BarView(compassController: compassController)
+                        }
+                    }
+                    .padding(.leading, 16.5)
+                    .frame(maxWidth: .infinity)
+                }
             }
             .padding(.vertical, 25)
             

@@ -34,65 +34,72 @@ struct NoteView: View {
     var body: some View {
         ZStack{
             Rectangle()
-                .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white, style: StrokeStyle(lineWidth: showcase ? 6 : 2, dash: [nota.pause ? 3 : .infinity])))
+                .overlay(RoundedRectangle(cornerRadius: 20).stroke(configController.noteColors ? .white : .black, style: StrokeStyle(lineWidth: showcase ? 6 : 2, dash: [nota.pause ? 3 : .infinity])))
                 .cornerRadius(20)
                 .foregroundColor(noteColor())
             VStack (spacing: 13) {
-                ZStack{
-                    if showBeatLine(){
-                        Rectangle()
-                            .stroke(LinearGradient(colors: [.black.opacity(1), .black.opacity(0)], startPoint: .leading, endPoint: .trailing), style: StrokeStyle(lineWidth: 1, dash: [3]))
-                            .frame(height: 1)
-                            .frame(width: noteWidth(nota: nota))
-                        HStack{
-                            ForEach (1...Int(Double(compassController.compass.pulseDuration)*nota.duration+1), id: \.self){ a in
-                                Circle()
-                                    .stroke(.black, style: StrokeStyle(lineWidth: a != Int(Double(compassController.compass.pulseDuration)*nota.duration+1) ? 1 : 0, dash: [3]))
-                                    .frame(width: 30)
-                                    .background(noteColor())
-//                                Spacer()
-                                if a != Int(Double(compassController.compass.pulseDuration)*nota.duration+1){
-                                    Spacer()
-                                }
-
-                            }
-                        }
-                        .frame(width: noteWidth(nota: nota))
-                    }
-                    HStack{
-                        if showCircle(){
-                            if nota.pause {
-                                Circle()
-                                    .stroke(.white, style: StrokeStyle(lineWidth: 4, dash: [3]))
-                                    .frame(width: 30)
-                                    .foregroundStyle(.clear)
-                            }
-                            else {
-                                Circle()
-                                    .frame(width: 30)
-                                    .foregroundStyle(.black)
-                            }
-                        }else{
+                if configController.showBeats{
+                    ZStack{
+                        if showBeatLine(){
+                            Rectangle()
+                                .stroke(LinearGradient(colors: [.black.opacity(1), .black.opacity(0)], startPoint: .leading, endPoint: .trailing), style: StrokeStyle(lineWidth: 1, dash: [3]))
+                                .frame(height: 1)
+                                .frame(width: noteWidth(nota: nota))
                             HStack{
-                                Circle()
-                                    .frame(width: 30)
-                                    .foregroundColor(.black)
-                                    .offset(x: animationProgress)
-                                Spacer()
-                            }.frame(width: noteWidth(nota: nota))
+                                ForEach (1...Int(Double(compassController.compass.pulseDuration)*nota.duration+1), id: \.self){ a in
+                                    Circle()
+                                        .stroke(.black, style: StrokeStyle(lineWidth: a != Int(Double(compassController.compass.pulseDuration)*nota.duration+1) ? 1 : 0, dash: [3]))
+                                        .frame(width: 30)
+                                        .background(noteColor())
+    //                                Spacer()
+                                    if a != Int(Double(compassController.compass.pulseDuration)*nota.duration+1){
+                                        Spacer()
+                                    }
+
+                                }
+                            }
+                            .frame(width: noteWidth(nota: nota))
+                        }
+                        HStack{
+                            if showCircle(){
+                                if nota.pause {
+                                    Circle()
+                                        .stroke(configController.noteColors ? .white : .black, style: StrokeStyle(lineWidth: 4, dash: [3]))
+                                        .frame(width: 30)
+                                        .foregroundStyle(.clear)
+                                }
+                                else {
+                                    Circle()
+                                        .frame(width: 30)
+                                        .foregroundStyle(.black)
+                                }
+                            }else{
+                                HStack{
+                                    Circle()
+                                        .frame(width: 30)
+                                        .foregroundColor(.black)
+                                        .offset(x: animationProgress)
+                                    Spacer()
+                                }.frame(width: noteWidth(nota: nota))
+                            }
                         }
                     }
+                    Rectangle()
+                        .frame(height: 1)
+                        .padding(.horizontal, 10)
+                        .foregroundStyle(configController.noteColors ? .white : .black)
                 }
-                Rectangle()
-                    .frame(height: 1)
-                    .padding(.horizontal, 10)
-                    .foregroundStyle(.white)
-                if nota.pause{
+                if nota.pause && configController.noteColors{
                     Image("\(nota.name.lowercased())-pausa")
                         .scaleEffect(0.7)
                         .frame(height: 30)
                         .padding(.top, 10)
                         .colorInvert()
+                }else if nota.pause && !configController.noteColors{
+                    Image("\(nota.name.lowercased())-pausa")
+                        .scaleEffect(0.7)
+                        .frame(height: 30)
+                        .padding(.top, 10)
                 }else{
                     Image(nota.name.lowercased())
                         .scaleEffect(0.7)
@@ -121,43 +128,56 @@ struct NoteView: View {
                 }
             }
         }
-        .onLongPressGesture(perform: {
-            nota = nota.togglePause()
-            compassController.setNotePause(noteIndex: actIndex, pause: nota.pause)
-            ColorAnimation()
-            ScaleAnimation()
-        }, onPressingChanged: { isPressing in
-                    withAnimation {
-                        if isPressing {
-                            // Inicia o timer para a vibração contínua
-                            startVibrationTimer()
-                        } else {
-                            // Para o timer quando o gesto de long press é encerrado
-                            stopVibrationTimer()
-                        }
-                    }
-                })
-    }
-    
-    // Função para iniciar o timer
-    func startVibrationTimer() {
-        isLongPressing = true
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            if isLongPressing {
-                // Adicionar feedback tátil
-                let generator = UIImpactFeedbackGenerator(style: .medium)
-                generator.impactOccurred()
-            } else {
-                // Se o gesto de long press não estiver mais ocorrendo, para o timer
-                timer.invalidate()
+        .onLongPressGesture {
+            if !showcase{
+                nota = nota.togglePause()
+                compassController.setNotePause(noteIndex: actIndex, pause: nota.pause)
+                ColorAnimation()
+                ScaleAnimation()
             }
         }
+// ------------------------------- NOVA FUNÇÃO DE VIBRAÇÃO ----------------------
+//        .onLongPressGesture(
+//            perform: {
+//                if !showcase{
+//                    nota = nota.togglePause()
+//                    compassController.setNotePause(noteIndex: actIndex, pause: nota.pause)
+//                    ColorAnimation()
+//                    ScaleAnimation()
+//            },
+//            onPressingChanged: { isPressing in
+//                withAnimation {
+//                    if isPressing {
+//                        // Inicia o timer para a vibração contínua
+//                        startVibrationTimer()
+//                    } else {
+//                        // Para o timer quando o gesto de long press é encerrado
+//                        stopVibrationTimer()
+//                    }
+//                }
+//            }
+//        )
     }
-
-    // Função para parar o timer
-    func stopVibrationTimer() {
-        isLongPressing = false
-    }
+    
+//    // Função para iniciar o timer
+//    func startVibrationTimer() {
+//        isLongPressing = true
+//        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+//            if isLongPressing {
+//                // Adicionar feedback tátil
+//                let generator = UIImpactFeedbackGenerator(style: .medium)
+//                generator.impactOccurred()
+//            } else {
+//                // Se o gesto de long press não estiver mais ocorrendo, para o timer
+//                timer.invalidate()
+//            }
+//        }
+//    }
+//
+//    // Função para parar o timer
+//    func stopVibrationTimer() {
+//        isLongPressing = false
+//    }
     
     func togglePause() {
         nota = Note(name: nota.name, duration: nota.duration, color: nota.color, pause: !nota.pause)
@@ -177,11 +197,20 @@ struct NoteView: View {
     }
     
     func noteColor() -> Color {
-        if (!lightedUp) {
-            return nota.color.opacity(1)
-        }
-        else {
-            return .white
+        if configController.noteColors{
+            if (!lightedUp) {
+                return nota.color.opacity(1)
+            }
+            else {
+                return .white
+            }
+        }else{
+            if (!lightedUp) {
+                return Color(red: 0.94, green: 0.91, blue: 1)
+            }
+            else {
+                return Color(red: 0.16, green: 0.11, blue: 0.26)
+            }
         }
     }
     
@@ -229,8 +258,7 @@ struct NoteView: View {
     
     func undoMotion(){
         animationProgress = endAnimationProgress()
-        // Start the animation when the view appears
-        
+
         // Ball animation
 //        withAnimation(Animation.linear(duration: nota.duration*60.0/Double(timeController.BPM))) {
         withAnimation(Animation.easeInOut(duration: (1/4)*nota.duration*60.0/Double(timeController.BPM))) {

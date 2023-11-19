@@ -46,7 +46,12 @@ class CompassController : ObservableObject {
                     }
                     
                     if !self.compass.notes[i].pause {
+                        let generator = UIImpactFeedbackGenerator(style: .heavy)
+                        generator.impactOccurred()
                         self.soundController.playBeat()
+                    }else{
+                        let generator = UIImpactFeedbackGenerator(style: .soft)
+                        generator.impactOccurred()
                     }
                 }
             }
@@ -73,10 +78,14 @@ class CompassController : ObservableObject {
     func addNote(note: Note, index: Int = -1) -> Bool{
         if note.duration <= compass.remainingSize{
             if index <= -1 {
+                objectWillChange.send()
                 compass.notes.append(note)
+                objectWillChange.send()
             }
             else {
+                objectWillChange.send()
                 compass.notes.insert(note, at: index)
+                objectWillChange.send()
             }
             objectWillChange.send()
             return true
@@ -110,7 +119,14 @@ class CompassController : ObservableObject {
         objectWillChange.send()
     }
     
-    func updateNotes(){
+    func random(){
+        removeAllNotes()
+        
+        while compass.remainingSize != 0{
+            let randomInt = Int.random(in: 0..<5)
+            _ = addNote(note: NotesData.notes[randomInt])
+        }
+        
         objectWillChange.send()
     }
     

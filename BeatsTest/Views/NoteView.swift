@@ -29,6 +29,7 @@ struct NoteView: View {
     @State var scaleAnimation = 1.0
     @State var lightedUp = false
     @State var volta = false
+    @State private var isLongPressing = false
     
     var body: some View {
         ZStack{
@@ -118,7 +119,7 @@ struct NoteView: View {
             }
         }
         .scaleEffect(scaleAnimation)
-        .sensoryFeedback(.success, trigger: compassController.currentNoteIndex)
+        //.sensoryFeedback(.success, trigger: compassController.currentNoteIndex)
         .sensoryFeedback(.success, trigger: nota)
         .onTapGesture {
             if (showcase) {
@@ -135,7 +136,48 @@ struct NoteView: View {
                 ScaleAnimation()
             }
         }
+// ------------------------------- NOVA FUNÇÃO DE VIBRAÇÃO ----------------------
+//        .onLongPressGesture(
+//            perform: {
+//                if !showcase{
+//                    nota = nota.togglePause()
+//                    compassController.setNotePause(noteIndex: actIndex, pause: nota.pause)
+//                    ColorAnimation()
+//                    ScaleAnimation()
+//            },
+//            onPressingChanged: { isPressing in
+//                withAnimation {
+//                    if isPressing {
+//                        // Inicia o timer para a vibração contínua
+//                        startVibrationTimer()
+//                    } else {
+//                        // Para o timer quando o gesto de long press é encerrado
+//                        stopVibrationTimer()
+//                    }
+//                }
+//            }
+//        )
     }
+    
+//    // Função para iniciar o timer
+//    func startVibrationTimer() {
+//        isLongPressing = true
+//        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+//            if isLongPressing {
+//                // Adicionar feedback tátil
+//                let generator = UIImpactFeedbackGenerator(style: .medium)
+//                generator.impactOccurred()
+//            } else {
+//                // Se o gesto de long press não estiver mais ocorrendo, para o timer
+//                timer.invalidate()
+//            }
+//        }
+//    }
+//
+//    // Função para parar o timer
+//    func stopVibrationTimer() {
+//        isLongPressing = false
+//    }
     
     func togglePause() {
         nota = Note(name: nota.name, duration: nota.duration, color: nota.color, pause: !nota.pause)

@@ -20,7 +20,8 @@ class CompassController : ObservableObject {
     var pulseCountBinding : Binding<Int> = Binding ( get: {-1}, set: {_ in })
     var pulseDurationBinding : Binding<Int> = Binding ( get: {-1}, set: {_ in })
     
-    init() {
+    init(compass : Compass  = Compass(pulseCount: 4, pulseDuration: 4, notes: [])) {
+        self.compass = compass
         time.timerListeners.append({beat in
             if beat < 0 {
                 self.looped = false
@@ -105,6 +106,10 @@ class CompassController : ObservableObject {
     
     func removeAllNotes(){
         compass.notes.removeAll()
+        objectWillChange.send()
+    }
+    
+    func updateNotes(){
         objectWillChange.send()
     }
     

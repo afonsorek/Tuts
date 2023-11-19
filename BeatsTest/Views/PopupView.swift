@@ -75,7 +75,7 @@ struct PopupView: View {
 //                                .frame(maxHeight: .infinity)
 //                                .frame(width: 1)
 
-                            Button("Concluido") {
+                            Button("Concluído") {
                                 withAnimation(.linear(duration: 0.3)){
                                     isPopupVisible = false
                                 }

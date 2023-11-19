@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ConfigView: View {
     
-    let configController = ConfigController.shared
+    @ObservedObject var configController = ConfigController.shared
     
     @Binding var mostrandoTela: Int
     

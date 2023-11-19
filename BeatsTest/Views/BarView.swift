@@ -11,6 +11,7 @@ struct BarView: View {
     @ObservedObject var compassController : CompassController
     @ObservedObject var configController = ConfigController.shared
     @ObservedObject var rotationController = RotationController.shared
+        
     let bigPadding : Double = 10
     let smallPadding : Double = 5
     
@@ -152,6 +153,3 @@ struct BarView: View {
     }
 }
 
-#Preview {
-    BarView(compassController: CompassController())
-}

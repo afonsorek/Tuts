@@ -123,7 +123,6 @@ struct LandscapeView: View {
                         withAnimation(.linear(duration: 0.3)){
                             configController.toggleOrientationLock()
                         }
-                        //LÓGICA DE PLAY E PAUSE
                     }
                 }
                 .padding(.top, 8)

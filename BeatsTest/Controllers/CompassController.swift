@@ -88,26 +88,33 @@ class CompassController : ObservableObject {
     }
     
     func randomizeNotes() {
-        removeAllNotes()
-        
-        var notePool : [Note] = [NotesData.notes[0]]
-        while compass.remainingSize >= 0 && !notePool.isEmpty {
-            // Get random note pool
-            notePool = []
-            for n in NotesData.notes {
-                if n.duration <= compass.remainingSize {
-                    notePool.append(n)
-                }
-            }
-            
-            // Populate with random note
-            if !notePool.isEmpty {
-                let randomIndex = Int.random(in: 0..<notePool.count)
-                _ = addNote(note: notePool[randomIndex])
-            }
+        withAnimation(.linear(duration: 0.15)) {
+            removeAllNotes()
+            objectWillChange.send()
         }
         
-        objectWillChange.send()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [self] in
+            withAnimation(.linear(duration: 0.15)) {
+                var notePool : [Note] = [NotesData.notes[0]]
+                while compass.remainingSize >= 0 && !notePool.isEmpty {
+                    // Get random note pool
+                    notePool = []
+                    for n in NotesData.notes {
+                        if n.duration <= compass.remainingSize {
+                            notePool.append(n)
+                        }
+                    }
+                    
+                    // Populate with random note
+                    if !notePool.isEmpty {
+                        let randomIndex = Int.random(in: 0..<notePool.count)
+                        _ = addNote(note: notePool[randomIndex])
+                    }
+                }
+                
+                objectWillChange.send()
+            }
+        }
     }
     
     func removeAllNotes(){

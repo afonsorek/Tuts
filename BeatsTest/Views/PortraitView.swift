@@ -187,8 +187,8 @@ struct PortraitView: View {
                             .scaleEffect(CGSize(width: buttonScaleEffect3, height: buttonScaleEffect3))
                             .clipShape(RoundedRectangle(cornerSize: CGSize(width: 16, height: 16)))
                             .onTapGesture {
+                                compassController.randomizeNotes()
                                 withAnimation(.linear(duration: 0.3)){
-                                    compassController.randomizeNotes()
                                     buttonScaleEffect3 -= 0.4
                                     withAnimation(.easeOut(duration: 0.3)){
                                         buttonScaleEffect3 = 1.0

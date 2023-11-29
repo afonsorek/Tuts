@@ -87,10 +87,39 @@ class CompassController : ObservableObject {
         }
     }
     
-    func setNotePause(noteIndex: Int, pause: Bool) {
-        let note = compass.notes[noteIndex]
-        removeNote(index: noteIndex)
-        _ = addNote(note: note.togglePause(), index: noteIndex)
+    func randomizeNotes() {
+        withAnimation(.linear(duration: 0.15)) {
+            removeAllNotes()
+            objectWillChange.send()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [self] in
+            withAnimation(.linear(duration: 0.15)) {
+                var notePool : [Note] = [NotesData.notes[0]]
+                while compass.remainingSize >= 0 && !notePool.isEmpty {
+                    // Get random note pool
+                    notePool = []
+                    for n in NotesData.notes {
+                        if n.duration <= compass.remainingSize {
+                            notePool.append(n)
+                        }
+                    }
+                    
+                    // Populate with random note
+                    if !notePool.isEmpty {
+                        let randomIndex = Int.random(in: 0..<notePool.count)
+                        _ = addNote(note: notePool[randomIndex])
+                    }
+                }
+                
+                objectWillChange.send()
+            }
+        }
+    }
+    
+    func removeAllNotes(){
+        compass.notes.removeAll()
+        objectWillChange.send()
     }
     
     func removeNote(index: Int = -1){
@@ -105,13 +134,10 @@ class CompassController : ObservableObject {
         }
     }
     
-    func removeAllNotes(){
-        compass.notes.removeAll()
-        objectWillChange.send()
-    }
-    
-    func updateNotes(){
-        objectWillChange.send()
+    func setNotePause(noteIndex: Int, pause: Bool) {
+        let note = compass.notes[noteIndex]
+        removeNote(index: noteIndex)
+        _ = addNote(note: note.togglePause(), index: noteIndex)
     }
     
     // Private functions

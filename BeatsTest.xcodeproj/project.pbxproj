@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A918B97F2B091C8700EBF80E /* NewUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918B97E2B091C8700EBF80E /* NewUserView.swift */; };
+		A918B9832B091DDB00EBF80E /* Onboarding1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918B9822B091DDB00EBF80E /* Onboarding1.swift */; };
+		A918B9852B091F3000EBF80E /* Onboarding2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918B9842B091F3000EBF80E /* Onboarding2.swift */; };
+		A918B9872B091F3A00EBF80E /* Onboarding3.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918B9862B091F3A00EBF80E /* Onboarding3.swift */; };
+		A918B9892B091F4300EBF80E /* Onboarding4.swift in Sources */ = {isa = PBXBuildFile; fileRef = A918B9882B091F4300EBF80E /* Onboarding4.swift */; };
 		A95012902B07D9A600573BDE /* ConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A950128F2B07D9A600573BDE /* ConfigView.swift */; };
 		A97AAE112AFEA8DC00DC89F5 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AAE102AFEA8DC00DC89F5 /* BarView.swift */; };
 		A97AAE132AFEC0CD00DC89F5 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AAE122AFEC0CD00DC89F5 /* PopupView.swift */; };
@@ -31,6 +36,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A918B97E2B091C8700EBF80E /* NewUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserView.swift; sourceTree = "<group>"; };
+		A918B9822B091DDB00EBF80E /* Onboarding1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding1.swift; sourceTree = "<group>"; };
+		A918B9842B091F3000EBF80E /* Onboarding2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding2.swift; sourceTree = "<group>"; };
+		A918B9862B091F3A00EBF80E /* Onboarding3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding3.swift; sourceTree = "<group>"; };
+		A918B9882B091F4300EBF80E /* Onboarding4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding4.swift; sourceTree = "<group>"; };
 		A950128E2B0689CA00573BDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A950128F2B07D9A600573BDE /* ConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigView.swift; sourceTree = "<group>"; };
 		A97AAE102AFEA8DC00DC89F5 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
@@ -67,6 +77,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A918B9812B091DB900EBF80E /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				A918B9822B091DDB00EBF80E /* Onboarding1.swift */,
+				A918B9842B091F3000EBF80E /* Onboarding2.swift */,
+				A918B9862B091F3A00EBF80E /* Onboarding3.swift */,
+				A918B9882B091F4300EBF80E /* Onboarding4.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		A9ABA2BF2AEB1397000347EE = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +110,7 @@
 				A950128E2B0689CA00573BDE /* Info.plist */,
 				A9ABA2CF2AEB139A000347EE /* Assets.xcassets */,
 				A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */,
+				A918B9812B091DB900EBF80E /* Onboarding */,
 				F04516752AEC492C009BF440 /* Data */,
 				F04516762AEC4936009BF440 /* Sounds */,
 				F04516772AEC4953009BF440 /* Models */,
@@ -137,6 +159,7 @@
 		F04516782AEC495F009BF440 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A918B97E2B091C8700EBF80E /* NewUserView.swift */,
 				A9ABA3012AF04039000347EE /* CompassView.swift */,
 				F084380D2AFD673A00EDF218 /* PortraitView.swift */,
 				A97AAE122AFEC0CD00DC89F5 /* PopupView.swift */,
@@ -246,17 +269,22 @@
 				A97AAE132AFEC0CD00DC89F5 /* PopupView.swift in Sources */,
 				F046CADE2B02A2030099D8C1 /* ConfigModel.swift in Sources */,
 				F08438102AFD67FF00EDF218 /* LandscapeView.swift in Sources */,
+				A918B9892B091F4300EBF80E /* Onboarding4.swift in Sources */,
 				F0CF3B752AFC19BE00DF24EF /* OnRotateViewExtension.swift in Sources */,
 				A97AAE112AFEA8DC00DC89F5 /* BarView.swift in Sources */,
+				A918B9852B091F3000EBF80E /* Onboarding2.swift in Sources */,
 				F084380E2AFD673A00EDF218 /* PortraitView.swift in Sources */,
 				A9ABA3002AF03B65000347EE /* CompassModel.swift in Sources */,
 				A9ABA2DA2AEB21E0000347EE /* SoundController.swift in Sources */,
+				A918B9832B091DDB00EBF80E /* Onboarding1.swift in Sources */,
 				A95012902B07D9A600573BDE /* ConfigView.swift in Sources */,
 				F01FD4D02B06BF0A00FF61D7 /* RotationController.swift in Sources */,
 				F0D110972AFABF88008341AA /* CompassController.swift in Sources */,
 				A9ABA2FC2AEEAF52000347EE /* TimeController.swift in Sources */,
 				A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */,
 				F0D110952AFAAD30008341AA /* NotesData.swift in Sources */,
+				A918B9872B091F3A00EBF80E /* Onboarding3.swift in Sources */,
+				A918B97F2B091C8700EBF80E /* NewUserView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,1 @@
+Tuts is an IOS app that helps teachers in the process of musicalization of children. It was made by 4 people, 2 designers and 2 programmers in a range of 6 weeks. To run it you have to start the .pbxproj from the XCode.

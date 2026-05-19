@@ -20,7 +20,7 @@ struct BarView: View {
     }
     
     var body: some View {
-        if UIDevice.current.orientation == .portrait || UIDevice.current.orientation == .portraitUpsideDown{
+        if RotationController.isEditMode(){
         ScrollViewReader{ scrollView in
             ScrollView(.horizontal){
                 ZStack{

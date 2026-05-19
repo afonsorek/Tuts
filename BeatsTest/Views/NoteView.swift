@@ -6,18 +6,19 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct NoteView: View {
     @ObservedObject var compassController : CompassController
     @ObservedObject var configController = ConfigController.shared
     @ObservedObject var rotationController = RotationController.shared
     @ObservedObject var timeController = TimeController.shared
-    
+        
     @State var nota: Note
     let showcase : Bool
     let actIndex : Int
     let animationEndOffset : Double = 30
-    
+        
     init(nota: Note, showcase: Bool, compassController: CompassController? = nil, actIndex: Int = -1) {
         self.nota = nota
         self.showcase = showcase
@@ -32,6 +33,11 @@ struct NoteView: View {
     
     var body: some View {
         ZStack{
+            if #available(iOS 17.0, *){
+                EmptyView()
+                    .sensoryFeedback(.success, trigger: compassController.currentNoteIndex)
+                    .sensoryFeedback(.success, trigger: nota)
+            }
             Rectangle()
                 .overlay(RoundedRectangle(cornerRadius: 20).stroke(configController.noteColors ? .white : .black, style: StrokeStyle(lineWidth: showcase ? 6 : 2, dash: [nota.pause ? 3 : .infinity])))
                 .cornerRadius(20)
@@ -50,7 +56,6 @@ struct NoteView: View {
                                         .stroke(.black, style: StrokeStyle(lineWidth: a != Int(Double(compassController.compass.pulseDuration)*nota.duration+1) ? 1 : 0, dash: [3]))
                                         .frame(width: 30)
                                         .background(noteColor())
-    //                                Spacer()
                                     if a != Int(Double(compassController.compass.pulseDuration)*nota.duration+1){
                                         Spacer()
                                     }
@@ -118,8 +123,6 @@ struct NoteView: View {
             }
         }
         .scaleEffect(scaleAnimation)
-        .sensoryFeedback(.success, trigger: compassController.currentNoteIndex)
-        .sensoryFeedback(.success, trigger: nota)
         .onTapGesture {
             if (showcase) {
                 withAnimation(.linear(duration: 0.3)){

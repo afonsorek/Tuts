@@ -20,7 +20,7 @@ struct Onboarding4: View {
                 .resizable()
                 .scaleEffect(1.01)
             
-            HStack{
+            GeometryReader { geo in
                 Button(action: {
                     showOnboarding.toggle()
                 }, label: {
@@ -39,10 +39,9 @@ struct Onboarding4: View {
                     .frame(width: 150, alignment: .center)
                     .background(.white)
                     .cornerRadius(8)
-                    .padding(.leading, 580)
                 })
+                .position(x: geo.size.width * 0.72, y: geo.size.height * 0.65)
             }
-            .padding(.top, 250)
                 
         }
         .onRotate { newOrientation in

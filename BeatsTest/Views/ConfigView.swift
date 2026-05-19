@@ -124,7 +124,8 @@ struct ConfigView: View {
                 }
                 .padding(.top, 28)
                 .foregroundColor(.clear)
-                .frame(width: 358, height: 348)
+                .frame(maxWidth: .infinity, minHeight: 348)
+                .padding(.horizontal, 16)
                 .background(.white.opacity(0.1))
                 .cornerRadius(16)
                 

@@ -34,11 +34,12 @@ struct Onboarding2: View {
                           .frame(maxWidth: .infinity, alignment: .top)
                     }
                     .padding(16)
-                    .frame(width: 350, alignment: .center)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .background(.white)
                     .cornerRadius(8)
                 })
             }
+            .padding(.horizontal, 20)
             .padding(.bottom, 40)
         }
         .onAppear{

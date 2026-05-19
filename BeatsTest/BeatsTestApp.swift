@@ -14,3 +14,7 @@ struct BeatsTestApp: App {
         }
     }
 }
+
+#Preview {
+    CompassView()
+}

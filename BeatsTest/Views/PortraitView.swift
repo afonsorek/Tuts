@@ -11,6 +11,7 @@ class AppState: ObservableObject {
     @Published var popup = false
 }
 
+@available(iOS 16.0, *)
 struct PortraitView: View {
     @Binding var mostrandoTela: Int
     
@@ -30,7 +31,9 @@ struct PortraitView: View {
     @State var buttonScaleEffect3 = 1.0
     @State var scaleAnimation = 1.0
     @State var scaleAnimation2 = 1.0
+
     var body: some View {
+        GeometryReader { geo in
         ZStack{
             VStack{
                 ZStack{
@@ -240,7 +243,7 @@ struct PortraitView: View {
                     }
                 }
                 .foregroundStyle(.black)
-                .frame(height: 400)
+                .frame(height: geo.size.height * 0.55)
                 
                 
                 if alert{
@@ -259,16 +262,23 @@ struct PortraitView: View {
                 ScrollView(.horizontal){
                     HStack(spacing: 25){
                         ForEach(NotesData.notes, id: \.self) { nota in
-                            NoteView(nota: nota, showcase: true, compassController: compassController)
+                            if #available(iOS 17.0, *){
+                                NoteView(nota: nota, showcase: true, compassController: compassController)
                                 .sensoryFeedback(.impact, trigger: compassController.compass.notes)
                                 .frame(width: 76, height: 163)
                                 .shadow(color: Color(white: 0, opacity: 0.25), radius: 4, y: 4)
+                            }else{
+                                NoteView(nota: nota, showcase: true, compassController: compassController)
+                                .frame(width: 76, height: 163)
+                                .shadow(color: Color(white: 0, opacity: 0.25), radius: 4, y: 4)
+                            }
+                                
                         }
                         .frame(maxHeight: .infinity)
                     }
                     .padding(.leading, 20)
                 }
-                .frame(height: 236)
+                .frame(height: geo.size.height * 0.30)
                 .frame(maxWidth: .infinity)
                 .background(Color(white: 1, opacity: 0.2))
                 .scrollIndicators(.hidden)
@@ -277,8 +287,9 @@ struct PortraitView: View {
                 PopupView(compassController: compassController, editing: edit, isPopupVisible: $appState.popup)
             }
         }
-        .frame(maxHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .environmentObject(appState)
+        }
     }
     
     func ScaleAnimation(){

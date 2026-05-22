@@ -15,6 +15,7 @@
 		A95012902B07D9A600573BDE /* ConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A950128F2B07D9A600573BDE /* ConfigView.swift */; };
 		A97AAE112AFEA8DC00DC89F5 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AAE102AFEA8DC00DC89F5 /* BarView.swift */; };
 		A97AAE132AFEC0CD00DC89F5 /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97AAE122AFEC0CD00DC89F5 /* PopupView.swift */; };
+		A983B8D72B1E442300F91ADE /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A983B8D62B1E442300F91ADE /* Localizable.xcstrings */; };
 		A9ABA2CC2AEB1397000347EE /* BeatsTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */; };
 		A9ABA2D02AEB139A000347EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9ABA2CF2AEB139A000347EE /* Assets.xcassets */; };
 		A9ABA2D32AEB139A000347EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9ABA2D22AEB139A000347EE /* Preview Assets.xcassets */; };
@@ -45,7 +46,8 @@
 		A950128F2B07D9A600573BDE /* ConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigView.swift; sourceTree = "<group>"; };
 		A97AAE102AFEA8DC00DC89F5 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		A97AAE122AFEC0CD00DC89F5 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
-		A9ABA2C82AEB1397000347EE /* BeatsTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeatsTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A983B8D62B1E442300F91ADE /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		A9ABA2C82AEB1397000347EE /* Tuts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tuts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9ABA2CB2AEB1397000347EE /* BeatsTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatsTestApp.swift; sourceTree = "<group>"; };
 		A9ABA2CF2AEB139A000347EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9ABA2D22AEB139A000347EE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 		A9ABA2BF2AEB1397000347EE = {
 			isa = PBXGroup;
 			children = (
+				A983B8D62B1E442300F91ADE /* Localizable.xcstrings */,
 				A9ABA2CA2AEB1397000347EE /* BeatsTest */,
 				A9ABA2C92AEB1397000347EE /* Products */,
 			);
@@ -99,7 +102,7 @@
 		A9ABA2C92AEB1397000347EE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A9ABA2C82AEB1397000347EE /* BeatsTest.app */,
+				A9ABA2C82AEB1397000347EE /* Tuts.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -194,9 +197,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A9ABA2C72AEB1397000347EE /* BeatsTest */ = {
+		A9ABA2C72AEB1397000347EE /* Tuts */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A9ABA2D62AEB139A000347EE /* Build configuration list for PBXNativeTarget "BeatsTest" */;
+			buildConfigurationList = A9ABA2D62AEB139A000347EE /* Build configuration list for PBXNativeTarget "Tuts" */;
 			buildPhases = (
 				A9ABA2C42AEB1397000347EE /* Sources */,
 				A9ABA2C52AEB1397000347EE /* Frameworks */,
@@ -206,9 +209,9 @@
 			);
 			dependencies = (
 			);
-			name = BeatsTest;
+			name = Tuts;
 			productName = BeatsTest;
-			productReference = A9ABA2C82AEB1397000347EE /* BeatsTest.app */;
+			productReference = A9ABA2C82AEB1397000347EE /* Tuts.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -226,20 +229,21 @@
 					};
 				};
 			};
-			buildConfigurationList = A9ABA2C32AEB1397000347EE /* Build configuration list for PBXProject "BeatsTest" */;
+			buildConfigurationList = A9ABA2C32AEB1397000347EE /* Build configuration list for PBXProject "Tuts" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = "pt-BR";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
 			);
 			mainGroup = A9ABA2BF2AEB1397000347EE;
 			productRefGroup = A9ABA2C92AEB1397000347EE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A9ABA2C72AEB1397000347EE /* BeatsTest */,
+				A9ABA2C72AEB1397000347EE /* Tuts */,
 			);
 		};
 /* End PBXProject section */
@@ -251,6 +255,7 @@
 			files = (
 				A9ABA2DC2AEB36B0000347EE /* beat.wav in Resources */,
 				A9ABA2D32AEB139A000347EE /* Preview Assets.xcassets in Resources */,
+				A983B8D72B1E442300F91ADE /* Localizable.xcstrings in Resources */,
 				A9ABA2D02AEB139A000347EE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,16 +436,20 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.afonso.rekbaim.BeatsTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -465,23 +474,27 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.afonso.rekbaim.BeatsTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A9ABA2C32AEB1397000347EE /* Build configuration list for PBXProject "BeatsTest" */ = {
+		A9ABA2C32AEB1397000347EE /* Build configuration list for PBXProject "Tuts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A9ABA2D42AEB139A000347EE /* Debug */,
@@ -490,7 +503,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A9ABA2D62AEB139A000347EE /* Build configuration list for PBXNativeTarget "BeatsTest" */ = {
+		A9ABA2D62AEB139A000347EE /* Build configuration list for PBXNativeTarget "Tuts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A9ABA2D72AEB139A000347EE /* Debug */,

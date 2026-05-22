@@ -37,7 +37,11 @@ class RotationController : ObservableObject {
     
     static func forceScreenOrientation(orientation : UIInterfaceOrientationMask = .landscape) {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-        windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: orientation))
+        if #available(iOS 16.0, *) {
+            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: orientation))
+        } else {
+           fatalError()
+        }
     }
     
     static func isShowMode(orientation : UIDeviceOrientation = UIDevice.current.orientation) -> Bool {

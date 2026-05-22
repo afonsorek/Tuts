@@ -19,6 +19,12 @@ struct PopupView: View {
     
     var body: some View {
         ZStack{
+            if #available(iOS 17.0, *){
+                EmptyView()
+                    .sensoryFeedback(.levelChange, trigger: compassController.pulseDurationBinding.wrappedValue)
+                    .sensoryFeedback(.levelChange, trigger: compassController.pulseCountBinding.wrappedValue)
+                    .sensoryFeedback(.levelChange, trigger: timeController.bpmBinding.wrappedValue)
+            }
             Rectangle()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .foregroundStyle(Color(red: 0.28, green: 0.2, blue: 0.45, opacity: 0.5))
@@ -75,7 +81,7 @@ struct PopupView: View {
 //                                .frame(maxHeight: .infinity)
 //                                .frame(width: 1)
 
-                            Button("Concluido") {
+                            Button("Concluído") {
                                 withAnimation(.linear(duration: 0.3)){
                                     isPopupVisible = false
                                 }
@@ -91,11 +97,8 @@ struct PopupView: View {
                     }
                 )
         }
-        .sensoryFeedback(.levelChange, trigger: compassController.pulseDurationBinding.wrappedValue)
-        .sensoryFeedback(.levelChange, trigger: compassController.pulseCountBinding.wrappedValue)
-        .sensoryFeedback(.levelChange, trigger: timeController.bpmBinding.wrappedValue)
-        .ignoresSafeArea()
-        .background(.clear)
+            .ignoresSafeArea()
+            .background(.clear)
     }
 }
 
